@@ -42,9 +42,7 @@ Obsoletes:	kbabel
 Obsoletes:	kless
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
-%define		_mandir		%{_prefix}/man
 
 %description
 Software Development Kit for KDE.
