@@ -22,7 +22,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.
 BuildRequires:	bison
 BuildRequires:	kdebase-devel = %{version}
 BuildRequires:	gettext-devel
-BuildRequires:	db2-devel
+BuildRequires:	db4-devel
 # kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
 BuildRequires:	binutils-static
 Requires:	kdelibs = %{version}
