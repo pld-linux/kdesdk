@@ -1,32 +1,32 @@
 
-%define         _state          stable
-%define         _ver		3.1.4
+%define		_state		snapshots
+%define		_ver		3.1.94
+%define		_snap		031204
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	%{_ver}
-Release:	0.1
-Epoch:		8
+Version:	%{_ver}.%{_snap}
+Release:	1
+Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	ed343cedeab6c6dc814fa8b4e164e4ec
-# translations are  generated from kde-i18n.spec now
-Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	3afe212bf8a89f8a51a991d8ad3ae552
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	69553c08b766f9cbe0d648cfa6694b65
 BuildRequires:	bison
+BuildRequires:	ed
+BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
-BuildRequires:	kdebase-devel = %{epoch}:%{version}
+BuildRequires:	kdebase-devel >= 9:%{version}
 BuildRequires:	libltdl-devel
-BuildRequires:	sed >= 4.0
+BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
 
-%define		_htmldir	/usr/share/doc/kde/HTML
 %define		_gimpdir	%(gimptool --gimpdatadir)
-%define		_appdefsdir	/usr/X11R6/lib/X11/app-defaults
+%define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
 %define		_emacspkgdir	/usr/share/emacs/21.2
 %define		_xemacspkgdir	/usr/share/xemacs-packages
 %define		_zshfcdir	/usr/share/zsh/latest/functions
@@ -36,18 +36,6 @@ Software Development Kit for KDE.
 
 %description -l pl
 Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
-
-%package static
-Summary:	Static libraries for kdesdk
-Summary(pl):	Statyczne biblioteki dla kdesdk
-Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
-
-%description static
-Static libraries for kdesdk.
-
-%description static -l pl
-Statyczne biblioteki dla kdesdk.
 
 %package cervisia
 Summary:	A KDE cvs frontend
@@ -61,6 +49,18 @@ A KDE cvs frontend.
 
 %description cervisia -l pl
 Frontend CVS pod KDE.
+
+%package cervisia-devel
+Summary:	A KDE cvs frontend - header files
+Summary(pl):	Frontend CVS pod KDE - pliki nag³ówkowe
+Group:		X11/Development
+Obsoletes:	%{name}-devel
+
+%description cervisia-devel
+A KDE cvs frontend. This package contains header files.
+
+%description cervisia-devel -l pl
+Frontend CVS pod KDE. Ten pakiet zawiera pliki nag³ówkowe.
 
 %package completions-bash
 Summary:	Autocomplete definitions for bash
@@ -92,7 +92,7 @@ Definicje autouzupe³niania dla zsh.
 Summary:	A set of macros for emacs
 Summary(pl):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
-Requires:	emacs-common
+Requires: 	emacs-common
 Obsoletes:	%{name}-devel
 
 %description emacs
@@ -152,9 +152,9 @@ Summary:	Kbabel headers
 Summary(pl):	Pliki nag³ówkowe KBabel
 Group:		X11/Development
 Requires:	gettext-devel
-Requires:	%{name}-kbabel = %{epoch}:%{version}
-Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}
-Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}
+Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-devel
 
 %description kbabel-devel
@@ -163,26 +163,12 @@ KBabel headers.
 %description kbabel-devel -l pl
 Pliki nag³ówkowe KBabel.
 
-%package kbabel-dictionary
-Summary:	Plugin that supports dictionaries made from po compendia
-Summary(pl):	Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
-Group:		X11/Development
-Requires:	gettext-devel
-Requires:	%{name}-kbabel = %{epoch}:%{version}
-Obsoletes:	%{name}-devel
-
-%description kbabel-dictionary
-Plugin that supports dictionaries made from po compendia.
-
-%description kbabel-dictionary -l pl
-Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po.
-
 %package kbabel-catalog
 Summary:	A KBabel catalog manager
 Summary(pl):	Zarz±dca zbiorów plików po zintegrowany z KBabel
 Group:		X11/Development
 Requires:	gettext-devel
-Requires:	%{name}-kbabel = %{epoch}:%{version}
+Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-devel
 
 %description kbabel-catalog
@@ -190,6 +176,20 @@ A KBabel catalog manager.
 
 %description kbabel-catalog -l pl
 Zarz±dca zbiorów plików po zintegrowany z KBabel.
+
+%package kbabel-dictionary
+Summary:	Plugin that supports dictionaries made from po compendia
+Summary(pl):	Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
+Group:		X11/Development
+Requires:	gettext-devel
+Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
+Obsoletes:	%{name}-devel
+
+%description kbabel-dictionary
+Plugin that supports dictionaries made from po compendia.
+
+%description kbabel-dictionary -l pl
+Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po.
 
 %package kbugbuster
 Summary:	A tools that allows cooperation with bugs.kde.org
@@ -202,6 +202,18 @@ KBugBuster allows easy bug management on bugs.kde.org.
 
 %description kbugbuster -l pl
 KBugBuster u³atwia wyszukwianie i zarz±dzanie b³êdami na bugs.kde.org.
+
+%package kcachegrind
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Development/Tools
+Obsoletes:	%{name}-devel
+
+%description kcachegrind
+TODO.
+
+%description kcachegrind -l pl
+TODO.
 
 %package kmtrace
 Summary:	A mtrace to full backtrace conversion tool
@@ -304,6 +316,17 @@ kstartperf measures startup time for KDE applications.
 %description kstartperf -l pl
 Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
 
+%package kuiviewer
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Development/Tools
+
+%description kuiviewer
+TODO.
+
+%description kuiviewer -l pl
+TODO.
+
 %package pallette-gimp
 Summary:	Adds the KDE Default pallette to GIMP
 Summary(pl):	Dodaje domy¶ln± paletê kolorów KDE do GIMP-a
@@ -344,7 +367,7 @@ An xml2po and vice versa converters.
 Konwertery po2xml i vice versa.
 
 %package scripts-build
-Summary:	A set of scripts useful for building KDE
+Summary:	An set of scripts useful for building KDE
 Summary(pl):	Zestaw skryptów do kompilowania KDE
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
@@ -414,6 +437,17 @@ Skrypt napisany w Perlu, który wyci±ga ³añcuchy z plików .rc
 aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
 tworzy siê t³umaczenia (pliki po).
 
+%package scripts-findmissingcrystal
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Development/Tools
+
+%description scripts-findmissingcrystal
+TODO.
+
+%description scripts-findmissingcrystal -l pl
+TODO.
+
 %package scripts-kdekillall
 Summary:	A script for killing KDE apps started with kdeinit
 Summary(pl):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
@@ -454,11 +488,35 @@ This script reads timezone list as its first argument or from
 Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
 /usr/share/zoneinfo/zone.tab i konwertuje je na plik POT.
 
+%package scheck
+Summary:	KDE Style - Scheck
+Summary(pl):	Motyw KDE - Scheck
+Group:		X11/Development
+Obsoletes:	%{name}-devel
+
+%description scheck
+Development style for searching accelerator and style guide conflicts.
+
+%description scheck -l pl
+Motyw KDE przeznaczony do szukania konfliktów w oprogramowaniu.
+
+%package umbrello
+Summary:	UML Modeler
+Summary(pl):	Modeler UML
+Group:		X11/Development/Tools
+Obsoletes:	%{name}-devel
+
+%description umbrello
+UML Modeler.
+
+%description umbrello -l pl
+Modeler UML.
+
 %package xemacs
 Summary:	A set of macros for xemacs
 Summary(pl):	Zestaw makr do xemacsa
 Group:		X11/Development/Tools
-Requires:	xemacs-common
+Requires: 	xemacs-common
 Obsoletes:	%{name}-devel
 
 %description xemacs
@@ -468,88 +526,106 @@ A set of macros for xemacs.
 Zestaw makr do xemacsa.
 
 %prep
-%setup -q
-
+%setup -q -n %{name}-%{_snap}
 
 %build
-kde_appsdir="%{_applnkdir}"; export kde_appsdir
-kde_htmldir="%{_htmldir}"; export kde_htmldir
-kde_icondir="%{_pixmapsdir}"; export kde_icondir
-
-for plik in `find ./ -name *.desktop` ; do
-	echo $plik
-	sed -i -e 's/\[nb\]/\[no\]/g' $plik
+for f in `find . -name \*.desktop | xargs grep -l '\[nb\]'` ; do
+	echo -e ',s/\[nb\]=/[no]=/\n,w' | ed $f 2>/dev/null
 done
 
+%{__make} -f admin/Makefile.common cvs
+
 %configure \
-	--enable-final \
-	--enable-nls
+	--disable-rpath \
+	--enable-final
+
 %{__make}
 
 %{__make} -C kstartperf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefsdir},%{_emacspkgdir}/kde} \
-	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_htmldir=%{_kdedocdir}
 
-%{__make} -C kstartperf install \
-	DESTDIR=$RPM_BUILD_ROOT
+%{__make} -C kstartperf install DESTDIR=$RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde} \
+	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
+
+install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes/
+cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
+cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
+cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
+cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
+cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
+
+cd $RPM_BUILD_ROOT
 rm -rf `find . -name CVS`
-
-install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT%{_gimpdir}/palettes/
-cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_emacspkgdir}/kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
-cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT%{_zshfcdir}
-cp ./scripts/completions/bash/* $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
-
-cd $RPM_BUILD_ROOT%{_pixmapsdir}
-mv {locolor,crystalsvg}/32x32/apps/kbugbuster.png
-mv {locolor,crystalsvg}/32x32/apps/kompare.png
 cd -
-
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
+%find_lang	kcachegrind	--with-kde
 %find_lang	kbugbuster	--with-kde
 %find_lang	kompare		--with-kde
+%find_lang	umbrello	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	cervisia		-p /sbin/ldconfig
+%postun	cervisia		-p /sbin/ldconfig
+
+%post	kbabel			-p /sbin/ldconfig
+%postun	kbabel			-p /sbin/ldconfig
+
+%post	kbabel-dictionary	-p /sbin/ldconfig
+%postun	kbabel-dictionary	-p /sbin/ldconfig
+
+%post	kspy			-p /sbin/ldconfig
+%postun	kspy			-p /sbin/ldconfig
+
+%post	kstartperf		-p /sbin/ldconfig
+%postun	kstartperf		-p /sbin/ldconfig
+
+%post	umbrello		-p /sbin/ldconfig
+%postun	umbrello		-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc README
-%{_libdir}/kde3/kfile_[!p]*.la
-%attr(755,root,root) %{_libdir}/kde3/kfile_[!p]*.so
-%{_datadir}/mimelnk
-%{_datadir}/services/kfile_c*
-%{_datadir}/services/kfile_d*
-%{_datadir}/services/kfile_h*
-%{_pixmapsdir}/[!l]*/*/*/*gettext*.png
-
-#%files static
-#%defattr(644,root,root,755)
-#%{_libdir}/lib*.a
+%{_libdir}/kde3/kfile_[!dp]*.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_[!dp]*.so
+%{_datadir}/services/kfile_cpp.desktop
+%{_datadir}/services/kfile_h.desktop
+%{_datadir}/services/kfile_ts.desktop
 
 %files cervisia -f cervisia.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cervisia
-%{_libdir}/libcervisia.la
-%attr(755,root,root) %{_libdir}/libcervisia.so*
-%{_mandir}/man1/cervisia*
+%attr(755,root,root) %{_bindir}/cvsaskpass
+%attr(755,root,root) %{_bindir}/cvsservice
+%{_libdir}/libcvsservice.la
+%attr(755,root,root) %{_libdir}/libcvsservice.so.*.*.*
+%{_libdir}/kde3/libcervisiapart.la
+%attr(755,root,root) %{_libdir}/kde3/libcervisiapart.so
 %{_datadir}/apps/cervisia*
-%{_applnkdir}/Development/cervisia.desktop
-%{_pixmapsdir}/*/*/*/cervisia.png
+%{_datadir}/apps/kconf_update/change_colors.pl
+%{_datadir}/apps/kconf_update/cervisia.upd
+%{_datadir}/apps/kconf_update/move_repositories.pl
+%{_datadir}/services/cvsservice.desktop
+%{_desktopdir}/kde/cervisia.desktop
+%{_iconsdir}/*/*/*/cervisia.png
+%{_mandir}/man1/cervisia*
+
+%files cervisia-devel
+%{_includedir}/cvsjob_stub.h
+%{_includedir}/cvsservice_stub.h
+%{_includedir}/repository_stub.h
+%{_libdir}/libcvsservice.so
 
 %files completions-bash
 %defattr(644,root,root,755)
@@ -581,52 +657,82 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabel
 %{_libdir}/libkbabelcommon.la
-%attr(755,root,root) %{_libdir}/libkbabelcommon.so*
-%{_libdir}/libkbabel.la
-%attr(755,root,root) %{_libdir}/libkbabel.so*
-%{_libdir}/kde3/kfile_po.la
-%attr(755,root,root) %{_libdir}/kde3/kfile_po.so
-%{_libdir}/kde3/pothumbnail.la
-%attr(755,root,root) %{_libdir}/kde3/pothumbnail.so
+%attr(755,root,root) %{_libdir}/libkbabelcommon.so.*.*.*
+%{_libdir}/libkbabeldictplugin.la
+%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so.*.*.*
+%{_libdir}/kde3/kbabel_*.la
+%attr(755,root,root) %{_libdir}/kde3/kbabel_*.so
 %{_datadir}/apps/kbabel
-%{_datadir}/services/*po*
-%{_applnkdir}/Development/kbabel.desktop
-%{_pixmapsdir}/[!l]*/*/*/kbabel.png
-
-%files kbabel-catalog
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/catalogmanager
-%{_libdir}/libcatalogmanager.la
-%attr(755,root,root) %{_libdir}/libcatalogmanager.so*
-%{_libdir}/kde3/libpoauxiliary.la
-%attr(755,root,root) %{_libdir}/kde3/libpoauxiliary.so
-%{_libdir}/kde3/libpocompendium.la
-%attr(755,root,root) %{_libdir}/kde3/libpocompendium.so
-%{_datadir}/apps/catalogmanager
-%{_applnkdir}/Development/catalogmanager.desktop
-%{_pixmapsdir}/[!l]*/*/*/catalogmanager.png
-
-%files kbabel-dictionary
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kbabeldict
-%{_libdir}/kde3/libdbsearchengine.la
-%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
-%{_libdir}/libkbabeldict*.la
-%attr(755,root,root) %{_libdir}/libkbabeldict*.so*
-%{_applnkdir}/Development/kbabeldict.desktop
-%{_datadir}/apps/kbabeldict
-%{_pixmapsdir}/[!l]*/*/*/kbabeldict.png
+# Already in kdelibs
+#%{_datadir}/mimelnk/application/x-gettext.desktop
+%{_datadir}/services/kbabel_accelstool.desktop
+%{_datadir}/services/kbabel_argstool.desktop
+%{_datadir}/services/kbabel_contexttool.desktop
+%{_datadir}/services/kbabel_equationstool.desktop
+%{_datadir}/services/kbabel_gettext_export.desktop
+%{_datadir}/services/kbabel_gettext_import.desktop
+%{_datadir}/services/kbabel_lengthtool.desktop
+%{_datadir}/services/kbabel_linguist_export.desktop
+%{_datadir}/services/kbabel_linguist_import.desktop
+%{_datadir}/services/kbabel_nottranslatedtool.desktop
+%{_datadir}/services/kbabel_pluralformstool.desktop
+%{_datadir}/services/kbabel_punctuationtool.desktop
+%{_datadir}/services/kbabel_setfuzzytool.desktop
+%{_datadir}/services/kbabel_whitespacetool.desktop
+%{_datadir}/services/kbabel_xmltool.desktop
+%{_datadir}/servicetypes/kbabel_*.desktop
+%{_datadir}/servicetypes/kbabelfilter.desktop
+%{_desktopdir}/kde/kbabel.desktop
+%{_iconsdir}/[!l]*/*/*/kbabel.png
+# Already in kdelibs
+#%{_iconsdir}/[!l]*/*/mimetypes/gettext.png
 
 %files kbabel-devel
 %defattr(644,root,root,755)
 %{_includedir}/kbabel
+%{_libdir}/libkbabelcommon.so
+%{_libdir}/libkbabeldictplugin.so
+
+%files kbabel-catalog
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/catalogmanager
+%{_libdir}/kde3/kfile_po.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_po.so
+%{_libdir}/kde3/pothumbnail.la
+%attr(755,root,root) %{_libdir}/kde3/pothumbnail.so
+%{_datadir}/apps/catalogmanager
+%{_datadir}/services/kfile_po.desktop
+%{_datadir}/services/pothumbnail.desktop
+%{_desktopdir}/kde/catalogmanager.desktop
+%{_iconsdir}/[!l]*/*/*/catalogmanager.png
+
+%files kbabel-dictionary
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kbabeldict
+%{_libdir}/kde3/kbabeldict_*.la
+%attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so
+%{_datadir}/services/dbsearchengine.desktop
+%{_datadir}/services/tmxcompendium.desktop
+%{_datadir}/services/poauxiliary.desktop
+%{_datadir}/services/pocompendium.desktop
+%{_datadir}/servicetypes/kbabeldict_module.desktop
+%{_desktopdir}/kde/kbabeldict.desktop
+%{_iconsdir}/[!l]*/*/*/kbabeldict.png
 
 %files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
 %{_datadir}/apps/kbugbuster
-%{_applnkdir}/Development/kbugbuster.desktop
-%{_pixmapsdir}/[!l]*/*/*/kbugbuster.png
+%{_desktopdir}/kde/kbugbuster.desktop
+%{_iconsdir}/[!l]*/*/*/kbugbuster.png
+
+%files kcachegrind -f kcachegrind.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kcachegrind
+%{_datadir}/apps/kcachegrind
+%{_datadir}/mimelnk/application/x-kcachegrind.desktop
+%{_desktopdir}/kde/kcachegrind.desktop
+%{_iconsdir}/hicolor/*/apps/kcachegrind.png
 
 #%files kmtrace
 #%defattr(644,root,root,755)
@@ -642,12 +748,19 @@ rm -rf $RPM_BUILD_ROOT
 %files kompare -f kompare.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kompare
+%{_libdir}/libkompareinterface.la
+%attr(755,root,root) %{_libdir}/libkompareinterface.so
+%attr(755,root,root) %{_libdir}/libkompareinterface.so.*.*.*
+%{_libdir}/kde3/kfile_diff.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_diff.so
 %{_libdir}/kde3/libkompare*.la
 %attr(755,root,root) %{_libdir}/kde3/libkompare*.so
 %{_datadir}/apps/kompare*
-%{_datadir}/service*/kompare*
-%{_applnkdir}/Development/kompare.desktop
-%{_pixmapsdir}/[!l]*/*/*/kompare.png
+%{_datadir}/services/kfile_diff.desktop
+%{_datadir}/services/kompare*.desktop
+%{_datadir}/servicetypes/kompare*.desktop
+%{_desktopdir}/kde/kompare.desktop
+%{_iconsdir}/[!l]*/*/*/kompare.png
 
 %files kprofilemethod
 %defattr(644,root,root,755)
@@ -656,44 +769,67 @@ rm -rf $RPM_BUILD_ROOT
 %files kspy
 %defattr(644,root,root,755)
 %{_libdir}/libkspy.la
-%attr(755,root,root) %{_libdir}/libkspy.so*
+%{_libdir}/libkspy.so
+%attr(755,root,root) %{_libdir}/libkspy.so.*.*.*
 %{_includedir}/kspy.h
 
 %files kstartperf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kstartperf
 %{_libdir}/libkstartperf.la
-%attr(755,root,root) %{_libdir}/libkstartperf.so*
+%{_libdir}/libkstartperf.so
+%attr(755,root,root) %{_libdir}/libkstartperf.so.*.*.*
+
+%files kuiviewer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kuiviewer
+%{_libdir}/kde3/libkuiviewerpart.la
+%attr(755,root,root) %{_libdir}/kde3/libkuiviewerpart.so
+%{_libdir}/kde3/quithumbnail.la
+%attr(755,root,root) %{_libdir}/kde3/quithumbnail.so
+%{_datadir}/apps/kuiviewer/kuiviewer.rc
+%{_datadir}/apps/kuiviewerpart/kuiviewer_part.rc
+%{_datadir}/services/designerthumbnail.desktop
+%{_datadir}/services/kuiviewer_part.desktop
+%{_desktopdir}/kde/kuiviewer.desktop
+%{_iconsdir}/*/*/apps/kuiviewer.png
 
 %files pallette-gimp
 %defattr(644,root,root,755)
-%{_gimpdir}/palettes/*
+%{_gimpdir}/palettes
 
 %files pallette-xpaint
 %defattr(644,root,root,755)
-%{_appdefsdir}/XPaint.kde
+%{_appdefdir}
 
 %files po2xml
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/fixsgml
+#%attr(755,root,root) %{_bindir}/fixsgml
 %attr(755,root,root) %{_bindir}/po2xml
 %attr(755,root,root) %{_bindir}/split2po
 %attr(755,root,root) %{_bindir}/swappo
 %attr(755,root,root) %{_bindir}/transxx
 %attr(755,root,root) %{_bindir}/xml2pot
 
+%files scheck
+%{_libdir}/kde3/plugins/styles/scheck.la
+%attr(755,root,root) %{_libdir}/kde3/plugins/styles/scheck.so
+%{_datadir}/apps/kstyle/themes/scheck.themerc
+
 %files scripts-build
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/adddebug
+%attr(755,root,root) %{_bindir}/build-progress.sh
 %attr(755,root,root) %{_bindir}/create*
 %attr(755,root,root) %{_bindir}/extend*
 %attr(755,root,root) %{_bindir}/makeobj
 %attr(755,root,root) %{_bindir}/licensecheck
 %attr(755,root,root) %{_bindir}/includemocs
-%attr(755,root,root) %{_bindir}/fixincludes
+%attr(755,root,root) %{_bindir}/fixkdeincludes
 %attr(755,root,root) %{_bindir}/kde-build
 %attr(755,root,root) %{_bindir}/cheatmake
-%{_mandir}/man1/kde-build*
+%{_mandir}/man1/kde-build.1*
+%{_mandir}/man1/includemocs.1*
 
 %files scripts-cvs
 %defattr(644,root,root,755)
@@ -701,6 +837,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/noncvslist
 %attr(755,root,root) %{_bindir}/pruneemptydirs
 %{_mandir}/man1/*cvs*
+
+%files scripts-cxxmetric
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/cxxmetric
 
 %files scripts-doc
 %defattr(644,root,root,755)
@@ -711,9 +851,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/extractrc
 
-%files scripts-cxxmetric
+%files scripts-findmissingcrystal
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/cxxmetric
+%attr(755,root,root) %{_bindir}/findmissingcrystal
 
 %files scripts-kdekillall
 %defattr(644,root,root,755)
@@ -726,6 +866,20 @@ rm -rf $RPM_BUILD_ROOT
 %files scripts-zonetab2pot
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
+
+%files umbrello -f umbrello.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/umbrello
+#%{_libdir}/libcodegenerator.la
+#%{_libdir}/libcodegenerator.so
+#%attr(755,root,root) %{_libdir}/libcodegenerator.so.*.*.*
+#%{_libdir}/kde3/libumlwidgets.la
+#%attr(755,root,root) %{_libdir}/kde3/libumlwidgets.so*
+%{_datadir}/apps/umbrello
+%{_datadir}/mimelnk/application/x-umbrello.desktop
+%{_desktopdir}/kde/umbrello.desktop
+%{_iconsdir}/hicolor/*/apps/umbrello.png
+%{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
 
 %files xemacs
 %defattr(644,root,root,755)
