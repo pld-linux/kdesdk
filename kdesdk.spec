@@ -4,7 +4,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define		_snap		030423
+%define		_snap		030509
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -19,6 +19,7 @@ Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 BuildRequires:	bison
 %{?_with_dbsearchengine:BuildRequires:	db2-devel}
 BuildRequires:	gettext-devel
+BuildRequires:	flex >= 2.5.31
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel = %{version}
 BuildRequires:	libltdl-devel
@@ -520,7 +521,7 @@ for plik in `find ./ -name *.desktop` ; do
 done
 				
 
-%configure --enable-nls
+%configure
 	
 %{__make}
 
