@@ -2,10 +2,11 @@
 #   * scripts from scripts/ subdirectory are not installed.
 #   * separate aplications do subpackages
 Summary:	KDESDK - Software Development Kit for KDE
+Summary(ko):	K 데스크탑 환경 - 소프트웨어 개발 도구 모음
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.0.3
-Release:	4
+Version:	3.0.4
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -13,6 +14,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.
 # generated from kde-i18n
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-fix-kbabel-mem-leak.patch
+Patch1:		%{name}-fix-kbabel-crash.patch
+Patch2:		%{name}-glibc.patch
 BuildRequires:	binutils-static
 BuildRequires:	bison
 BuildRequires:	db3-devel
@@ -85,6 +88,9 @@ Statyczne biblioteki dla kdesdk.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
