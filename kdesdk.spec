@@ -12,6 +12,7 @@ Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	279b42135756e0e3640cf5f6612f572d
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 BuildRequires:	bison
