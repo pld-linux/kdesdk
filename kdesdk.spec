@@ -16,6 +16,7 @@ Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+Patch0:		%{name}-kbabel_am.patch
 BuildRequires:	bison
 BuildRequires:	db4-devel
 BuildRequires:	gettext-devel
@@ -246,6 +247,7 @@ Konwertery po2xml i vice versa.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
