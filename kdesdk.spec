@@ -2,7 +2,7 @@
 #   * scripts from scripts/ subdirectory are not installed.
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		0.5
+%define		_rel		0.6
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -104,8 +104,6 @@ rm -rf $RPM_BUILD_ROOT
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-gzip -9fn README
-
 %find_lang cervisia --with-kde
 %find_lang gideon --with-kde
 %find_lang kbabel --with-kde
@@ -127,7 +125,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kdesdk.lang
 %defattr(644,root,root,755)
-%doc *.gz
+%doc README
 %attr(755,root,root) %{_bindir}/[!e]*
 %attr(755,root,root) %{_bindir}/extend_dmalloc
 %attr(755,root,root) %{_libdir}/kde3/*
