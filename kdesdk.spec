@@ -1,10 +1,7 @@
-#
-# _with_dbsearchengine	Dictionary plugin "Translation Database"
-#			for KBabel will be built.
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define		_snap		030509
+%define		_snap		030518
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -17,9 +14,8 @@ Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 BuildRequires:	bison
-%{?_with_dbsearchengine:BuildRequires:	db2-devel}
+BuildRequires:	flex
 BuildRequires:	gettext-devel
-BuildRequires:	flex >= 2.5.31
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel = %{version}
 BuildRequires:	libltdl-devel
@@ -519,7 +515,6 @@ for plik in `find ./ -name *.desktop` ; do
 	sed -ie 's/\[nb\]/\[no\]/g' $plik
 	fi
 done
-				
 
 %configure
 	
@@ -567,8 +562,23 @@ cd -
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	cervisia		-p /sbin/ldconfig
+%postun	cervisia		-p /sbin/ldconfig
+
+%post	kbabel			-p /sbin/ldconfig
+%postun	kbabel			-p /sbin/ldconfig
+
+%post	kbabel-dictionary	-p /sbin/ldconfig
+%postun	kbabel-dictionary	-p /sbin/ldconfig
+
+%post	kspy			-p /sbin/ldconfig
+%postun	kspy			-p /sbin/ldconfig
+
+%post	kstartperf		-p /sbin/ldconfig
+%postun	kstartperf		-p /sbin/ldconfig
+
+%post	umbrello		-p /sbin/ldconfig
+%postun	umbrello		-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -583,7 +593,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cervisia
 %{_libdir}/libcvsservice.la
-%attr(755,root,root) %{_libdir}/libcvsservice.so*
+%attr(755,root,root) %{_libdir}/libcvsservice.so.*.*.*
 %{_libdir}/kde3/libcervisiapart.la
 %attr(755,root,root) %{_libdir}/kde3/libcervisiapart.so
 %{_datadir}/apps/cervisia*
@@ -598,6 +608,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cvsjob_stub.h
 %{_includedir}/cvsservice_stub.h
 %{_includedir}/repository_stub.h
+%{_libdir}/libcvsservice.so
 
 %files completions-bash
 %defattr(644,root,root,755)
@@ -629,7 +640,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabel
 %{_libdir}/libkbabelcommon.la
-%attr(755,root,root) %{_libdir}/libkbabelcommon.so*
+%attr(755,root,root) %{_libdir}/libkbabelcommon.so.*.*.*
 %{_libdir}/kde3/kbabel_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabel_*.so
 %{_datadir}/apps/kbabel
@@ -666,14 +677,11 @@ rm -rf $RPM_BUILD_ROOT
 %files kbabel-dictionary
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabeldict
-%{_libdir}/libkbabeldict*.la
-%attr(755,root,root) %{_libdir}/libkbabeldict*.so*
+%{_libdir}/libkbabeldictplugin.la
+%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so.*.*.*
 %{_libdir}/kde3/kbabeldict_*.la
-%attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so*
-%if %{?_with_dbsearchengine:1}0
-%{_libdir}/kde3/libdbsearchengine.la
-%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
-%endif
+%attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so
+%{_datadir}/services/dbsearchengine.desktop
 %{_datadir}/services/tmxcompendium.desktop
 %{_datadir}/services/poauxiliary.desktop
 %{_datadir}/services/pocompendium.desktop
@@ -684,6 +692,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kbabel-devel
 %defattr(644,root,root,755)
 %{_includedir}/kbabel
+%{_libdir}/libkbabelcommon.so
+%{_libdir}/libkbabeldictplugin.so
 
 %files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
@@ -724,14 +734,16 @@ rm -rf $RPM_BUILD_ROOT
 %files kspy
 %defattr(644,root,root,755)
 %{_libdir}/libkspy.la
-%attr(755,root,root) %{_libdir}/libkspy.so*
+%{_libdir}/libkspy.so
+%attr(755,root,root) %{_libdir}/libkspy.so.*.*.*
 %{_includedir}/kspy.h
 
 %files kstartperf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kstartperf
 %{_libdir}/libkstartperf.la
-%attr(755,root,root) %{_libdir}/libkstartperf.so*
+%{_libdir}/libkstartperf.so
+%attr(755,root,root) %{_libdir}/libkstartperf.so.*.*.*
 
 %files pallette-gimp
 %defattr(644,root,root,755)
@@ -806,7 +818,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/umbrello
 %{_libdir}/libcodegenerator.la
-%attr(755,root,root) %{_libdir}/libcodegenerator.so*
+%{_libdir}/libcodegenerator.so
+%attr(755,root,root) %{_libdir}/libcodegenerator.so.*.*.*
+%{_libdir}/kde3/libumlwidgets.la
+%attr(755,root,root) %{_libdir}/kde3/libumlwidgets.so*
 %{_datadir}/apps/umbrello
 %{_datadir}/mimelnk/application/x-umbrello.desktop
 %{_desktopdir}/umbrello.desktop
