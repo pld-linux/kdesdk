@@ -1,21 +1,20 @@
 
 %define		_state		stable
-%define		_ver		3.3.0
+%define		_ver		3.3.1
 
-%define		_minlibsevr	9:3.3.0
-%define		_minbaseevr	9:3.3.0
+%define		_minlibsevr	9:3.3.1
+%define		_minbaseevr	9:3.3.1
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	3
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	d3f02d71b7211265a89a7e499faa1b61
-#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	475c72c3010560d6bb4d355fbce9596c
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
@@ -650,7 +649,7 @@ Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %prep
 %setup -q
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1
 
 echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
