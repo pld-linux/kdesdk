@@ -4,8 +4,8 @@
 %define		_snap		040516
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.040508
-%define		_minbaseevr	9:3.2.90.040508
+%define		_minlibsevr	9:3.2.90.040515
+%define		_minbaseevr	9:3.2.90.040515
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -49,7 +49,7 @@ Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 Summary:	Developers' file formats enhanced information
 Summary(pl):	Rozszerzone informacje o plikach u¿ywanych przez programistów
 Group:		X11/Development/Libraries
-Requires:	konqueror >= %{version}
+Requires:	konqueror >= %{_minbaseevr}
 Obsoletes:	kdesdk
 Obsoletes:	kdesdk-devel
 
@@ -78,6 +78,7 @@ Frontend do CVS dla KDE.
 Summary:	Header files for cervisia, a KDE CVS frontend
 Summary(pl):	Pliki nag³ówkowe cervisii - frontendu do CVS dla KDE
 Group:		X11/Development/Libraries
+Requires:	%{name}-cervisia = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-devel
 
 %description cervisia-devel
@@ -543,14 +544,17 @@ rm -rf $RPM_BUILD_ROOT
 %post	kbabel			-p /sbin/ldconfig
 %postun	kbabel			-p /sbin/ldconfig
 
+%post	kompare			-p /sbin/ldconfig
+%postun	kompare			-p /sbin/ldconfig
+
 %post	kspy			-p /sbin/ldconfig
 %postun	kspy			-p /sbin/ldconfig
 
 %post	kstartperf		-p /sbin/ldconfig
 %postun	kstartperf		-p /sbin/ldconfig
 
-%post	umbrello		-p /sbin/ldconfig
-%postun	umbrello		-p /sbin/ldconfig
+#%post	umbrello		-p /sbin/ldconfig
+#%postun	umbrello		-p /sbin/ldconfig
 
 %files kfile
 %defattr(644,root,root,755)
@@ -675,9 +679,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kbabel-devel
 %defattr(644,root,root,755)
+%{_includedir}/kbabel
 %attr(755,root,root) %{_libdir}/libkbabelcommon.so
 %attr(755,root,root) %{_libdir}/libkbabeldictplugin.so
-%{_includedir}/kbabel
 
 %files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
