@@ -1,17 +1,17 @@
 
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040516
+%define		_snap		040525
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.040515
-%define		_minbaseevr	9:3.2.90.040515
+%define		_minlibsevr	9:3.2.90.040524
+%define		_minbaseevr	9:3.2.90.040524
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}.%{_snap}
-Release:	3
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -558,6 +558,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/libcervisiapart.la
 %attr(755,root,root) %{_libdir}/kde3/libcervisiapart.so
 %{_datadir}/apps/cervisia*
+%{_datadir}/config.kcfg/cervisiapart.kcfg
 %{_datadir}/apps/kconf_update/change_colors.pl
 %{_datadir}/apps/kconf_update/cervisia.upd
 %{_datadir}/apps/kconf_update/move_repositories.pl
