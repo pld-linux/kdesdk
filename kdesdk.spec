@@ -1,26 +1,20 @@
 #
-# Conditional build:
-%bcond_without	i18n	# don't build i18n subpackages
-#
 %define		_state		stable
-%define		_ver		3.2.2
+%define		_ver		3.2.3
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	dd3c690444fef79de620c26abfaafd37
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-%if %{with i18n}
-Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:  bb58a6e84d842f5d5f8395b9123415c3
-%endif
-Patch0:		%{name}-kuiviewer.patch
+# Source0-md5:	dd3c690444fef79de620c26abfaafd37
+Patch100:	%{name}-branch.diff
+Patch0:		%{name}-kmtrace_glibc23.patch
 URL:		http://www.kde.org/
 BuildRequires:	bison
 BuildRequires:	ed
@@ -55,8 +49,9 @@ Obsoletes:	kdesdk
 Obsoletes:	kdesdk-devel
 
 %description kfile
-This package adds a fold to konqueror "file properties" dialog window
-with file enhanced informations.
+This package adds a tab to konqueror "file properties" dialog window
+with file enhanced informations for C++ source files, diff files,
+gettext and designer translation sourcefiles.
 
 %description kfile -l pl
 Ten pakiet dodaje do okna dialogowego "w³a¶ciwo¶ci pliku" konquerora
@@ -70,7 +65,22 @@ Requires:	cvs >= 1.10
 Obsoletes:	kdesdk-devel
 
 %description cervisia
-A KDE CVS frontend.
+A KDE CVS frontend. It features:
+- updating or retrieving the status of a working directory or single
+  files. Files are displayed in different colors depending on their
+  status, and the shown files can be filtered according to their status
+- common operations like adding, removing and commiting files.
+- advanced operations like adding and removing watches, editing and
+  unediting files, locking and unlocking.
+- checking out and importing modules.
+- graphical diff against the repository and between different
+  revisions.
+- blame-annotated view of a file.
+- view of the log messages in tree and list form.
+- resolving of conflicts in a file.
+- tagging and branching.
+- updating to a tag, branch or date.
+- a Changelog editor coupled with the commit dialog.
 
 %description cervisia -l pl
 Frontend do CVS dla KDE.
@@ -121,7 +131,7 @@ Requires:	emacs-common
 Obsoletes:	kdesdk-devel
 
 %description emacs
-A set of macros for emacs.
+A set of macros for emacs helpful for working on KDE programs.
 
 %description emacs -l pl
 Zestaw makr do emacsa.
@@ -166,7 +176,34 @@ Obsoletes:	kdesdk-devel
 
 %description kbabel
 KBabel is a tool, that allows easy management, edition and upkeep of
-gettext .po files.
+gettext .po files. It features:
+- support for GNU gettext PO files (including plural forms) and Qt
+  Linguist catalogs
+- capability to open multiple files (or multiple views of the same
+  file)
+- full editing functionality, accessible through the graphic user
+  interface as well as through user definable keyboard shortcuts
+- powerful spell checking functionality
+- capability to show diffs to older messages
+- full navigation capabilities (such as go to next fuzzy or
+  untranslated string)
+- capability to save and read files in unicode encoding (utf-8)
+- unlimited undo capability
+- syntax highlighting, automatic file header updates, automatic change
+  of "fuzzy" status of translated messages
+- support for easy insertion of tags and URLs
+- validation and highlighting of tags and XML entities
+- a plugin framework for dictionaries, such as po compendium files,
+  for consistency checks or translation suggestions
+- a "rough translation" function to initialize untranslated messages
+  with suggestion from a dictionary
+- automatic syntax check with msgfmt when saving and if an error
+  occured easy navigation to messages, which contain errors
+- various methods to "see" whitespaces at end of lines or check
+  consistency of translated messages, like comparing printf and Qt
+- arguments in msgid and msgstr
+- quick overview over context in the po file
+- showing source code by references in message comments
 
 %description kbabel -l pl
 KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
@@ -189,16 +226,39 @@ Pliki nag³ówkowe KBabel.
 
 %package kbabel-catalog
 Summary:	A KBabel catalog manager
-Summary(pl):	Zarz±dca zbiorów plików po zintegrowany z KBabel
+Summary(pl):	Mened¿er plików po zintegrowany z KBabel
 Group:		X11/Development/Tools
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-devel
 
 %description kbabel-catalog
-A KBabel catalog manager.
+A KBabel catalog manager. It features:
+- file manager view for kde-i18n (or similarly structured)
+  directories, which shows the present status of all PO files: if they
+  are in need of a revision or not, how many fuzzies and untranslated
+  strings are included etc. This view is always automatically updated
+  and reflects all changes done to the files, including changes by
+  programs other than KBabel.
+- integrated CVS support
+- various file open mechanisms for editing in KBabel: use Drag & Drop,
+  double click, keyboard or context menu
+- "Mark files" function (e.g. to identify POs that are in the
+  responsibility of other translators)
+- powerful navigation using PO file statistics
+- automatic comparisons and statistics of POT and PO files for a quick
+  overview which and how many files are translated (or not) and which
+  files may be obsolete
+- syntax check (msgfmt --statistics) for existing files to control if
+  the translated files will compile and, accordingly, work when
+  distributed
+- configurable commands, that can be executed from the Catalog
+  Manager's context menu.
+- search/replace functions in multiple files at once.
+- spellchecking of multiple files at once.
+- doing "rough translation" for multiple files at once.
 
 %description kbabel-catalog -l pl
-Zarz±dca zbiorów plików po zintegrowany z KBabel.
+Mened¿er plików po zintegrowany z KBabel.
 
 %package kbabel-dictionary
 Summary:	Plugin that supports dictionaries made from po compendia
@@ -208,7 +268,8 @@ Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-devel
 
 %description kbabel-dictionary
-Plugin that supports dictionaries made from po compendia.
+KBabel plugin that supports dictionaries made from po compendia or TMX
+1.4-based dicionaries
 
 %description kbabel-dictionary -l pl
 Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po.
@@ -220,7 +281,7 @@ Group:		X11/Development/Tools
 Obsoletes:	kdesdk-devel
 
 %description kbugbuster
-KBugBuster allows easy bug management on bugs.kde.org.
+KBugBuster allows for easy bug management on bugs.kde.org.
 
 %description kbugbuster -l pl
 KBugBuster u³atwia wyszukiwanie i zarz±dzanie b³êdami na bugs.kde.org.
@@ -520,7 +581,9 @@ Obsoletes:	kdesdk-devel
 Development style for searching accelerator and style guide conflicts.
 
 %description scheck -l pl
-Motyw KDE przeznaczony do szukania konfliktów w oprogramowaniu.
+Motyw KDE przeznaczony do szukania konfliktów w akceleratorach oraz
+sprawdzania zgodno¶ci z wytycznymi dot. wygl±du graficznego aplikacji
+KDE.
 
 %package umbrello
 Summary:	UML Modeler
@@ -529,7 +592,22 @@ Group:		X11/Development/Tools
 Obsoletes:	kdesdk-devel
 
 %description umbrello
-UML Modeler.
+Umbrello UML Modeller is a UML diagram tool that can support you in
+the software development process. Especially during the analysis and
+design phases of this process, Umbrello UML Modeller will help you to
+get a high quality product. UML can also be used to document your
+software designs to help you and your fellow developers.
+
+UML is the diagramming language used to describing such models. You
+can represent your ideas in UML using different types of diagrams.
+Umbrello UML Modeller 1.2 supports the following types:
+- class Diagram
+- sequence Diagram
+- collaboration Diagram
+- use Case Diagram
+- state Diagram
+- activity Diagram
+- component Diagram
 
 %description umbrello -l pl
 Modeler UML.
@@ -542,161 +620,20 @@ Requires:	xemacs-common
 Obsoletes:	kdesdk-devel
 
 %description xemacs
-A set of macros for xemacs.
+A set of macros for xemacs useful for developing KDE applications.
 
 %description xemacs -l pl
 Zestaw makr do xemacsa.
 
-%package kfile-i18n
-Summary:	Internationalization and localization files for kfile
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfile
-Group:		X11/Applications
-Requires:	%{name}-kfile = %{epoch}:%{version}-%{release}
-Requires:	konqueror-i18n >= 9:%{version}
-
-%description kfile-i18n
-Internationalization and localization files for kfile.
-
-%description kfile-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kfile.
-
-%package cervisia-i18n
-Summary:	Internationalization and localization files for cervisia
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla cervisii
-Group:		X11/Applications
-Requires:	%{name}-cervisia = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description cervisia-i18n
-Internationalization and localization files for cervisia.
-
-%description cervisia-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla cervisii.
-
-%package kbabel-i18n
-Summary:	Internationalization and localization files for kbabel
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbabel
-Group:		X11/Applications
-Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description kbabel-i18n
-Internationalization and localization files for kbabel.
-
-%description kbabel-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kbabel.
-
-%package kbugbuster-i18n
-Summary:	Internationalization and localization files for kbugbuster
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbugbustera
-Group:		X11/Applications
-Requires:	%{name}-kbugbuster = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description kbugbuster-i18n
-Internationalization and localization files for kbugbuster.
-
-%description kbugbuster-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kbugbustera.
-
-%package kcachegrind-i18n
-Summary:	Internationalization and localization files for kcachegrind
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kcachegrinda
-Group:		X11/Applications
-Requires:	%{name}-kcachegrind = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description kcachegrind-i18n
-Internationalization and localization files for kcachegrind.
-
-%description kcachegrind-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kcachegrinda.
-
-%package kompare-i18n
-Summary:	Internationalization and localization files for kompare
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kompare
-Group:		X11/Applications
-Requires:	%{name}-kompare = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description kompare-i18n
-Internationalization and localization files for kompare.
-
-%description kompare-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kompare.
-
-%package kfilereplace-i18n
-Summary:	Internationalization and localization files for kfilereplace
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfilereplace
-Group:		X11/Applications
-Requires:	%{name}-kfilereplace = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description kfilereplace-i18n
-Internationalization and localization files for kfilereplace.
-
-%description kfilereplace-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kfilereplace.
-
-%package kstartperf-i18n
-Summary:	Internationalization and localization files for kstartperf
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kstartperfa
-Group:		X11/Applications
-Requires:	%{name}-kstartperf = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description kstartperf-i18n
-Internationalization and localization files for kstartperf.
-
-%description kstartperf-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kstartperfa.
-
-%package kuiviewer-i18n
-Summary:	Internationalization and localization files for kuiviewer
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kuiviewera
-Group:		X11/Applications
-Requires:	%{name}-kuiviewer = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description kuiviewer-i18n
-Internationalization and localization files for kuiviewer.
-
-%description kuiviewer-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kuiviewera.
-
-%package kspy-i18n
-Summary:	Internationalization and localization files for kspy
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kspy
-Group:		X11/Applications
-Requires:	%{name}-kspy = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-Obsoletes:	kdesdk-spy-i18n
-
-%description kspy-i18n
-Internationalization and localization files for spy.
-
-%description kspy-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla spy.
-
-%package umbrello-i18n
-Summary:	Internationalization and localization files for umbrello
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla umbrello
-Group:		X11/Applications
-Requires:	%{name}-umbrello = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description umbrello-i18n
-Internationalization and localization files for umbrello.
-
-%description umbrello-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla umbrello.
-
 %prep
 %setup -q
-#%patch0 -p1
+%patch100 -p1
 
 %build
-cp %{_datadir}/automake/config.sub admin
+cp -f %{_datadir}/automake/config.sub admin
+export kde_htmldir=%{_kdedocdir}
+export kde_libs_htmldir=%{_kdedocdir}
+export UNSERMAKE=%{_datadir}/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -713,10 +650,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+	kde_htmldir=%{_kdedocdir} \
+	kde_libs_htmldir=%{_kdedocdir}
 
 %{__make} -C kstartperf install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_libs_htmldir=%{_kdedocdir} \
+	kde_htmldir=%{_kdedocdir}
 
 install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefsdir},%{_emacspkgdir}/kde} \
 	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
@@ -735,73 +675,6 @@ cd -
 # Debian manpages
 # overwrites cvscheck.1 - it's OK (original manual is much shorter)
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
-
-%if %{with i18n}
-if [ -f "%{SOURCE1}" ] ; then
-	bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
-	for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
-		if [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] ; then
-			rm -f $f
-		fi
-	done
-else
-	echo "No i18n sources found and building --with i18n. FIXIT!"
-	exit 1
-fi
-%endif
-
-%find_lang	cervisia	--with-kde
-%find_lang	kbabel		--with-kde
-%find_lang	kcachegrind	--with-kde
-%find_lang	kbugbuster	--with-kde
-%find_lang	kompare		--with-kde
-%find_lang	umbrello	--with-kde
-
-files="cervisia \
-kbabel \
-kcachegrind \
-kbugbuster \
-kompare \
-umbrello"
-
-%if %{with i18n}
-kfile="cpp \
-diff \
-po \
-ts"
-
-> i18n.lang
-
-for i in $kfile;
-do
-	%find_lang kfile_${i} --with-kde
-	cat kfile_${i}.lang >> kfile.lang
-done
-%find_lang cvsservice	--with-kde
-cat cvsservice.lang >> cervisia.lang
-##%find_lang kfilereplace
-%find_lang kstartperf
-%find_lang kuiviewer
-%find_lang spy
-%endif
-
-for i in $files; do
-        echo "%defattr(644,root,root,755)" > ${i}_en.lang
-	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
-	grep -v apidocs $i.lang|grep -v en\/ > ${i}.lang.1
-	mv ${i}.lang.1 ${i}.lang
-done
-
-durne=`ls -1 *.lang|grep -v _en|grep -v i18n`
-
-for i in $durne; 
-do
-	echo $i >> control
-	grep -v en\/ $i|grep -v apidocs >> ${i}.1
-	if [ -f ${i}.1 ] ; then
-		mv ${i}.1 ${i}
-	fi
-done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -824,32 +697,6 @@ rm -rf $RPM_BUILD_ROOT
 %post	umbrello		-p /sbin/ldconfig
 %postun	umbrello		-p /sbin/ldconfig
 
-%if %{with i18n}
-%defattr(644,root,root,755)
-%files kfile-i18n -f kfile.lang
-%defattr(644,root,root,755)
-%files cervisia-i18n -f cervisia.lang
-%defattr(644,root,root,755)
-%files kbabel-i18n -f kbabel.lang
-%defattr(644,root,root,755)
-%files kbugbuster-i18n -f kbugbuster.lang
-%defattr(644,root,root,755)
-%files kcachegrind-i18n -f kcachegrind.lang
-%defattr(644,root,root,755)
-%files kompare-i18n -f kompare.lang
-%defattr(644,root,root,755)
-##%files kfilereplace-i18n -f kfilereplace.lang
-##%defattr(644,root,root,755)
-%files kstartperf-i18n -f kstartperf.lang
-%defattr(644,root,root,755)
-%files kuiviewer-i18n -f kuiviewer.lang
-%defattr(644,root,root,755)
-%files kspy-i18n -f spy.lang
-%defattr(644,root,root,755)
-%files umbrello-i18n -f umbrello.lang
-%defattr(644,root,root,755)
-%endif
-
 %files kfile
 %defattr(644,root,root,755)
 %doc README
@@ -859,7 +706,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kfile_h.desktop
 %{_datadir}/services/kfile_ts.desktop
 
-%files cervisia -f cervisia_en.lang
+%files cervisia
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cervisia
 %attr(755,root,root) %{_bindir}/cvsaskpass
@@ -876,6 +723,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/cervisia.desktop
 %{_iconsdir}/*/*/*/cervisia.png
 %{_mandir}/man1/cervisia.1*
+%{_kdedocdir}/en/cervisia
 
 %files cervisia-devel
 %defattr(644,root,root,755)
@@ -911,7 +759,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kabcformat_kdeaccounts.so
 %{_datadir}/apps/kabc/formats/*
 
-%files kbabel -f kbabel_en.lang
+%files kbabel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabel
 %{_libdir}/libkbabelcommon.la
@@ -945,6 +793,7 @@ rm -rf $RPM_BUILD_ROOT
 # Already in kdelibs
 #%{_iconsdir}/[!l]*/*/mimetypes/gettext.png
 %{_mandir}/man1/kbabel.1*
+%{_kdedocdir}/en/kbabel
 
 %files kbabel-devel
 %defattr(644,root,root,755)
@@ -980,15 +829,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/[!l]*/*/*/kbabeldict.png
 %{_mandir}/man1/kbabeldict.1*
 
-%files kbugbuster -f kbugbuster_en.lang
+%files kbugbuster
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
 %{_datadir}/apps/kbugbuster
 %{_desktopdir}/kde/kbugbuster.desktop
 %{_iconsdir}/[!l]*/*/*/kbugbuster.png
 %{_mandir}/man1/kbugbuster.1*
+%{_kdedocdir}/en/kbugbuster
 
-%files kcachegrind -f kcachegrind_en.lang
+%files kcachegrind
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kcachegrind
 %{_datadir}/apps/kcachegrind
@@ -996,24 +846,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kcachegrind.desktop
 %{_iconsdir}/hicolor/*/apps/kcachegrind.png
 %{_mandir}/man1/kcachegrind.1*
+%{_kdedocdir}/en/kcachegrind
 
-# -- doesn't build with glibc >= 2.3
-#%files kmtrace
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/demangle
-#%attr(755,root,root) %{_bindir}/kminspector
-#%attr(755,root,root) %{_bindir}/kmmatch
-#%attr(755,root,root) %{_bindir}/kmtrace
-#%{_libdir}/libktrace*.la
-#%attr(755,root,root) %{_libdir}/libktrace*.so*
-#%{_includedir}/ktrace.h
-#%{_datadir}/apps/kmtrace
-#%{_mandir}/man1/demangle.1*
-#%{_mandir}/man1/kminspector.1*
-#%{_mandir}/man1/kmmatch.1*
-#%{_mandir}/man1/kmtrace.1*
 
-%files kompare -f kompare_en.lang
+%files kmtrace
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/demangle
+%attr(755,root,root) %{_bindir}/kminspector
+%attr(755,root,root) %{_bindir}/kmmatch
+%attr(755,root,root) %{_bindir}/kmtrace
+%{_libdir}/libktrace*.la
+%attr(755,root,root) %{_libdir}/libktrace*.so*
+%{_includedir}/ktrace.h
+%{_datadir}/apps/kmtrace
+%{_mandir}/man1/demangle.1*
+%{_mandir}/man1/kminspector.1*
+%{_mandir}/man1/kmmatch.1*
+%{_mandir}/man1/kmtrace.1*
+
+%files kompare
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kompare
 %{_libdir}/libkompareinterface.la
@@ -1030,6 +881,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kompare.desktop
 %{_iconsdir}/[!l]*/*/*/kompare.png
 %{_mandir}/man1/kompare.1*
+%{_kdedocdir}/en/kompare
 
 %files kprofilemethod
 %defattr(644,root,root,755)
@@ -1162,7 +1014,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
 %{_mandir}/man1/zonetab2pot.py.1*
 
-%files umbrello -f umbrello_en.lang
+%files umbrello
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/umbrello
 #%{_libdir}/libcodegenerator.la
@@ -1176,6 +1028,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/apps/umbrello.png
 %{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
 %{_mandir}/man1/umbrello.1*
+%{_kdedocdir}/en/umbrello
 
 %files xemacs
 %defattr(644,root,root,755)
