@@ -1,0 +1,20 @@
+--- kdesdk-3.0.3/kbabel/catalogmanager/catalogmanager.cpp--	2002-09-05 14:13:13.000000000 +0200
++++ kdesdk-3.0.3/kbabel/catalogmanager/catalogmanager.cpp	2002-09-05 14:17:22.000000000 +0200
+@@ -286,7 +286,7 @@ void CatalogManager::saveSettings()
+     config->writeEntry("FileCommandNames",_settings.fileCommandNames);
+ 
+     config->sync();
+-    delete config;
++    //delete config;
+ }
+ 
+ void CatalogManager::restoreSettings()
+@@ -341,7 +341,7 @@ void CatalogManager::restoreSettings()
+     }
+ 
+     KConfigGroupSaver misc(config,"Misc");
+-    delete config;
++    //delete config;
+ }
+ 
+ void CatalogManager::setPreferredWindow(WId window)
