@@ -692,7 +692,7 @@ done
 %endif
 
 %build
-export UNSERMAKE=%{_datadir}/unsermake/unsermake
+#export UNSERMAKE=%{_datadir}/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
 # Used in cervisia Makefile
