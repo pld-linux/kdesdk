@@ -1,7 +1,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.90
-%define		_snap		030623
+%define		_snap		030726
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -13,7 +13,7 @@ License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	7ff58ddab0ad89967f0e4d89e5a548ff
+# Source0-md5:	d4e9ad73d9e3a2a9307f61a35c9d2617
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
@@ -26,7 +26,7 @@ Obsoletes:	kdesdk-devel
 
 %define		_htmldir	%{_docdir}/kde/HTML
 %define		_icondir	%{_datadir}/icons
-%define		_gimpdir	%(gimp-config --gimpdatadir)
+%define		_gimpdir	%(gimptool --gimpdatadir)
 %define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
 %define		_emacspkgdir	/usr/share/emacs/21.2
 %define		_xemacspkgdir	/usr/share/xemacs-packages
@@ -544,11 +544,6 @@ cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/Development/*.desktop \
     $RPM_BUILD_ROOT%{_desktopdir}
 
-cd $RPM_BUILD_ROOT%{_desktopdir}
-cat umbrello.desktop |sed -e 's/umbrello.png/uml.png/' > umbrello.desktop.bak
-cat umbrello.desktop.bak > umbrello.desktop
-cd -
-
 cd $RPM_BUILD_ROOT
 rm -rf `find . -name CVS`
 cd -
@@ -562,23 +557,41 @@ cd -
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	cervisia		-p /sbin/ldconfig
-%postun	cervisia		-p /sbin/ldconfig
+%post	cervisia
+/sbin/ldconfig
 
-%post	kbabel			-p /sbin/ldconfig
-%postun	kbabel			-p /sbin/ldconfig
+%postun	cervisia
+/sbin/ldconfig
 
-%post	kbabel-dictionary	-p /sbin/ldconfig
-%postun	kbabel-dictionary	-p /sbin/ldconfig
+%post	kbabel
+/sbin/ldconfig
 
-%post	kspy			-p /sbin/ldconfig
-%postun	kspy			-p /sbin/ldconfig
+%postun	kbabel
+/sbin/ldconfig
 
-%post	kstartperf		-p /sbin/ldconfig
-%postun	kstartperf		-p /sbin/ldconfig
+%post	kbabel-dictionary
+/sbin/ldconfig
 
-%post	umbrello		-p /sbin/ldconfig
-%postun	umbrello		-p /sbin/ldconfig
+%postun	kbabel-dictionary
+/sbin/ldconfig
+
+%post	kspy
+/sbin/ldconfig
+
+%postun	kspy
+/sbin/ldconfig
+
+%post	kstartperf
+/sbin/ldconfig
+
+%postun	kstartperf
+/sbin/ldconfig
+
+%post	umbrello
+/sbin/ldconfig
+
+%postun	umbrello
+/sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -644,6 +657,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/kbabel_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabel_*.so
 %{_datadir}/apps/kbabel
+# Already in kdelibs
+#%{_datadir}/mimelnk/application/x-gettext.desktop
 %{_datadir}/services/accelstool.desktop
 %{_datadir}/services/argstool.desktop
 %{_datadir}/services/contexttool.desktop
@@ -826,7 +841,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/umbrello
 %{_datadir}/mimelnk/application/x-umbrello.desktop
 %{_desktopdir}/umbrello.desktop
-%{_icondir}/hicolor/*/apps/uml.png
+%{_icondir}/hicolor/*/apps/umbrello.png
 
 %files xemacs
 %defattr(644,root,root,755)
