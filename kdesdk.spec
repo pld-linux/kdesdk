@@ -786,7 +786,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kconf_update/move_repositories.pl
 %{_datadir}/services/cvsservice.desktop
 %{_desktopdir}/kde/cervisia.desktop
-%{_iconsdir}/*/*/*/cervisia.png
+%{_iconsdir}/[!l]*/*/*/vcs*
+%{_iconsdir}/[!l]*/*/*/cervisia*
 %{_mandir}/man1/cervisia.1*
 
 %files completions-bash
@@ -1030,6 +1031,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/licensecheck
 %attr(755,root,root) %{_bindir}/makeobj
 %{_mandir}/man1/adddebug.1*
+%{_mandir}/man1/build-progress*.1*
 %{_mandir}/man1/cheatmake.1*
 %{_mandir}/man1/create*.1*
 %{_mandir}/man1/extend_dmalloc.1*
