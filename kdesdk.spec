@@ -1,6 +1,7 @@
-
-%bcond_without  i18n    # dont build i18n subpackage
-
+#
+# Conditional build:
+%bcond_without	i18n	# don't build i18n subpackages
+#
 %define		_state		stable
 %define		_ver		3.2.0
 ##%define		_snap		040110
@@ -9,7 +10,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -21,6 +22,8 @@ Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{v
 # Source1-md5:        26387c5679d77b57788f0d01be6f6fed
 %endif
 Patch0:		%{name}-kuiviewer.patch
+URL:		http://www.kde.org/
+BuildRequires:	binutils-static
 BuildRequires:	bison
 BuildRequires:	ed
 BuildRequires:	flex
@@ -34,7 +37,7 @@ Obsoletes:	kdesdk-devel
 Obsoletes:	kdesdk
 
 %define		_gimpdir	%(gimptool --gimpdatadir)
-%define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
+%define		_appdefsdir	/usr/X11R6/lib/X11/app-defaults
 %define		_emacspkgdir	/usr/share/emacs/21.2
 %define		_xemacspkgdir	/usr/share/xemacs-packages
 %define		_zshfcdir	/usr/share/zsh/latest/functions
@@ -47,7 +50,7 @@ Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 
 %package kfile
 Summary:	Developers' file formats enhanced information
-Summary(pl):	Rozszerzone informacje o plikach u¿ywanych przez developerów
+Summary(pl):	Rozszerzone informacje o plikach u¿ywanych przez programistów
 Group:		X11/Development/Libraries
 Requires:	konqueror >= %{version}
 Obsoletes:	kdesdk
@@ -62,36 +65,36 @@ Ten pakiet dodaje do okna dialogowego "w³a¶ciwo¶ci pliku" konquerora
 dodatkow± zak³adkê z rozszerzonymi informacjami o pliku.
 
 %package cervisia
-Summary:	A KDE cvs frontend
-Summary(pl):	Frontend CVS pod KDE
+Summary:	A KDE CVS frontend
+Summary(pl):	Frontend do CVS dla KDE
 Group:		X11/Development/Tools
 Requires:	cvs >= 1.10
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description cervisia
-A KDE cvs frontend.
+A KDE CVS frontend.
 
 %description cervisia -l pl
-Frontend CVS pod KDE.
+Frontend do CVS dla KDE.
 
 %package cervisia-devel
-Summary:	A KDE cvs frontend - header files
-Summary(pl):	Frontend CVS pod KDE - pliki nag³ówkowe
-Group:		X11/Development
-Obsoletes:	%{name}-devel
+Summary:	Header files for cervisia, a KDE CVS frontend
+Summary(pl):	Pliki nag³ówkowe cervisii - frontendu do CVS dla KDE
+Group:		X11/Development/Libraries
+Obsoletes:	kdesdk-devel
 
 %description cervisia-devel
-A KDE cvs frontend. This package contains header files.
+A KDE CVS frontend. This package contains header files.
 
 %description cervisia-devel -l pl
-Frontend CVS pod KDE. Ten pakiet zawiera pliki nag³ówkowe.
+Pliki nag³ówkowe cervisii - frontendu do CVS dla KDE.
 
 %package completions-bash
 Summary:	Autocomplete definitions for bash
 Summary(pl):	Definicje autouzupe³niania dla basha
 Group:		Applications/Shells
 Requires:	bash-completion
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description completions-bash
 Autocomplete definitions for bash.
@@ -104,7 +107,7 @@ Summary:	Autocomplete definitions for zsh
 Summary(pl):	Definicje autouzupe³niania dla zsh
 Group:		Applications/Shells
 Requires:	zsh >= 4.0.6-2
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description completions-zsh
 Autocomplete definitions for zsh.
@@ -117,7 +120,7 @@ Summary:	A set of macros for emacs
 Summary(pl):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
 Requires: 	emacs-common
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description emacs
 A set of macros for emacs.
@@ -130,7 +133,7 @@ Summary:	A kdeaccounts plugin for the KDE adressbook
 Summary(pl):	Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts
 Group:		X11/Applications
 Requires:	kdepim-kaddressbook >= 3.0.8
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kaddressbook-kdeaccounts
 A kdeaccounts plugin for the KDE adressbook. What is does is adding
@@ -144,7 +147,7 @@ ona osoby posiadaj±ce konta w CVS KDE do ksi±¿ki adresowej.
 Summary:	KDE application framework generator
 Summary(pl):	Generator szkieletu dla aplikacji KDE
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kapptemplate
 Modular shell script that will automatically create a framework for
@@ -161,7 +164,7 @@ Summary:	An advanced and easy to use PO-file editor
 Summary(pl):	Rozbudowany i ³atwy w obs³udze edytor plików PO
 Group:		X11/Development/Tools
 Requires:	gettext-devel
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kbabel
 KBabel is a tool, that allows easy management, edition and upkeep of
@@ -172,17 +175,16 @@ KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
 utrzymanie plików po.
 
 %package kbabel-devel
-Summary:	Kbabel headers
+Summary:	KBabel header files
 Summary(pl):	Pliki nag³ówkowe KBabel
 Group:		X11/Development
-Requires:	gettext-devel
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kbabel-devel
-KBabel headers.
+KBabel header files.
 
 %description kbabel-devel -l pl
 Pliki nag³ówkowe KBabel.
@@ -191,9 +193,8 @@ Pliki nag³ówkowe KBabel.
 Summary:	A KBabel catalog manager
 Summary(pl):	Zarz±dca zbiorów plików po zintegrowany z KBabel
 Group:		X11/Development
-Requires:	gettext-devel
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kbabel-catalog
 A KBabel catalog manager.
@@ -203,35 +204,34 @@ Zarz±dca zbiorów plików po zintegrowany z KBabel.
 
 %package kbabel-dictionary
 Summary:	Plugin that supports dictionaries made from po compendia
-Summary(pl):	Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
+Summary(pl):	Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po
 Group:		X11/Development
-Requires:	gettext-devel
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kbabel-dictionary
 Plugin that supports dictionaries made from po compendia.
 
 %description kbabel-dictionary -l pl
-Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po.
+Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po.
 
 %package kbugbuster
 Summary:	A tools that allows cooperation with bugs.kde.org
 Summary(pl):	Narzêdzie wspó³pracuj±ce z bugs.kde.org
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kbugbuster
 KBugBuster allows easy bug management on bugs.kde.org.
 
 %description kbugbuster -l pl
-KBugBuster u³atwia wyszukwianie i zarz±dzanie b³êdami na bugs.kde.org.
+KBugBuster u³atwia wyszukiwanie i zarz±dzanie b³êdami na bugs.kde.org.
 
 %package kcachegrind
-Summary:	KCachegrind visualizes traces generated by profiling
-Summary(pl):	KCachegrind wizualizuje ¶cie¿ki tworzone przez profilowanie
+Summary:	KCachegrind - visualization of traces generated by profiling
+Summary(pl):	KCachegrind - wizualizacja ¶cie¿ek tworzonych przez profilowanie
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kcachegrind
 KCachegrind visualizes traces generated by profiling.
@@ -243,20 +243,19 @@ KCachegrind wizualizuje ¶cie¿ki tworzone przez profilowanie.
 Summary:	A mtrace to full backtrace conversion tool
 Summary(pl):	Narzêdzie do konwersji z mtrace do pe³nego backtrace'a
 Group:		X11/Development/Tools
-BuildRequires:	binutils-static
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kmtrace
-Converts glibc's mtrace log into a full backtrace.
+kmtrace converts glibc's mtrace log into a full backtrace.
 
 %description kmtrace -l pl
-Konwertuje mtrace glibca do pe³nego backtrace'a.
+kmtrace konwertuje mtrace glibca do pe³nego backtrace'a.
 
 %package kompare
-Summary:	Kompare is a program to view the differences between files
-Summary(pl):	Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami
+Summary:	Kompare - a program to view the differences between files
+Summary(pl):	Kompare - program s³u¿±cy do porównywania zmian miêdzy plikami
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kompare
 Kompare is a program to view the differences between files. Features
@@ -290,10 +289,10 @@ Aktualnie dostêpne funkcje:
   * statystyki diffów
 
 %package kprofilemethod
-Summary:	Kprofilemethod is a set of macros which help profiling using QTime
-Summary(pl):	Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z wykorzystaniem QTime
+Summary:	Kprofilemethod - a set of macros which help profiling using QTime
+Summary(pl):	Kprofilemethod - zestaw makr u³atwiaj±cych profilowanie z wykorzystaniem QTime
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kprofilemethod
 Kprofilemethod is a set of macros which help profiling using QTime.
@@ -306,9 +305,9 @@ wykorzystaniem QTime.
 Summary:	A utility for egzamining the internal state of a QT/KDE application.
 Summary(pl):	Narzêdzie do badania stanu aplikacji QT/KDE
 Group:		X11/Development/Tools
+Obsoletes:	kdesdk-devel
 Obsoletes:	kdiff
 Obsoletes:	kdiff2
-Obsoletes:	%{name}-devel
 
 %description kspy
 KSpy is a utility intended to help developers examine the internal
@@ -332,7 +331,7 @@ wydaniu stabilnym.
 Summary:	A tool to measure startup time for KDE applications
 Summary(pl):	Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description kstartperf
 kstartperf measures startup time for KDE applications.
@@ -352,37 +351,37 @@ Qt Designer UI file Viewer.
 Przegl±darka plików UI generowanych przez QT designera.
 
 %package pallette-gimp
-Summary:	Adds the KDE Default pallette to GIMP
-Summary(pl):	Dodaje domy¶ln± paletê kolorów KDE do GIMP-a
+Summary:	Package which adds the KDE Default pallette to GIMP
+Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do GIMP-a
 Group:		X11/Applications/Graphics
 Requires:	gimp
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description pallette-gimp
-Adds the KDE Default pallette to GIMP.
+This package adds the KDE Default pallette to GIMP.
 
 %description pallette-gimp -l pl
-Dodaje domy¶ln± paletê kolorów KDE do GIMP-a.
+Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do GIMP-a.
 
 %package pallette-xpaint
-Summary:	Adds the KDE Default pallette to XPaint
-Summary(pl):	Dodaje domy¶ln± paletê kolorów KDE do XPainta
+Summary:	Package which adds the KDE Default pallette to XPaint
+Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta
 Group:		X11/Applications/Graphics
 Requires:	xpaint
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description pallette-xpaint
-Adds the KDE Default pallette to XPaint.
+This package adds the KDE Default pallette to XPaint.
 
 %description pallette-xpaint -l pl
-Dodaje domy¶ln± paletê kolorów KDE do XPainta.
+Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta.
 
 %package po2xml
 Summary:	An xml2po and vice versa converters
 Summary(pl):	Konwertery po2xml i vice versa
 Group:		X11/Development/Tools
 Requires:	/usr/bin/python
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description po2xml
 An xml2po and vice versa converters.
@@ -395,7 +394,7 @@ Summary:	An set of scripts useful for building KDE
 Summary(pl):	Zestaw skryptów do kompilowania KDE
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description scripts-build
 A set of scripts useful for building KDE.
@@ -405,25 +404,25 @@ Zestaw skryptów do kompilowania KDE.
 
 %package scripts-cxxmetric
 Summary:	Statistic meter for c/c++ files
-Summary(pl):	Plik do tworzenia statystyki plików c/c++
+Summary(pl):	Program do tworzenia statystyki plików c/c++
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description scripts-cxxmetric
-Counts lines of code, comments and blank space in C and C++ source
-files.
+This program counts lines of code, comments and blank space in C and
+C++ source files.
 
 %description scripts-cxxmetric -l pl
-Zlicza linijki kodu, komentarzy i znaków bia³ych w plikach ¼ród³owych
-C i C++.
+Ten program zlicza linijki kodu, komentarzy i znaków bia³ych w plikach
+¼ród³owych C i C++.
 
 %package scripts-cvs
 Summary:	A set of scripts for maintaining KDE from CVS
 Summary(pl):	Zestaw skryptów do zarz±dzania KDE z CVS
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description scripts-cvs
 A set of scripts for maintaining KDE from CVS.
@@ -432,24 +431,24 @@ A set of scripts for maintaining KDE from CVS.
 Zestaw skryptów do zarz±dzania KDE z CVS.
 
 %package scripts-doc
-Summary:	A set of scripts for quick access to qt/KDE documentation
-Summary(pl):	Zestaw skryptów szybkiego dostêpu do dokumentacji qt/KDE
+Summary:	A set of scripts for quick access to Qt/KDE documentation
+Summary(pl):	Zestaw skryptów szybkiego dostêpu do dokumentacji Qt/KDE
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description scripts-doc
-A set of scripts for quick access to qt/KDE documentation.
+A set of scripts for quick access to Qt/KDE documentation.
 
 %description scripts-doc -l pl
-Zestaw skryptów szybkiego dostêpu do dokumentacji qt/KDE.
+Zestaw skryptów szybkiego dostêpu do dokumentacji Qt/KDE.
 
 %package scripts-extractrc
-Summary:	Extracts the strings from .rc files
-Summary(pl):	Wyci±ga ³añcuchy z plików .rc
+Summary:	Extracting the strings from .rc files
+Summary(pl):	Wyci±ganie ³añcuchów z plików .rc
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
-Obsoletes:	%{name}-extractrc
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
+Obsoletes:	kdesdk-extractrc
 
 %description scripts-extractrc
 A Perl script, it extracts the strings in an application's .rc file,
@@ -476,7 +475,7 @@ Skrypt do wyszukiwania brakuj±cych ikon z tematu crystal.
 Summary:	A script for killing KDE apps started with kdeinit
 Summary(pl):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description scripts-kdekillall
 A script for killing KDE apps started with kdeinit.
@@ -488,7 +487,7 @@ Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit.
 Summary:	A kdelnk to desktop converter
 Summary(pl):	Konwerter plików kdelnk na desktop
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description scripts-kdelnk2desktop
 A kdelnk to desktop converter.
@@ -502,7 +501,7 @@ Summary(pl):	Konwerter plików zone.tab na .pot
 Group:		X11/Development/Tools
 Requires:	/usr/bin/python
 Requires:	gettext-devel
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description scripts-zonetab2pot
 This script reads timezone list as its first argument or from
@@ -516,7 +515,7 @@ Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
 Summary:	KDE Style - Scheck
 Summary(pl):	Motyw KDE - Scheck
 Group:		X11/Development
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description scheck
 Development style for searching accelerator and style guide conflicts.
@@ -528,7 +527,7 @@ Motyw KDE przeznaczony do szukania konfliktów w oprogramowaniu.
 Summary:	UML Modeler
 Summary(pl):	Modeler UML
 Group:		X11/Development/Tools
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description umbrello
 UML Modeler.
@@ -541,7 +540,7 @@ Summary:	A set of macros for xemacs
 Summary(pl):	Zestaw makr do xemacsa
 Group:		X11/Development/Tools
 Requires: 	xemacs-common
-Obsoletes:	%{name}-devel
+Obsoletes:	kdesdk-devel
 
 %description xemacs
 A set of macros for xemacs.
@@ -549,10 +548,22 @@ A set of macros for xemacs.
 %description xemacs -l pl
 Zestaw makr do xemacsa.
 
+%package i18n
+Summary:	Common internationalization and localization files for kdesdk
+Summary(pl):	Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdesdk
+Group:		X11/Applications
+Requires:	kdelibs-i18n >= 9:%{version}
+
+%description i18n
+Common internationalization and localization files for kdesdk.
+
+%description i18n -l pl
+Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdesdk.
+
 %package kfile-i18n
 Summary:	Internationalization and localization files for kfile
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfile
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kfile = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	konqueror-i18n >= 9:%{version}
@@ -560,140 +571,125 @@ Requires:	konqueror-i18n >= 9:%{version}
 %description kfile-i18n
 Internationalization and localization files for kfile.
 
-%description -l pl kfile-i18n
+%description kfile-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kfile.
-
 
 %package cervisia-i18n
 Summary:	Internationalization and localization files for cervisia
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla cervisia
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla cervisii
+Group:		X11/Applications
 Requires:	%{name}-cervisia = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description cervisia-i18n
 Internationalization and localization files for cervisia.
 
-%description -l pl cervisia-i18n
-Pliki umiêdzynarodawiaj±ce dla cervisia.
+%description cervisia-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla cervisii.
 
 %package kbabel-i18n
 Summary:	Internationalization and localization files for kbabel
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbabel
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description kbabel-i18n
 Internationalization and localization files for kbabel.
 
-%description -l pl kbabel-i18n
+%description kbabel-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kbabel.
 
 %package kbugbuster-i18n
 Summary:	Internationalization and localization files for kbugbuster
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbugbuster
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbugbustera
+Group:		X11/Applications
 Requires:	%{name}-kbugbuster = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description kbugbuster-i18n
 Internationalization and localization files for kbugbuster.
 
-%description -l pl kbugbuster-i18n
-Pliki umiêdzynarodawiaj±ce dla kbugbuster.
+%description kbugbuster-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kbugbustera.
 
 %package kcachegrind-i18n
 Summary:	Internationalization and localization files for kcachegrind
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kcachegrind
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kcachegrinda
+Group:		X11/Applications
 Requires:	%{name}-kcachegrind = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description kcachegrind-i18n
 Internationalization and localization files for kcachegrind.
 
-%description -l pl kcachegrind-i18n
-Pliki umiêdzynarodawiaj±ce dla kcachegrind.
+%description kcachegrind-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kcachegrinda.
 
 %package kompare-i18n
 Summary:	Internationalization and localization files for kompare
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kompare
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kompare = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description kompare-i18n
 Internationalization and localization files for kompare.
 
-%description -l pl kompare-i18n
+%description kompare-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kompare.
-
-%package i18n
-Summary:	Common internationalization and localization files for kdesdk
-Summary(pl):	Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdesdk
-Group:	X11/Applications
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description i18n
-Common internationalization and localization files for kdesdk.
-
-%description -l pl i18n
-Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdesdk.
-
 
 %package kfilereplace-i18n
 Summary:	Internationalization and localization files for kfilereplace
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfilereplace
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kfilereplace = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description kfilereplace-i18n
 Internationalization and localization files for kfilereplace.
 
-%description -l pl kfilereplace-i18n
+%description kfilereplace-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kfilereplace.
 
 %package kstartperf-i18n
 Summary:	Internationalization and localization files for kstartperf
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kstartperf
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kstartperfa
+Group:		X11/Applications
 Requires:	%{name}-kstartperf = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description kstartperf-i18n
 Internationalization and localization files for kstartperf.
 
-%description -l pl kstartperf-i18n
-Pliki umiêdzynarodawiaj±ce dla kstartperf.
+%description kstartperf-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kstartperfa.
 
 %package kuiviewer-i18n
 Summary:	Internationalization and localization files for kuiviewer
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kuiviewer
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kuiviewera
+Group:		X11/Applications
 Requires:	%{name}-kuiviewer = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description kuiviewer-i18n
 Internationalization and localization files for kuiviewer.
 
-%description -l pl kuiviewer-i18n
-Pliki umiêdzynarodawiaj±ce dla kuiviewer.
+%description kuiviewer-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kuiviewera.
 
 %package spy-i18n
 Summary:	Internationalization and localization files for spy
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla spy
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-spy = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description spy-i18n
 Internationalization and localization files for spy.
 
-%description -l pl spy-i18n
+%description spy-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla spy.
-
 
 %prep
 %setup -q 
@@ -719,17 +715,18 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
-%{__make} -C kstartperf install DESTDIR=$RPM_BUILD_ROOT
+%{__make} -C kstartperf install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde} \
+install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefsdir},%{_emacspkgdir}/kde} \
 	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
 
-install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes/
-cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
+install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
+cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
 cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
-cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
+cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
 cd $RPM_BUILD_ROOT
 rm -rf `find . -name CVS`
@@ -747,7 +744,6 @@ else
 	echo "No i18n sources found and building --with i18n. FIXIT!"
 	exit 1
 fi
-
 %endif
 
 %find_lang	cervisia	--with-kde
@@ -816,20 +812,18 @@ rm -rf $RPM_BUILD_ROOT
 %postun	umbrello		-p /sbin/ldconfig
 
 %if %{with i18n}
+%files i18n -f desktop_kdesdk.lang
 %files kfile-i18n -f kfile.lang
 %files cervisia-i18n -f cervisia.lang
 %files kbabel-i18n -f kbabel.lang
 %files kbugbuster-i18n -f kbugbuster.lang
 %files kcachegrind-i18n -f kcachegrind.lang
 %files kompare-i18n -f kompare.lang
-%files i18n -f desktop_kdesdk.lang
 %files kfilereplace-i18n -f kfilereplace.lang
 %files kstartperf-i18n -f kstartperf.lang
 %files kuiviewer-i18n -f kuiviewer.lang
 %files spy-i18n -f spy.lang
-
 %endif
-
 
 %files kfile
 %defattr(644,root,root,755)
@@ -859,14 +853,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/cervisia*
 
 %files cervisia-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libcvsservice.so
 %{_includedir}/cvsjob_stub.h
 %{_includedir}/cvsservice_stub.h
 %{_includedir}/repository_stub.h
-%{_libdir}/libcvsservice.so
 
 %files completions-bash
 %defattr(644,root,root,755)
-%{_sysconfdir}/bash_completion.d
+%{_sysconfdir}/bash_completion.d/*
 
 %files completions-zsh
 %defattr(644,root,root,755)
@@ -926,9 +921,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kbabel-devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libkbabelcommon.so
+%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so
 %{_includedir}/kbabel
-%{_libdir}/libkbabelcommon.so
-%{_libdir}/libkbabeldictplugin.so
 
 %files kbabel-catalog
 %defattr(644,root,root,755)
@@ -1037,7 +1032,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files pallette-xpaint
 %defattr(644,root,root,755)
-%{_appdefdir}
+%{_appdefsdir}/*
 
 %files po2xml
 %defattr(644,root,root,755)
