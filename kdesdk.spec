@@ -23,6 +23,8 @@ Requires:	gettext-devel
 # kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
 Requires:	kdelibs = %{version}
 Requires:	%{name}-extractrc = %{version}
+Provides:	kbabel
+Provides:	kless
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kbabel
 Obsoletes:	kless
