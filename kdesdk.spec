@@ -6,7 +6,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -716,9 +716,17 @@ Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 %patch100 -p1
 %patch0 -p1
 %patch1 -p1 
-
 echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/dialogs/Makefile.am
 echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/classparser/Makefile.am
+
+for f in `find . -name *.desktop | xargs grep -l '^Terminal=0'`; do
+	%{__sed} -i -e 's/^Terminal=0/Terminal=false/' $f
+done
+for f in `find . -name *.desktop | xargs grep -l '^Type=Application'`; do
+	if ! grep '^Encoding=' $f >/dev/null; then
+		%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' $f
+	fi
+done
 
 %ifarch amd64
 %{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/configure.in.in
