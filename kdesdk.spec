@@ -635,6 +635,10 @@ Zestaw makr do xemacsa.
 echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/dialogs/Makefile.am
 echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/classparser/Makefile.am
 
+%ifarch amd64
+%{__sed} -i -e "s,lib,lib64,g" kmtrace/configure.in.in
+%endif
+
 %build
 cp -f %{_datadir}/automake/config.sub admin
 export kde_htmldir=%{_kdedocdir}
