@@ -3,20 +3,20 @@
 #   * installing emacs and shell advancements
 
 %define         _state          unstable
-%define         _kdever         kde-3.1-beta2
+%define         _kdever         kde-3.1-rc2
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.0.8
-Release:	3
+Version:	3.0.98
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-Patch0:		%{name}-kbabel_am.patch
+#Patch0:		%{name}-kbabel_am.patch
 BuildRequires:	bison
 BuildRequires:	db2-devel
 BuildRequires:	db4-devel
@@ -406,7 +406,7 @@ Zestaw makr do xemacs.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
