@@ -20,21 +20,19 @@ Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
 BuildRequires:	automake
 BuildRequires:	bison
+BuildRequires:	db-devel
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel >= %{_minbaseevr}
 BuildRequires:	kdepim-devel >= 3:3.3.1
 BuildRequires:	libltdl-devel
+BuildRequires:	perl-tools-pod
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
-BuildRequires:	db-devel
 BuildRequires:	subversion-devel
-BuildRequires:	perl-tools-pod
 #BuildRequires:	unsermake >= 040511
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
-Obsoletes:	kdesdk
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gimpdir	%(gimptool --gimpdatadir 2>/dev/null)
