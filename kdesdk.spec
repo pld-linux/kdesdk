@@ -3,7 +3,7 @@
 #   * separate aplications do subpackages
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		1
+%define		_rel		1.1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -31,6 +31,8 @@ BuildRequires:	db4-devel
 BuildRequires:	binutils-static
 Requires:	kdelibs = %{version}
 Requires:	%{name}-extractrc = %{version}
+# required by kbabel:
+Requires:	gettext-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
