@@ -4,7 +4,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040414
+%define		_snap		040506
 #
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -17,7 +17,7 @@ Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 #Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
 Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	583d78b653a752632338d77ce3da3ac0
+# Source0-md5:	dcdb8ca2f0855b415138e09bc3965106
 #Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 ##%% Source1-md5:        26387c5679d77b57788f0d01be6f6fed
 URL:		http://www.kde.org/
