@@ -1,24 +1,24 @@
 
 %define         _state          snapshots
-%define         _ver		3.2
-%define		_snap		030613
+%define         _ver		3.1.90
+%define		_snap		030618
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	%{_ver}
-Release:	0.%{_snap}.1
-Epoch:		2
+Version:	%{_ver}.%{_snap}
+Release:	1
+Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	4a46d5d8f134a9105518279c33c0fd69
+# Source0-md5:	9ed6881ad44388d4dbe497ab906357ba
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
-BuildRequires:	kdebase-devel = %{version}
+BuildRequires:	kdebase-devel >= %{version}
 BuildRequires:	libltdl-devel
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -164,9 +164,9 @@ Summary:        Kbabel headers
 Summary(pl):    Pliki nag³ówkowe KBabel
 Group:          X11/Development
 Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{version}
-Requires:       %{name}-kbabel-catalog = %{version}
-Requires:       %{name}-kbabel-dictionary = %{version}
+Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kbabel-catalog = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kbabel-dictionary = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-devel
 
 %description kbabel-devel
@@ -180,7 +180,7 @@ Summary:        Plugin that supports dictionaries made from po compendia
 Summary(pl):    Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
 Group:          X11/Development
 Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{version}
+Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-devel
 
 %description kbabel-dictionary
@@ -194,7 +194,7 @@ Summary:        A KBabel catalog manager
 Summary(pl):    Zarz±dca zbiorów plików po zintegrowany z KBabel
 Group:          X11/Development
 Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{version}
+Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-devel
 
 %description kbabel-catalog
