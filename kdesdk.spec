@@ -2,7 +2,7 @@
 #   * scripts from scripts/ subdirectory are not installed.
 %define		_ver		3.0.1
 #define		_sub_ver
-%define		_rel		1
+%define		_rel		2
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -91,12 +91,23 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 gzip -9fn README
 
 %find_lang cervisia --with-kde
+%find_lang gideon --with-kde
 %find_lang kbabel --with-kde
+%find_lang kbabeldict --with-kde
+%find_lang kbugbuster --with-kde
+%find_lang kompare --with-kde
+%find_lang spy --with-kde
 
-cat {cervisia,kbabel}.lang > kdesdk.lang
+cat {cervisia,gideon,kbabel,kbabeldict,kbugbuster,kompare,spy}.lang > kdesdk.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+/sbin/ldconfig
+
+%postun
+/sbin/ldconfig
 
 %files -f kdesdk.lang
 %defattr(644,root,root,755)
