@@ -149,8 +149,8 @@ Requires:	kdepim-kaddressbook >= 3.0.8
 Obsoletes:	kaddressbook-kdeaccounts
 
 %description kde-resource-kdeaccounts
-A kdeaccounts plugin for the KDE adressbook. It allows adding
-the people from KDE's CVS accounts file to the addressbook.
+A kdeaccounts plugin for the KDE adressbook. It allows adding the
+people from KDE's CVS accounts file to the addressbook.
 
 %description kde-resource-kdeaccounts -l pl
 Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts. Dodaje
@@ -524,23 +524,24 @@ Obsoletes:	kdesdk-scripts-misc
 
 %description scripts-developer
 This package contains:
-- script that extracts strings in an application's .rc file,
-  e.g. testappui.rc, and writes into the pot file
-- script that counts lines of code, comments and blank space in C
-  and C++ source files
+- script that extracts strings in an application's .rc file, e.g.
+  testappui.rc, and writes into the pot file
+- script that counts lines of code, comments and blank space in C and
+  C++ source files
 - script for finding missing and packaging crystal icons.
 - kdelnk to desktop and zonetab2pot converter
 - set of kde-build scripts
 - set of scripts that allow more comfortable profiling of KDE apps
-- set of scripts to fix licence header/kde includes directives and strip irrelevant tags from .ui files
+- set of scripts to fix licence header/kde includes directives and
+  strip irrelevant tags from .ui files
 - kde man pages generator
 - multi-frame png to mng converter
 
 %description scripts-developer -l pl
 Ten pakiet zawiera:
-- skrypt, który wyci±ga ³añcuchy z plików .rc
-  aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
-  tworzy siê t³umaczenia (pliki po)
+- skrypt, który wyci±ga ³añcuchy z plików .rc aplikacji, np.
+  testappgui.rc i zapisuje je do plików pot, z których tworzy siê
+  t³umaczenia (pliki po)
 - skrypt zliczaj±cy linijki kodu, komentarzy i znaków bia³ych w
   plikach ¼ród³owych C i C++
 - skrypt do wyszukiwania brakuj±cych ikon z tematu crystal.
@@ -713,7 +714,7 @@ export kde_htmldir=%{_kdedocdir}
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT *.lang
+rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -836,6 +837,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files kde-resource-bugzilla
+%defattr(644,root,root,755)
 %{_libdir}/kde3/kcal_bugzilla.la
 %attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
 %{_datadir}/services/kresources/kcal/bugzilla.desktop
