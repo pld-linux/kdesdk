@@ -735,7 +735,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/cvs*
 %attr(755,root,root) %{_bindir}/noncvslist
 %attr(755,root,root) %{_bindir}/pruneemptydirs
-%{_mandir}/man1/*cvs*
 %{_mandir}/man1/cvs*
 %{_mandir}/man1/pruneemptydirs.*
 
