@@ -4,7 +4,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040216
+%define		_snap		040220
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -1009,6 +1009,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kbugbuster -f kbugbuster_en.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
+%{_libdir}/kde3/kcal_bugzilla.la
+%attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
 %{_datadir}/apps/kbugbuster
 %{_desktopdir}/kde/kbugbuster.desktop
 %{_iconsdir}/[!l]*/*/*/kbugbuster.png
