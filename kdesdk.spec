@@ -3,7 +3,7 @@
 #   * separate aplications do subpackages
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		0.1
+%define		_rel		1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -107,15 +107,17 @@ rm -rf $RPM_BUILD_ROOT
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-%find_lang cervisia --with-kde
-%find_lang gideon --with-kde
-%find_lang kbabel --with-kde
-%find_lang kbabeldict --with-kde
-%find_lang kbugbuster --with-kde
-%find_lang kompare --with-kde
-%find_lang spy --with-kde
+%find_lang cervisia	--with-kde
+%find_lang gideon	--with-kde
+%find_lang kbabel	--with-kde
+%find_lang kbabeldict	--with-kde
+%find_lang kbugbuster	--with-kde
+%find_lang kdevtipofday	--with-kde
+%find_lang kompare	--with-kde
+%find_lang kstartperf	--with-kde
+%find_lang spy		--with-kde
 
-cat {cervisia,gideon,kbabel,kbabeldict,kbugbuster,kompare,spy}.lang > kdesdk.lang
+cat {cervisia,gideon,kbabel,kbabeldict,kbugbuster,kdevtipofday,kompare,kstartperf,spy}.lang > kdesdk.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
