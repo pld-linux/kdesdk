@@ -9,7 +9,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.0.99
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -72,6 +72,30 @@ A KDE cvs frontend.
 
 %description cervisia -l pl
 Frontend CVS pod KDE.
+
+%package completions-bash
+Summary:        Autocomplete definitions for bash.
+Summary(pl):    Definicje autouzupe³niania dla basha.
+Group:		Applications/Shells
+Requires:	bash-completion
+
+%description completions-bash
+Autocomplete definitions for bash.
+
+%description completions-bash -l pl
+Definicje autouzupe³niania dla basha.
+
+%package completions-zsh
+Summary:        Autocomplete definitions for zsh.
+Summary(pl):    Definicje autouzupe³niania dla zsh.
+Group:          Applications/Shells
+Requires:       zsh >= 4.0.6-2
+
+%description completions-zsh
+Autocomplete definitions for zsh.
+
+%description completions-zsh -l pl
+Definicje autouzupe³niania dla zsh.
 
 %package emacs
 Summary:	A set of macros for emacs
@@ -392,6 +416,23 @@ A kdelnk to desktop converter.
 %description scripts-kdelnk2desktop -l pl
 Konwerter plików kdelnk na desktop.
 
+%package scripts-zonetab2pot
+Summary:        A zone.tab to .pot converter.
+Summary(pl):    Konwerter plików zone.tab na .pot
+Group:          X11/Development/Tools
+Requires:	/usr/bin/python
+Requires:	gettext-devel
+
+%description scripts-zonetab2pot
+This script reads timezone list as its first argument
+or from /usr/share/zoneinfo/zone.tab, and converts it
+to a PO file template.
+
+%description scripts-zonetab2pot -l pl
+Ten skrypt wczytuje listê stref czasowych z linii 
+poleceñ lub pliku /usr/share/zoneinfo/zone.tab i konwertuje je
+na plik POT.
+
 %package xemacs
 Summary:	A set of macros for xemacs
 Summary(pl):	Zestaw makr do xemacs.
@@ -403,6 +444,7 @@ A set of macros for xemacs
 
 %description xemacs -l pl
 Zestaw makr do xemacs.
+
 
 %prep
 %setup -q
@@ -440,21 +482,31 @@ cd ..
 cd kbugbuster
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 cd ..
+rm -rf `find . -name CVS`
 
 install -d $RPM_BUILD_ROOT/%{_libdir}/X11/
 install -d $RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults
 install -d $RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/
+install -d $RPM_BUILD_ROOT/%{_usr}/share/zsh/
+install -d $RPM_BUILD_ROOT/%{_usr}/share/zsh/latest
+install -d $RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/functions
 install -d $RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/kde
 install -d $RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/
 install -d $RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
 install -d $RPM_BUILD_ROOT/%{_datadir}/gimp
 install -d $RPM_BUILD_ROOT/%{_datadir}/gimp/1.2
 install -d $RPM_BUILD_ROOT/%{_datadir}/gimp/1.2/palettes
+install -d $RPM_BUILD_ROOT/%{_sysconfdir}
+install -d $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d
+
+
 
 install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT/%{_datadir}/gimp/1.2/palettes/
 cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults/XPaint.kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
+cp ./scripts/completions/bash/* $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d/
+cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/functions
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
@@ -493,6 +545,14 @@ cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
 %{_datadir}/apps/cervisia*
 %{_pixmapsdir}/*/*/*/cervisia.png
 %{_applnkdir}/Development/cervisia.desktop
+
+%files completions-bash
+%defattr(644,root,root,755)
+%{_sysconfdir}/bash_completion.d
+
+%files completions-zsh
+%defattr(644,root,root,755)
+%{_usr}/share/zsh/latest/functions
 
 %files emacs
 %defattr(644,root,root,755)
@@ -567,7 +627,7 @@ cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
 %attr(755,root,root) %{_libdir}/kde3/libkompare*
 %attr(755,root,root) %{_libdir}/libdiff*
 %{_datadir}/apps/kompare*
-%{_datadir}/services/kompare*
+%{_datadir}/service*/kompare*
 %{_pixmapsdir}/*/*/*/kompare.png
 %{_applnkdir}/Development/kompare.desktop
 
@@ -642,6 +702,10 @@ cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
 %files scripts-kdelnk2desktop
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdelnk2desktop.py
+
+%files scripts-zonetab2pot
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/zonetab2pot.py
 
 %files xemacs
 %defattr(644,root,root,755)
