@@ -15,6 +15,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-kmtrace_glibc23.patch
+Patch1:		%{name}-am.patch
 URL:		http://www.kde.org/
 BuildRequires:	bison
 BuildRequires:	ed
@@ -628,6 +629,11 @@ Zestaw makr do xemacsa.
 %prep
 %setup -q
 %patch100 -p1
+%patch0 -p1
+%patch1 -p1 
+
+echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/dialogs/Makefile.am
+echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/classparser/Makefile.am
 
 %build
 cp -f %{_datadir}/automake/config.sub admin
@@ -859,10 +865,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libktrace*.so*
 %{_includedir}/ktrace.h
 %{_datadir}/apps/kmtrace
-%{_mandir}/man1/demangle.1*
-%{_mandir}/man1/kminspector.1*
-%{_mandir}/man1/kmmatch.1*
-%{_mandir}/man1/kmtrace.1*
+##%{_mandir}/man1/demangle.1*
+##%{_mandir}/man1/kminspector.1*
+##%{_mandir}/man1/kmmatch.1*
+##%{_mandir}/man1/kmtrace.1*
 
 %files kompare
 %defattr(644,root,root,755)
@@ -1027,6 +1033,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/umbrello.desktop
 %{_iconsdir}/hicolor/*/apps/umbrello.png
 %{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
+%{_iconsdir}/crystalsvg/*/*/umbrello*.*
 %{_mandir}/man1/umbrello.1*
 %{_kdedocdir}/en/umbrello
 
