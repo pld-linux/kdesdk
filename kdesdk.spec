@@ -23,6 +23,7 @@ BuildRequires:	kdebase-devel = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
+%define		_gimpdir	/usr/share/gimp/1.3
 
 %description
 Software Development Kit for KDE.
@@ -456,19 +457,19 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -rf `find . -name CVS`
 
+install -d $RPM_BUILD_ROOT/%{_gimpdir}/palettes
 install -d $RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults
-install -d $RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/functions
-install -d $RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/kde
-install -d $RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
-install -d $RPM_BUILD_ROOT/%{_datadir}/gimp/1.3/palettes
+install -d $RPM_BUILD_ROOT/%{_datadir}/emacs-packages/kde
+install -d $RPM_BUILD_ROOT/%{_datadir}/xemacs-packages/kde
+install -d $RPM_BUILD_ROOT/%{_datadir}/zsh/latest/functions
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d
 
-install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT/%{_datadir}/gimp/1.3/palettes/
+install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT/%{_gimpdir}/palettes/
 cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults/XPaint.kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
+cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_datadir}/emacs-packages/kde
+cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_datadir}/xemacs-packages/kde
+cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_datadir}/zsh/latest/functions
 cp ./scripts/completions/bash/* $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d/
-cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/functions
 
 cd $RPM_BUILD_ROOT%{_pixmapsdir}
 mv {locolor,crystalsvg}/32x32/apps/kbugbuster.png
@@ -632,7 +633,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files pallette-gimp
 %defattr(644,root,root,755)
-%{_datadir}/gimp/1.3/palettes
+%{_gimpdir}/palettes
 
 %files pallette-xpaint
 %defattr(644,root,root,755)
