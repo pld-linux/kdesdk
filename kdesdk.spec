@@ -3,7 +3,7 @@
 %define		_state		snapshots
 %define		_ver		3.2.91
 %define		_snap		040702
-%define		_packager	adgor
+%define		_packager	djurban
 
 %define		_minlibsevr	9:3.2.90.040524
 %define		_minbaseevr	9:3.2.90.040524
