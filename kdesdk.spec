@@ -2,17 +2,17 @@
 
 
 %define         _state          stable
-%define         _kdever         3.1
+%define         _ver		3.1
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.1
+Version:	%{_ver}
 Release:	3
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 #Patch0:		%{name}-kbabel_am.patch
