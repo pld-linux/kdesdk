@@ -1,8 +1,9 @@
 # TODO:
 #   * scripts from scripts/ subdirectory are not installed.
+#   * separate aplications do subpackages
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		0.6
+%define		_rel		0.7
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
