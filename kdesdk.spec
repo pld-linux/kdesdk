@@ -14,6 +14,8 @@ BuildRequires:	db2-devel
 # kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
 BuildRequires:	binutils-static
 Requires:	kdelibs = %{version}
+Obsoletes:	kbabel
+Obsoletes:	kless
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
