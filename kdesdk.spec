@@ -4,8 +4,8 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040220
-
+%define		_snap		040414
+#
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
@@ -15,8 +15,9 @@ Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
-##%% Source0-md5:	170baf93150c231605bec047d49d0742
+#Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
+Source0:	%{name}-%{_snap}.tar.bz2
+# Source0-md5:	583d78b653a752632338d77ce3da3ac0
 #Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 ##%% Source1-md5:        26387c5679d77b57788f0d01be6f6fed
 URL:		http://www.kde.org/
@@ -1009,8 +1010,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kbugbuster -f kbugbuster_en.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
-%{_libdir}/kde3/kcal_bugzilla.la
-%attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
+#%{_libdir}/kde3/kcal_bugzilla.la
+#%attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
 %{_datadir}/apps/kbugbuster
 %{_desktopdir}/kde/kbugbuster.desktop
 %{_iconsdir}/[!l]*/*/*/kbugbuster.png
