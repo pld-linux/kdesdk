@@ -1,7 +1,7 @@
 
 %define         _state          snapshots
-%define         _ver		3.1.92
-%define		_snap		031024
+%define         _ver		3.1.93
+%define		_snap		031105
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -13,13 +13,14 @@ License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	8e617a1c28ae74ee58d2860ea1a78fe7
+# Source0-md5:	6356b7ea32fb947332887e4bd96ecb85
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel >= 9:%{version}
 BuildRequires:	libltdl-devel
+BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
@@ -448,6 +449,17 @@ Skrypt napisany w Perlu, który wyci±ga ³añcuchy z plików .rc
 aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
 tworzy siê t³umaczenia (pliki po).
 
+%package scripts-findmissingcrystal
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Development/Tools
+
+%description scripts-findmissingcrystal
+TODO.
+
+%description scripts-findmissingcrystal -l pl
+TODO.
+
 %package scripts-kdekillall
 Summary:	A script for killing KDE apps started with kdeinit
 Summary(pl):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
@@ -536,7 +548,9 @@ done
 
 %{__make} -f admin/Makefile.common cvs
 
-%configure
+%configure \
+	--disable-rpath \
+	--enable-final
 
 %{__make}
 
@@ -544,16 +558,15 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde} \
-	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_docdir}/kde/HTML
+	kde_htmldir=%{_kdedocdir}
 
 %{__make} -C kstartperf install DESTDIR=$RPM_BUILD_ROOT
 
-install cervisia/cvsservice/cvs{askpass,service} $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde} \
+	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
 
 install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes/
 cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
@@ -676,6 +689,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kbabel_linguist_import.desktop
 %{_datadir}/services/kbabel_nottranslatedtool.desktop
 %{_datadir}/services/kbabel_pluralformstool.desktop
+%{_datadir}/services/kbabel_punctuationtool.desktop
 %{_datadir}/services/kbabel_setfuzzytool.desktop
 %{_datadir}/services/kbabel_whitespacetool.desktop
 %{_datadir}/services/kbabel_xmltool.desktop
@@ -837,6 +851,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/pruneemptydirs
 %{_mandir}/man1/*cvs*
 
+%files scripts-cxxmetric
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/cxxmetric
+
 %files scripts-doc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/qtdoc
@@ -846,9 +864,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/extractrc
 
-%files scripts-cxxmetric
+%files scripts-findmissingcrystal
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/cxxmetric
+%attr(755,root,root) %{_bindir}/findmissingcrystal
 
 %files scripts-kdekillall
 %defattr(644,root,root,755)
@@ -865,9 +883,9 @@ rm -rf $RPM_BUILD_ROOT
 %files umbrello -f umbrello.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/umbrello
-%{_libdir}/libcodegenerator.la
-%{_libdir}/libcodegenerator.so
-%attr(755,root,root) %{_libdir}/libcodegenerator.so.*.*.*
+#%{_libdir}/libcodegenerator.la
+#%{_libdir}/libcodegenerator.so
+#%attr(755,root,root) %{_libdir}/libcodegenerator.so.*.*.*
 #%{_libdir}/kde3/libumlwidgets.la
 #%attr(755,root,root) %{_libdir}/kde3/libumlwidgets.so*
 %{_datadir}/apps/umbrello
