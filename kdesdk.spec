@@ -1,5 +1,6 @@
-# TODO:
-
+#
+# _with_dbsearchengine	Dictionary plugin "Translation Database"
+#			for KBabel will be built.
 
 %define         _state          stable
 %define         _ver		3.1
@@ -8,26 +9,18 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	3
+Release:	5
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-#Patch0:		%{name}-kbabel_am.patch
 BuildRequires:	bison
-BuildRequires:	db2-devel
-BuildRequires:	db-devel >= 4.1.25-1
+%{?_with_dbsearchengine:BuildRequires:	db2-devel}
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel = %{version}
-# required by kbabel:
-#Requires:	gettext-devel
-# kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
-#Requires:	kdelibs = %{version}
-#Requires:	%{name}-extractrc = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
 
 %define		_htmldir	/usr/share/doc/kde/HTML
 
@@ -36,17 +29,6 @@ Software Development Kit for KDE.
 
 %description -l pl
 Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
-
-%package devel
-Summary:	Header files for kdesdk
-Summary(pl):	Pliki nag³ówkowe dla kdesdk
-Group:		X11/Development/Libraries
-
-%description devel
-Header files for kdesdk.
-
-%description devel -l pl
-Pliki nag³ówkowe dla kdesdk.
 
 %package static
 Summary:	Static libraries for kdesdk
@@ -297,7 +279,7 @@ Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
 Summary:        Adds the KDE Default pallette to GIMP
 Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do GIMPa
 Group:          X11/Applications/Graphics
-Requires:	gimp >= 1.2
+Requires:	gimp >= 1.3
 
 %description pallette-gimp
 Adds the KDE Default pallette to GIMP
@@ -457,47 +439,30 @@ if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
 fi
 
 %configure \
-	--enable-nls \
-	--with-db-name=db4 \
-	--enable-final
-
+	--enable-final \
+	--enable-nls
+	
 %{__make}
 
-cd kstartperf
-%{__make}
-cd ../kbugbuster
-%{__make}
-cd ..
+%{__make} -C kstartperf
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 
-cd kstartperf
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
-cd ..
-cd kbugbuster
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
-cd ..
+%{__make} -C kstartperf install DESTDIR="$RPM_BUILD_ROOT"
+
 rm -rf `find . -name CVS`
 
-install -d $RPM_BUILD_ROOT/%{_libdir}/X11/
 install -d $RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults
-install -d $RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/
-install -d $RPM_BUILD_ROOT/%{_usr}/share/zsh/
-install -d $RPM_BUILD_ROOT/%{_usr}/share/zsh/latest
 install -d $RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/functions
 install -d $RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/kde
-install -d $RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/
 install -d $RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
-install -d $RPM_BUILD_ROOT/%{_datadir}/gimp
-install -d $RPM_BUILD_ROOT/%{_datadir}/gimp/1.2
-install -d $RPM_BUILD_ROOT/%{_datadir}/gimp/1.2/palettes
-install -d $RPM_BUILD_ROOT/%{_sysconfdir}
+install -d $RPM_BUILD_ROOT/%{_datadir}/gimp/1.3/palettes
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d
 
-install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT/%{_datadir}/gimp/1.2/palettes/
+install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT/%{_datadir}/gimp/1.3/palettes/
 cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults/XPaint.kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
@@ -515,7 +480,7 @@ cd -
 %find_lang	kompare		--with-kde
 
 %clean
-%{!?_without_clean:rm -rf $RPM_BUILD_ROOT}
+rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/ldconfig
@@ -526,8 +491,8 @@ cd -
 %files 
 %defattr(644,root,root,755)
 %doc README
-%attr(755,root,root) %{_libdir}/kde3/kfile_c*
-%attr(755,root,root) %{_libdir}/kde3/kfile_d*
+%{_libdir}/kde3/kfile_[!p]*.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_[!p]*.so
 %{_datadir}/mimelnk
 %{_datadir}/services/kfile_c*
 %{_datadir}/services/kfile_d*
@@ -541,7 +506,8 @@ cd -
 %files cervisia -f cervisia.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cervisia
-%attr(755,root,root) %{_libdir}/libcervisia*
+%{_libdir}/libcervisia.la
+%attr(755,root,root) %{_libdir}/libcervisia.so*
 %{_mandir}/man1/cervisia*
 %{_datadir}/apps/cervisia*
 %{_applnkdir}/Development/cervisia.desktop
@@ -569,16 +535,21 @@ cd -
 
 %files kaddressbook-kdeaccounts
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde3/kabc*
+%{_libdir}/kde3/kabcformat_kdeaccounts.la
+%attr(755,root,root) %{_libdir}/kde3/kabcformat_kdeaccounts.so
 %{_datadir}/apps/kabc/formats/*
 
 %files kbabel -f kbabel.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabel
-%attr(755,root,root) %{_libdir}/libkbabelcommon*
-%attr(755,root,root) %{_libdir}/libkbabel.*
-%attr(755,root,root) %{_libdir}/kde3/kfile_po.*
-%attr(755,root,root) %{_libdir}/kde3/pothumbnail*
+%{_libdir}/libkbabelcommon.la
+%attr(755,root,root) %{_libdir}/libkbabelcommon.so*
+%{_libdir}/libkbabel.la
+%attr(755,root,root) %{_libdir}/libkbabel.so*
+%{_libdir}/kde3/kfile_po.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_po.so
+%{_libdir}/kde3/pothumbnail.la
+%attr(755,root,root) %{_libdir}/kde3/pothumbnail.so
 %{_datadir}/apps/kbabel
 %{_datadir}/services/*po*
 %{_applnkdir}/Development/kbabel.desktop
@@ -587,10 +558,12 @@ cd -
 %files kbabel-catalog
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/catalogmanager
-%attr(755,root,root) %{_libdir}/libcatalog*
-%attr(755,root,root) %{_libdir}/kde3/libpoaux*
-%attr(755,root,root) %{_libdir}/kde3/libpocomp*
-%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.*
+%{_libdir}/libcatalogmanager.la
+%attr(755,root,root) %{_libdir}/libcatalogmanager.so*
+%{_libdir}/kde3/libpoauxiliary.la
+%attr(755,root,root) %{_libdir}/kde3/libpoauxiliary.so
+%{_libdir}/kde3/libpocompendium.la
+%attr(755,root,root) %{_libdir}/kde3/libpocompendium.so
 %{_datadir}/apps/catalogmanager
 %{_applnkdir}/Development/catalogmanager.desktop
 %{_pixmapsdir}/[!l]*/*/*/catalogmanager.png
@@ -598,7 +571,12 @@ cd -
 %files kbabel-dictionary
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabeldict
-%attr(755,root,root) %{_libdir}/libkbabeldict*
+%if %{?_with_dbsearchengine:1}0
+%{_libdir}/kde3/libdbsearchengine.la
+%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
+%endif
+%{_libdir}/libkbabeldict*.la
+%attr(755,root,root) %{_libdir}/libkbabeldict*.so*
 %{_applnkdir}/Development/kbabeldict.desktop
 %{_datadir}/apps/kbabeldict
 %{_pixmapsdir}/[!l]*/*/*/kbabeldict.png
@@ -620,16 +598,16 @@ cd -
 %attr(755,root,root) %{_bindir}/kminspector
 %attr(755,root,root) %{_bindir}/demangle
 %attr(755,root,root) %{_bindir}/match
+%{_libdir}/libktrace*.la
 %attr(755,root,root) %{_libdir}/libktrace*.so*
-%attr(755,root,root) %{_libdir}/libktrace*.la
 %{_includedir}/ktrace.h
 %{_datadir}/apps/kmtrace
 
 %files kompare -f kompare.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kompare
-%attr(755,root,root) %{_libdir}/kde3/libkompare*
-#attr(755,root,root) %{_libdir}/libdiff*
+%{_libdir}/kde3/libkompare*.la
+%attr(755,root,root) %{_libdir}/kde3/libkompare*.so
 %{_datadir}/apps/kompare*
 %{_datadir}/service*/kompare*
 %{_applnkdir}/Development/kompare.desktop
@@ -641,17 +619,19 @@ cd -
 
 %files kspy
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkspy*
+%{_libdir}/libkspy.la
+%attr(755,root,root) %{_libdir}/libkspy.so*
 %{_includedir}/kspy.h
 
 %files kstartperf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kstartperf
-%attr(755,root,root) %{_libdir}/libkstartperf*
+%{_libdir}/libkstartperf.la
+%attr(755,root,root) %{_libdir}/libkstartperf.so*
 
 %files pallette-gimp
 %defattr(644,root,root,755)
-%{_datadir}/gimp/1.2/palettes
+%{_datadir}/gimp/1.3/palettes
 
 %files pallette-xpaint
 %defattr(644,root,root,755)
@@ -713,4 +693,4 @@ cd -
 
 %files xemacs
 %defattr(644,root,root,755)
-%{_usr}/share/xemacs-packages/kde
+%{_datadir}/xemacs-packages/kde
