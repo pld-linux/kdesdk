@@ -3,13 +3,13 @@
 #   * installing emacs and shell advancements
 
 %define         _state          unstable
-%define         _kdever         kde-3.1-rc3
+%define         _kdever         kde-3.1-rc5
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.0.99
-Release:	2
+Version:	3.1
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -569,7 +569,7 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %files kaddressbook-kdeaccounts
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde3/kabc*
-%{_datadir}/apps/kabc
+%{_datadir}/apps/kabc/formats/*
 
 %files kbabel -f kbabel.lang
 %defattr(644,root,root,755)
