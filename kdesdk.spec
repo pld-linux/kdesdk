@@ -18,6 +18,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kbabel_am.patch
 BuildRequires:	bison
+BuildRequires:	db2-devel
 BuildRequires:	db4-devel
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel = %{version}
@@ -525,7 +526,7 @@ cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
 %attr(755,root,root) %{_libdir}/libcatalog*
 %attr(755,root,root) %{_libdir}/kde3/libpoaux*
 %attr(755,root,root) %{_libdir}/kde3/libpocomp*
-#%attr(755,root,root) %{_libdir}/kde3/libdbsearch*
+%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.*
 %{_datadir}/apps/catalogmanager
 %{_pixmapsdir}/*/*/*/catalogmanager.png
 %{_applnkdir}/Development/catalogmanager.desktop
