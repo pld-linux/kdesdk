@@ -20,7 +20,7 @@ BuildRequires:	bison
 BuildRequires:	db2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
-BuildRequires:	kdebase-devel = %{version}
+BuildRequires:	kdebase-devel >= %{version}
 BuildRequires:	libltdl-devel
 BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
