@@ -1,20 +1,20 @@
 
 %define		_state		stable
-%define		_ver		3.1.4
+%define		_ver		3.1.5
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	ed343cedeab6c6dc814fa8b4e164e4ec
+# Source0-md5:	7b7bdc08b774c98e99ce185e0612dd77
 # translations are generated from kde-i18n.spec now
-Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	3afe212bf8a89f8a51a991d8ad3ae552
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+# Source1-md5:	86a3eb08c6d63308e994bc6cba300103
 Source2:	%{name}-extra_icons.tar.bz2
 # Source2-md5:	eb3d8b795f042f00aea79962bd8bc6f3
 BuildConflicts:	kdesdk-kbabel-dictionary
