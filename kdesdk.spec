@@ -6,7 +6,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.4
+Release:	0.5
 Epoch:		8
 License:	GPL
 Group:		X11/Development/Tools
@@ -40,16 +40,16 @@ Software Development Kit for KDE.
 Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 
 %package static
-Summary:	Static libraries for kdesdk
-Summary(pl):	Statyczne biblioteki dla kdesdk
+Summary:	Static ktrace_s library
+Summary(pl):	Statyczna wersja biblioteki ktrace_s
 Group:		X11/Development/Tools
 Obsoletes:	%{name}-devel
 
 %description static
-Static libraries for kdesdk.
+Static ktrace_s library.
 
 %description static -l pl
-Statyczne biblioteki dla kdesdk.
+Statyczna wersja biblioteki ktrace_s.
 
 %package cervisia
 Summary:	A KDE cvs frontend
@@ -646,19 +646,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/[!l]*/*/*/kbugbuster.png
 %{_mandir}/man1/kbugbuster.*
 
-#%files kmtrace
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/kmtrace
-#%attr(755,root,root) %{_bindir}/kminspector
-#%attr(755,root,root) %{_bindir}/demangle
-#%attr(755,root,root) %{_bindir}/match
-#%{_libdir}/libktrace*.la
-#%attr(755,root,root) %{_libdir}/libktrace*.so*
-#%{_includedir}/ktrace.h
-#%{_datadir}/apps/kmtrace
-#%{_mandir}/man1/kmtrace.*
-#%{_mandir}/man1/kminspector.*
-#%{_mandir}/man1/demangle.*
+%files kmtrace
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kmtrace
+%attr(755,root,root) %{_bindir}/kminspector
+%attr(755,root,root) %{_bindir}/demangle
+%attr(755,root,root) %{_bindir}/match
+%{_libdir}/libktrace*.la
+%attr(755,root,root) %{_libdir}/libktrace*.so*
+%{_includedir}/ktrace.h
+%{_datadir}/apps/kmtrace
+%{_mandir}/man1/kmtrace.*
+%{_mandir}/man1/kminspector.*
+%{_mandir}/man1/demangle.*
 
 %files kompare -f kompare.lang
 %defattr(644,root,root,755)
