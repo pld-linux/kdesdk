@@ -5,12 +5,13 @@
 # Conditional build:
 # _with_pixmapsubdirs - leave different depth/resolution icons
 #
+%define		_with_pixmapsubdirs	1
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(ko):	K 데스크탑 환경 - 소프트웨어 개발 도구 모음
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.0.5a
-Release:	0.2
+Release:	0.3
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
