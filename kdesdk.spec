@@ -141,19 +141,31 @@ A set of macros for emacs helpful for working on KDE programs.
 %description emacs -l pl
 Zestaw makr do emacsa pomocnych przy pracy nad programami KDE.
 
-%package kaddressbook-kdeaccounts
-Summary:	A kdeaccounts plugin for the KDE adressbook
+%package kde-resource-kdeaccounts
+Summary:	A kdeaccounts plugin for the KDE PIM framework
 Summary(pl):	Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts
 Group:		X11/Applications
 Requires:	kdepim-kaddressbook >= 3.0.8
+Obsoletes:	kaddressbook-kdeaccounts
 
-%description kaddressbook-kdeaccounts
-A kdeaccounts plugin for the KDE adressbook. What is does is adding
+%description kde-resource-kdeaccounts
+A kdeaccounts plugin for the KDE adressbook. It allows adding
 the people from KDE's CVS accounts file to the addressbook.
 
-%description kaddressbook-kdeaccounts -l pl
+%description kde-resource-kdeaccounts -l pl
 Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts. Dodaje
 ona osoby posiadaj±ce konta w CVS KDE do ksi±¿ki adresowej.
+
+%package kde-resource-bugzilla
+Summary:	A bugzilla plugin for the KDE PIM framework
+Summary(pl):	Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê bugzilli
+Group:		X11/Applications
+Requires:	kdepim-kaddressbook >= 3.0.8
+
+%description kde-resource-bugzilla
+A KDE PIM plugin that allows creating bugzilla TODO lists.
+
+#description kde-resource-bugzilla -l pl
 
 %package kapptemplate
 Summary:	KDE application framework generator
@@ -497,17 +509,43 @@ An xml2po and vice versa converters.
 %description po2xml -l pl
 Konwertery po2xml i vice versa.
 
-%package scripts-build
-Summary:	An set of scripts useful for building KDE
-Summary(pl):	Zestaw skryptów do kompilowania KDE
+%package scripts-developer
+Summary:	An set of scripts useful for building and maintaining KDE
+Summary(pl):	Zestaw skryptów do kompilowania i utrzymywania KDE
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
+Obsoletes:	kdesdk-extractrc
+Obsoletes:	kdesdk-scripts-cxxmetric
+Obsoletes:	kdesdk-scripts-extractrc
+Obsoletes:	kdesdk-scripts-findmissingcrystal
+Obsoletes:	kdesdk-scripts-kdelnk2desktop
+Obsoletes:	kdesdk-scripts-zonetab2pot
+Obsoletes:	kdesdk-scripts-misc
 
-%description scripts-build
-A set of scripts useful for building KDE.
+%description scripts-developer
+This package contains:
+- script that extracts strings in an application's .rc file,
+  e.g. testappui.rc, and writes into the pot file
+- script that counts lines of code, comments and blank space in C
+  and C++ source files
+- script for finding missing and packaging crystal icons.
+- kdelnk to desktop and zonetab2pot converter
+- set of kde-build scripts
+- set of scripts that allow more comfortable profiling of KDE apps
+- set of scripts to fix licence header/kde includes directives and strip irrelevant tags from .ui files
+- kde man pages generator
+- multi-frame png to mng converter
 
-%description scripts-build -l pl
-Zestaw skryptów do kompilowania KDE.
+%description scripts-developer -l pl
+Ten pakiet zawiera:
+- skrypt, który wyci±ga ³añcuchy z plików .rc
+  aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
+  tworzy siê t³umaczenia (pliki po)
+- skrypt zliczaj±cy linijki kodu, komentarzy i znaków bia³ych w
+  plikach ¼ród³owych C i C++
+- skrypt do wyszukiwania brakuj±cych ikon z tematu crystal.
+- konwerter plików kdelnk na desktop i zonetab na pot
+
 
 %package scripts-cvs
 Summary:	A set of scripts for maintaining KDE from CVS
@@ -542,44 +580,6 @@ A script for killing KDE apps started with kdeinit.
 
 %description scripts-kdekillall -l pl
 Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit.
-
-%package scripts-misc
-Summary:	Miscellaneous scripts for maintaining KDE
-Summary(pl):	Ró¿ne skrypty do utrzymywania KDE
-Group:		X11/Development/Tools
-Requires:	/usr/bin/perl
-Obsoletes:	kdesdk-extractrc
-Obsoletes:	kdesdk-scripts-cxxmetric
-Obsoletes:	kdesdk-scripts-extractrc
-Obsoletes:	kdesdk-scripts-findmissingcrystal
-Obsoletes:	kdesdk-scripts-kdelnk2desktop
-Obsoletes:	kdesdk-scripts-zonetab2pot
-
-%description scripts-misc
-This package contains:
-- A Perl script, it extracts the strings in an application's .rc file,
-  e.g. testappui.rc, and writes into the pot file where the translations
-  are build with (po-files).
-
-- A script that counts lines of code, comments and blank space in C
-  and C++ source files.
-
-- A script for finding missing crystal icons.
-
-- A kdelnk to desktop and zonetab2pot converter.
-
-%description scripts-misc -l pl
-Ten pakiet zawiera:
-- Skrypt napisany w Perlu, który wyci±ga ³añcuchy z plików .rc
-  aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
-  tworzy siê t³umaczenia (pliki po).
-
-- Skrypt zliczaj±cy linijki kodu, komentarzy i znaków bia³ych w
-  plikach ¼ród³owych C i C++.
-
-- Skrypt do wyszukiwania brakuj±cych ikon z tematu crystal.
-
-- Konwerter plików kdelnk na desktop i zonetab na pot.
 
 %package scheck
 Summary:	KDE Style - Scheck
@@ -828,11 +828,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/apps/kapptemplate/bin/*
 %{_mandir}/man1/kapptemplate.1*
 
-%files kaddressbook-kdeaccounts
+%files kde-resource-kdeaccounts
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kabcformat_kdeaccounts.la
 %attr(755,root,root) %{_libdir}/kde3/kabcformat_kdeaccounts.so
 %{_datadir}/apps/kabc/formats/*
+
+
+%files kde-resource-bugzilla
+%{_libdir}/kde3/kcal_bugzilla.la
+%attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
+%{_datadir}/services/kresources/kcal/bugzilla.desktop
 
 %files kbabel -f kbabel.lang
 %defattr(644,root,root,755)
@@ -1033,7 +1039,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/plugins/styles/scheck.so
 %{_datadir}/apps/kstyle/themes/scheck.themerc
 
-%files scripts-build
+%files scripts-developer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/adddebug
 %attr(755,root,root) %{_bindir}/build-progress.sh
@@ -1047,6 +1053,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kdemangen.pl
 %attr(755,root,root) %{_bindir}/licensecheck
 %attr(755,root,root) %{_bindir}/makeobj
+%attr(755,root,root) %{_bindir}/dprof2calltree
+%attr(755,root,root) %{_bindir}/hotshot2calltree
+%attr(755,root,root) %{_bindir}/memprof2calltree
+%attr(755,root,root) %{_bindir}/op2calltree
+%attr(755,root,root) %{_bindir}/png2mng.pl
+%attr(755,root,root) %{_bindir}/pprof2calltree
+%attr(755,root,root) %{_bindir}/cxxmetric
+%attr(755,root,root) %{_bindir}/extractrc
+%attr(755,root,root) %{_bindir}/findmissingcrystal
+%attr(755,root,root) %{_bindir}/kdelnk2desktop.py
+%attr(755,root,root) %{_bindir}/package_crystalsvg
+%attr(755,root,root) %{_bindir}/zonetab2pot.py
+%{_mandir}/man1/cxxmetric.1*
+%{_mandir}/man1/extractrc.1*
+%{_mandir}/man1/findmissingcrystal.1*
+%{_mandir}/man1/kdelnk2desktop.py.1*
+%{_mandir}/man1/zonetab2pot.py.1*
 %{_mandir}/man1/adddebug.1*
 %{_mandir}/man1/build-progress*.1*
 %{_mandir}/man1/cheatmake.1*
@@ -1056,15 +1079,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/includemocs.1*
 %{_mandir}/man1/kde-build.1*
 %{_mandir}/man1/licensecheck.1*
+%{_mandir}/man1/kdemangen.pl.1*
 %{_mandir}/man1/makeobj.1*
-# TODO
-# Merge all scripts into one subpkg?
-%attr(755,root,root) %{_bindir}/dprof2calltree
-%attr(755,root,root) %{_bindir}/hotshot2calltree
-%attr(755,root,root) %{_bindir}/memprof2calltree
-%attr(755,root,root) %{_bindir}/op2calltree
-%attr(755,root,root) %{_bindir}/png2mng.pl
-%attr(755,root,root) %{_bindir}/pprof2calltree
+%{_mandir}/man1/dprof2calltree.1*
+%{_mandir}/man1/hotshot2calltree.1*
+%{_mandir}/man1/memprof2calltree.1*
+%{_mandir}/man1/op2calltree.1*
+%{_mandir}/man1/package_crystalsvg.1*
+%{_mandir}/man1/png2mng.pl.1*
+%{_mandir}/man1/pprof2calltree.1*
+%{_mandir}/man1/fixuifiles.1*
 
 %files scripts-cvs
 %defattr(644,root,root,755)
@@ -1088,20 +1112,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdekillall
 %{_mandir}/man1/kdekillall.1*
-
-%files scripts-misc
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/cxxmetric
-%attr(755,root,root) %{_bindir}/extractrc
-%attr(755,root,root) %{_bindir}/findmissingcrystal
-%attr(755,root,root) %{_bindir}/kdelnk2desktop.py
-%attr(755,root,root) %{_bindir}/package_crystalsvg
-%attr(755,root,root) %{_bindir}/zonetab2pot.py
-%{_mandir}/man1/cxxmetric.1*
-%{_mandir}/man1/extractrc.1*
-%{_mandir}/man1/findmissingcrystal.1*
-%{_mandir}/man1/kdelnk2desktop.py.1*
-%{_mandir}/man1/zonetab2pot.py.1*
 
 %files umbrello -f umbrello.lang
 %defattr(644,root,root,755)
