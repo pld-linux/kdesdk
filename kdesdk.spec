@@ -7,7 +7,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -486,9 +486,9 @@ done
 %configure \
 	--enable-final \
 	--enable-nls
-#%%{__make}
+%{__make}
 
-#%%{__make} -C kstartperf
+%{__make} -C kstartperf
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -612,10 +612,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kbabel-dictionary
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabeldict
-%if %{?_with_dbsearchengine:1}0
 %{_libdir}/kde3/libdbsearchengine.la
 %attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
-%endif
 %{_libdir}/libkbabeldict*.la
 %attr(755,root,root) %{_libdir}/libkbabeldict*.so*
 %{_applnkdir}/Development/kbabeldict.desktop
