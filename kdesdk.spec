@@ -655,6 +655,10 @@ export UNSERMAKE=%{_datadir}/unsermake/unsermake
 
 %{__make} -C kstartperf
 
+%ifarch amd64
+%{__make} -C kmtrace
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -667,6 +671,14 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_libs_htmldir=%{_kdedocdir} \
 	kde_htmldir=%{_kdedocdir}
+
+%ifarch amd64
+%{__make} -C kmtrace install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_libs_htmldir=%{_kdedocdir} \
+	kde_htmldir=%{_kdedocdir}
+
+%endif
 
 install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefsdir},%{_emacspkgdir}/kde} \
 	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
