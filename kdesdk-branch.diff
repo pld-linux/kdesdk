@@ -1,114 +1,484 @@
-diff -urN -x CVS kdesdk.orig/cervisia/resolvedlg.cpp kdesdk/cervisia/resolvedlg.cpp
---- kdesdk.orig/cervisia/resolvedlg.cpp	Tue Apr 13 11:02:58 2004
-+++ kdesdk/cervisia/resolvedlg.cpp	Fri Jun  4 00:47:29 2004
-@@ -27,7 +27,6 @@
- #include <klocale.h>
- #include <kmessagebox.h>
+diff -urN -x CVS kdesdk.orig/kompare/libdiff2/levenshteintable.cpp kdesdk/kompare/libdiff2/levenshteintable.cpp
+--- kdesdk.orig/kompare/libdiff2/levenshteintable.cpp	Fri Apr 16 00:21:23 2004
++++ kdesdk/kompare/libdiff2/levenshteintable.cpp	Sun Aug 15 12:06:51 2004
+@@ -122,7 +122,8 @@
+ 	if ( n == 1 )
+ 		return --m;
  
--#include "diffview.h"
- #include "misc.h"
- #include "resolvedlg_p.h"
- using Cervisia::ResolveEditorDialog;
-@@ -249,8 +248,8 @@
-                 }
-                 else
-                 {
--                    addToMergeAndVersionA(line, lineno1);
--                    addToVersionB(line, lineno2);
-+                    addToMergeAndVersionA(line, DiffView::Unchanged, lineno1);
-+                    addToVersionB(line, DiffView::Unchanged, lineno2);
-                 }
-                 break;
-             case VersionA:
-@@ -259,7 +258,7 @@
-                     if( separatorPos < 0 )    // still in version A
-                     {
-                         advanced1++;
--                        addToMergeAndVersionA(line, lineno1);
-+                        addToMergeAndVersionA(line, DiffView::Change, lineno1);
-                     }
-                     else
-                     {
-@@ -267,7 +266,7 @@
-                         {
-                             line.truncate(separatorPos);
-                             advanced1++;
--                            addToMergeAndVersionA(line, lineno1);
-+                            addToMergeAndVersionA(line, DiffView::Change, lineno1);
-                         }
-                         state     = VersionB;
-                         advanced2 = 0;
-@@ -280,7 +279,7 @@
-                     if( separatorPos < 0 )    // still in version B
-                     {
-                         advanced2++;
--                        addToVersionB(line, lineno2);
-+                        addToVersionB(line, DiffView::Change, lineno2);
-                     }
-                     else
-                     {
-@@ -288,7 +287,7 @@
-                         {
-                             line.truncate(separatorPos);
-                             advanced2++;
--                            addToVersionB(line, lineno2);
-+                            addToVersionB(line, DiffView::Change, lineno2);
-                         }
-                         
-                         // create an resolve item
-@@ -321,21 +320,23 @@
- }
+-	setSize( m, n );
++	if (  !setSize(  m, n ) )
++		return 0;
+ 
+ 	unsigned int i;
+ 	unsigned int j;
+diff -urN -x CVS kdesdk.orig/umbrello/ChangeLog kdesdk/umbrello/ChangeLog
+--- kdesdk.orig/umbrello/ChangeLog	Wed Jul 28 21:13:16 2004
++++ kdesdk/umbrello/ChangeLog	Fri Aug 20 14:32:24 2004
+@@ -46,7 +46,7 @@
+ 78525 78806 78910 78912 79180 79188 79202 79631 79883 80119
+ 80299 80824 80913 80999 81000 81790 82236 82315 82346
+ 82406 82685 82743 82977 83052 83430 83432 83446 83449 83546
+-83553 84260 84262 84516 84549 84656 84574 85126 85434
++83553 84260 84262 84516 84549 84656 84574 85126 85434 87111
  
  
--void ResolveDialog::addToMergeAndVersionA(const QString& line, int& lineNo)
-+void ResolveDialog::addToMergeAndVersionA(const QString& line, 
-+                                          DiffView::DiffType type, int& lineNo)
- {
-     lineNo++;
--    diff1->addLine(line, DiffView::Change, lineNo);
--    merge->addLine(line, DiffView::Change, lineNo);
-+    diff1->addLine(line, type, lineNo);
-+    merge->addLine(line, type, lineNo);
-     
-     m_contentVersionA      += line;
-     m_contentMergedVersion += line;
- }
+ Version 1.2
+diff -urN -x CVS kdesdk.orig/umbrello/umbrello/codegenerators/perlwriter.cpp kdesdk/umbrello/umbrello/codegenerators/perlwriter.cpp
+--- kdesdk.orig/umbrello/umbrello/codegenerators/perlwriter.cpp	Wed Jul 21 12:27:26 2004
++++ kdesdk/umbrello/umbrello/codegenerators/perlwriter.cpp	Fri Aug 20 14:32:24 2004
+@@ -37,11 +37,11 @@
  
  
--void ResolveDialog::addToVersionB(const QString& line, int& lineNo)
-+void ResolveDialog::addToVersionB(const QString& line, DiffView::DiffType type, 
-+                                  int& lineNo)
- {
-     lineNo++;
--    diff2->addLine(line, DiffView::Change, lineNo);
-+    diff2->addLine(line, type, lineNo);
-     
-     m_contentVersionB += line;
- }
-diff -urN -x CVS kdesdk.orig/cervisia/resolvedlg.h kdesdk/cervisia/resolvedlg.h
---- kdesdk.orig/cervisia/resolvedlg.h	Tue Apr 13 11:02:58 2004
-+++ kdesdk/cervisia/resolvedlg.h	Fri Jun  4 00:47:29 2004
-@@ -20,10 +20,9 @@
- #include <kdialogbase.h>
- 
- #include <qptrlist.h>
-+#include "diffview.h"
- 
- 
--class DiffView;
+ void PerlWriter::writeClass(UMLClassifier *c) {
+-	if(!c) {
++/*	if(!c) {
+ 		kdDebug()<<"Cannot write class of NULL concept!" << endl;
+ 		return;
+ 	}
 -
- class QLabel;
- class QTextCodec;
- class KConfig;
-@@ -63,8 +62,9 @@
-     void chooseEdit();
-     void saveFile(const QString &name);
-     QString readFile();
--    void addToMergeAndVersionA(const QString& line, int& lineNo);
--    void addToVersionB(const QString& line, int& lineNo);
-+    void addToMergeAndVersionA(const QString& line, DiffView::DiffType type, 
-+                               int& lineNo);
-+    void addToVersionB(const QString& line, DiffView::DiffType type, int& lineNo);
-     void updateMergedVersion(ResolveItem* item, ChooseType chosen);
-     
-     QLabel *nofnlabel;
++*/
+ 	QString classname = cleanName(c->getName());// this is fine: cleanName is "::-clean"
+ 	QString fileName;
+ 
+@@ -92,23 +92,32 @@
+ 	//Start generating the code!!
+ 	/////////////////////////////
+ 
+-	perl << m_newLineEndingChars << m_newLineEndingChars << "package " << classname << ";" << m_newLineEndingChars << m_newLineEndingChars;
++
+ 	//try to find a heading file (license, coments, etc)
+ 	QString str;
++	QString AV = "@";
++	QString SV = "$";
++	QString HV = "%";
+ 	str = getHeadingFile(".pm");   // what this mean?
+ 	if(!str.isEmpty()) {
+ 		str.replace(QRegExp("%filename%"),fileName+".pm");
+ 		str.replace(QRegExp("%filepath%"),fileperl.name());
++		str.replace(QRegExp("%date%"),QDate::currentDate().toString());
++		str.replace(QRegExp("%time%"),QTime::currentTime().toString());
+ 		perl<<str<<m_newLineEndingChars;
+ 	}
+-
++	perl << m_newLineEndingChars << m_newLineEndingChars << "package " << classname << ";" << m_newLineEndingChars << m_newLineEndingChars;
+ 	//write includes
++	perl << m_newLineEndingChars << "#UML_MODELER_BEGIN_PERSONAL_VARS_" << classname << m_newLineEndingChars ;
++	perl << m_newLineEndingChars << "#UML_MODELER_END_PERSONAL_VARS_" << classname << m_newLineEndingChars << m_newLineEndingChars ;
+ 	UMLClassifierList includes;//ca existe en perl??
+ 	findObjectsRelated(c,includes);
+ 	UMLClassifier *conc;
+ 	for(conc = includes.first(); conc ;conc = includes.next()) {
+-			perl << "use " << cleanName(conc->getName()) << ";" <<
+-m_newLineEndingChars; // seems OK
++			if ((cleanName(conc->getName()) != AV) && (cleanName(conc->getName()) != SV ) && (cleanName(conc->getName()) != HV))
++			{
++				perl << "use " << cleanName(conc->getName()) << ";" << m_newLineEndingChars; // seems OK
++			}
+ 	}
+ 	perl << m_newLineEndingChars;
+ 
+@@ -128,16 +137,14 @@
+ 	//Write class Documentation
+ 	if(forceDoc() || !c->getDoc().isEmpty()) {
+ 		perl << m_newLineEndingChars << "=head1";
+-		perl << " " << classname.upper() << m_newLineEndingChars;
++		perl << " " << classname.upper() << m_newLineEndingChars << m_newLineEndingChars;
+ 		perl << formatDoc(c->getDoc(),"");
+-		perl << m_newLineEndingChars << "=cut" << m_newLineEndingChars <<
+-m_newLineEndingChars;
++		perl << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars << m_newLineEndingChars;
+ 	}
+ 
+ 	//check if class is abstract and / or has abstract methods
+ 	if(c->getAbstract())
+-        perl << "=head1 ABSTRACT CLASS" << m_newLineEndingChars <<
+-m_newLineEndingChars << "=cut" << m_newLineEndingChars;
++        perl << "=head1 ABSTRACT CLASS" << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars;
+ 
+ 	//attributes
+ 	UMLClass *myClass = dynamic_cast<UMLClass*>(c);
+@@ -150,8 +157,8 @@
+ 	perl << m_newLineEndingChars;
+ 
+ 	//finish file
+-	perl << m_newLineEndingChars << m_newLineEndingChars << "1;" <<
+-m_newLineEndingChars;
++	//perl << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars; 
++	perl << m_newLineEndingChars << m_newLineEndingChars << "return 1;" << m_newLineEndingChars;
+ 
+ 	//close files and notify we are done
+ 	fileperl.close();
+@@ -210,40 +217,35 @@
+ 
+ 	//write operations to file
+ 	if(forceSections() || !oppub.isEmpty()) {
+-		perl << m_newLineEndingChars << "=head1 PUBLIC METHODS"
+-			<< m_newLineEndingChars << m_newLineEndingChars << "=over 4" <<
+-m_newLineEndingChars;
++		perl << m_newLineEndingChars << "=head1 PUBLIC METHODS" << m_newLineEndingChars << m_newLineEndingChars ;
+ 		writeOperations(classname,oppub,perl);
+-		perl << m_newLineEndingChars << "=back" << m_newLineEndingChars;
++		perl << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars << m_newLineEndingChars;
+ 	}
+ 
+ 	if(forceSections() || !opprot.isEmpty()) {
+-		perl << m_newLineEndingChars << "=head1 METHODS FOR SUBCLASSING"
+-			<< m_newLineEndingChars << m_newLineEndingChars << "=over 4" <<
+-m_newLineEndingChars;
++		perl << m_newLineEndingChars << "=head1 METHODS FOR SUBCLASSING" << m_newLineEndingChars << m_newLineEndingChars ;
++		//perl << "=pod "  << m_newLineEndingChars << m_newLineEndingChars << "=head3 " ;		
+ 		writeOperations(classname,opprot,perl);
+-		perl << m_newLineEndingChars << "=back" << m_newLineEndingChars;
++		perl << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars << m_newLineEndingChars;
+ 	}
+ 
+ 	if(forceSections() || !oppriv.isEmpty()) {
+-		perl << m_newLineEndingChars << "=head1 PRIVATE METHODS"
+-			<< m_newLineEndingChars << m_newLineEndingChars << "=over 4"  <<
+-m_newLineEndingChars ;
++		perl << m_newLineEndingChars << "=head1 PRIVATE METHODS" << m_newLineEndingChars << m_newLineEndingChars ;
++		//perl << "=pod "  << m_newLineEndingChars << m_newLineEndingChars << "=head3 " ;
+ 		writeOperations(classname,oppriv,perl);
+-
++		perl << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars << m_newLineEndingChars;
+ 	}
+ 
+     // moved here for perl
+ 	UMLClass *myClass = dynamic_cast<UMLClass*>(c);
+ 
+ 	if(myClass && hasDefaultValueAttr(myClass)) {
+-		UMLAttributeList *atl = myClass->getFilteredAttributeList();
++		UMLAttributeList * atl = myClass->getFilteredAttributeList();
+ 
+ 		perl << m_newLineEndingChars;
+-		perl << m_newLineEndingChars << "=item _init" << m_newLineEndingChars << m_newLineEndingChars << m_newLineEndingChars;
++		perl << m_newLineEndingChars << "=head2 _init" << m_newLineEndingChars << m_newLineEndingChars << m_newLineEndingChars;
+ 		perl << "_init sets all " + classname + " attributes to their default \
+-		               values unless already set" << m_newLineEndingChars << "=cut" << m_newLineEndingChars <<
+-m_newLineEndingChars;
++		               values unless already set" << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars << m_newLineEndingChars;
+ 		perl << "sub _init {" << m_newLineEndingChars << m_indentation << "my $self = shift;" << m_newLineEndingChars<<m_newLineEndingChars;
+ 
+ 		for(UMLAttribute *at = atl->first(); at ; at = atl->next()) {
+@@ -256,7 +258,7 @@
+ 	    perl << " }" << m_newLineEndingChars;
+ 	}
+ 
+-	perl << m_newLineEndingChars << "=back" << m_newLineEndingChars << m_newLineEndingChars;
++	perl << m_newLineEndingChars << m_newLineEndingChars;
+ }
+ 
+ void PerlWriter::writeOperations(QString /* classname */, UMLOperationList &opList, QTextStream &perl) {
+@@ -264,7 +266,8 @@
+ 	UMLAttributeList *atl;
+ 	UMLAttribute *at;
+ 
+-	for(op=opList.first(); op ; op=opList.next()) {
++	for(op=opList.first(); op ; op=opList.next()) 
++	{
+ 		atl = op -> getParmList();
+ 		//write method doc if we have doc || if at least one of the params has doc
+ 		bool writeDoc = forceDoc() || !op->getDoc().isEmpty();
+@@ -273,39 +276,37 @@
+ 
+ 		if( writeDoc )  //write method documentation
+ 		{
+-			perl << "=item " << cleanName(op->getName()) << m_newLineEndingChars << m_newLineEndingChars;
++			perl << "=pod "  << m_newLineEndingChars << m_newLineEndingChars << "=head3 " ;
++			perl << cleanName(op->getName()) << m_newLineEndingChars << m_newLineEndingChars;
+ 
+-            perl << "Parameters:" << m_newLineEndingChars <<
+-m_newLineEndingChars << "=over 8" << m_newLineEndingChars <<
+-m_newLineEndingChars;
++            		perl << "   Parameters :" << m_newLineEndingChars ;
+ 			for(at = atl->first(); at ; at = atl -> next())  //write parameter documentation
+ 			{
+-				if(forceDoc() || !at->getDoc().isEmpty()) {
+-                    perl << m_newLineEndingChars << "=item ";
+-
+-					perl << cleanName(at->getName()) + " : ";
+-					perl << at->getDoc();
+-                    perl << m_newLineEndingChars;
++				if(forceDoc() || !at->getDoc().isEmpty()) 
++				{
++					perl << "      " << cleanName(at->getName()) << "  " << at->getDoc();
++					perl << m_newLineEndingChars;
+ 				}
+ 			}//end for : write parameter documentation
+-            perl << "=back" << m_newLineEndingChars << m_newLineEndingChars;
+-            perl << "Description:" << m_newLineEndingChars <<
+-m_newLineEndingChars;
+-	        perl << formatDoc(op->getDoc(),"");
+-			perl <<m_newLineEndingChars << "=cut" << m_newLineEndingChars;
++			perl << m_newLineEndingChars;
++            		perl << "   Return : " << m_newLineEndingChars ;
++	        	perl << "      " << op->getReturnType() ;
++			perl << m_newLineEndingChars 
++			<< m_newLineEndingChars ;            		
++            		perl << "   Description : " << m_newLineEndingChars ;
++	        	perl << "      " << formatDoc(op->getDoc(),"");
++			perl << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars << m_newLineEndingChars;
+ 		}//end if : write method documentation
+-
+-		perl <<  "sub " << cleanName(op->getName()) << " {" <<
+-m_newLineEndingChars << m_newLineEndingChars << "}"
+-<< m_newLineEndingChars;
++		perl <<  "sub " << cleanName(op->getName()) <<	m_newLineEndingChars << "{" <<	m_newLineEndingChars ;
++		perl << "#UML_MODELER_BEGIN_PERSONAL_CODE_" << cleanName(op->getName());
++		perl << m_newLineEndingChars << "#UML_MODELER_END_PERSONAL_CODE_" << cleanName(op->getName()) << m_newLineEndingChars ;
++		perl << "}" << m_newLineEndingChars;
+ 		perl << m_newLineEndingChars << m_newLineEndingChars;
+ 	}//end for
+ }
+ 
+ 
+ void PerlWriter::writeAttributes(UMLClass *c, QTextStream &perl) {
+-	UMLAttributeList *atl;
+-
+ 	UMLAttributeList  atpub, atprot, atpriv, atdefval;
+ 	atpub.setAutoDelete(false);
+ 	atprot.setAutoDelete(false);
+@@ -313,7 +314,7 @@
+ 	atdefval.setAutoDelete(false);
+ 
+ 	//sort attributes by scope and see if they have a default value
+-	atl = c->getFilteredAttributeList();
++	UMLAttributeList *atl = c->getFilteredAttributeList();
+ 	UMLAttribute *at;
+ 	for(at = atl->first(); at ; at = atl->next()) {
+ 		if(!at->getInitialValue().isEmpty())
+@@ -347,20 +348,28 @@
+ }
+ 
+ 
+-void PerlWriter::writeAttributes(UMLAttributeList &atList, QTextStream &perl) {
+-    perl << m_newLineEndingChars << "=head1 PUBLIC ATTRIBUTES" << m_newLineEndingChars <<
+-m_newLineEndingChars << "=over 4" << m_newLineEndingChars;
+-
+-	for (UMLAttribute *at = atList.first(); at ; at = atList.next()) {
+-		if (forceDoc() || !at->getDoc().isEmpty()) {
+-            perl  << m_newLineEndingChars << "=item " << cleanName(at->getName()) << m_newLineEndingChars << m_newLineEndingChars
+-			     << at->getDoc() << m_newLineEndingChars;
++void PerlWriter::writeAttributes(UMLAttributeList &atList, QTextStream &perl) 
++{
++    	perl << m_newLineEndingChars << "=head1 PUBLIC ATTRIBUTES" << m_newLineEndingChars << m_newLineEndingChars;
++	perl << "=pod "  << m_newLineEndingChars << m_newLineEndingChars ;
++	for (UMLAttribute *at = atList.first(); at ; at = atList.next()) 
++	{
++		if (forceDoc() || !at->getDoc().isEmpty()) 
++		{
++	            perl  << "=head3 " << cleanName(at->getName()) << m_newLineEndingChars << m_newLineEndingChars ;
++		    perl  << "   Description : " << at->getDoc() << m_newLineEndingChars << m_newLineEndingChars;
+ 		}
+ 	} // end for
+-    perl << m_newLineEndingChars << "=cut" << m_newLineEndingChars;
++    	perl << m_newLineEndingChars << m_newLineEndingChars << "=cut" << m_newLineEndingChars << m_newLineEndingChars;
+ 	return;
+ }
+ 
++void PerlWriter::createDefaultDatatypes() {
++	m_doc->createDatatype("$");
++	m_doc->createDatatype("@");
++	m_doc->createDatatype("%");
++}
++
+ /**
+  * List of reserved keywords for this code generator.
+  *
+@@ -619,6 +628,4 @@
+   return ReservedWords;
+ }
+ 
+-
+ #include "perlwriter.moc"
+-
+diff -urN -x CVS kdesdk.orig/umbrello/umbrello/codegenerators/perlwriter.h kdesdk/umbrello/umbrello/codegenerators/perlwriter.h
+--- kdesdk.orig/umbrello/umbrello/codegenerators/perlwriter.h	Wed Jul 21 12:27:26 2004
++++ kdesdk/umbrello/umbrello/codegenerators/perlwriter.h	Fri Aug 20 14:32:24 2004
+@@ -63,13 +63,15 @@
+ 	 */
+ 	virtual const char **getReservedKeywords();
+ 
++	void createDefaultDatatypes();	 
++
+ private:
+ 
+-        /**
+-          * we do not want to write the comment "Private methods" twice
+-          * not sure whether this is php specific
+-          */
+-        bool bPrivateSectionCommentIsWritten;
++	/**
++	 * we do not want to write the comment "Private methods" twice
++	 * not sure whether this is php specific
++	 */
++	bool bPrivateSectionCommentIsWritten;
+ 
+ 	/**
+ 	  * write all operations for a given class
+@@ -104,5 +106,4 @@
+ 
+ };
+ 
+-
+ #endif //PERLWRITER
+diff -urN -x CVS kdesdk.orig/umbrello/umbrello/codegenerators/xmlschemawriter.cpp kdesdk/umbrello/umbrello/codegenerators/xmlschemawriter.cpp
+--- kdesdk.orig/umbrello/umbrello/codegenerators/xmlschemawriter.cpp	Sun Jun 13 12:47:05 2004
++++ kdesdk/umbrello/umbrello/codegenerators/xmlschemawriter.cpp	Fri Aug 20 14:32:24 2004
+@@ -38,9 +38,9 @@
+ 	packageNamespaceURI = "http://foo.example.com/";
+ 	schemaNamespaceTag = "xs";
+ 	schemaNamespaceURI = "http://www.w3.org/2001/XMLSchema";
+-	indent = "\t";
++	indent = m_indentation;
+ 	indentLevel = 0;
+-	startline = "\n" + indent; // using UNIX newLine standard.. bad
++	startline = m_newLineEndingChars;
+ }
+ 
+ // form of..."the Destructor"!!
+diff -urN -x CVS kdesdk.orig/umbrello/umbrello/dialogs/diagramprintpage.cpp kdesdk/umbrello/umbrello/dialogs/diagramprintpage.cpp
+--- kdesdk.orig/umbrello/umbrello/dialogs/diagramprintpage.cpp	Tue Sep  2 23:13:38 2003
++++ kdesdk/umbrello/umbrello/dialogs/diagramprintpage.cpp	Fri Aug 20 14:32:25 2004
+@@ -72,7 +72,8 @@
+ 	m_pSelectLB -> setSelectionMode(QListBox::Multi);
+ 	m_pSelectLB -> insertItem(m_pDoc->getCurrentView()->getName());
+ 	m_pSelectLB -> setSelected(0, true);
+-	m_nIdList[0] = ((UMLView*)m_pDoc->getCurrentView())->getID();
++	m_nIdList.clear();
++	m_nIdList.append(((UMLView*)m_pDoc->getCurrentView())->getID());
+ 
+ 
+ 
+@@ -126,9 +127,11 @@
+ void DiagramPrintPage::slotClicked(int id) {
+ 	UMLViewList list = m_pDoc -> getViewIterator();
+ 	UMLView * view = 0;
+-	int count = 0;
+ 	QString type;
+ 
++	// clear list with diagrams to print
++	m_nIdList.clear();
++
+ 	switch(id) {
+ 		case Current:
+ 			m_pTypeCB -> setEnabled(false);
+@@ -136,7 +139,7 @@
+ 			m_pSelectLB -> clear();
+ 			m_pSelectLB -> insertItem(m_pDoc -> getCurrentView() -> getName());
+ 			m_pSelectLB -> setSelected(0, true);
+-			m_nIdList[count] = ((UMLView*)m_pDoc -> getCurrentView()) -> getID();
++			m_nIdList.append(((UMLView*)m_pDoc -> getCurrentView()) -> getID());
+ 			break;
+ 
+ 		case All:
+@@ -146,7 +149,7 @@
+ 			m_pSelectLB -> clear();
+ 			for(view = list.first(); view; view = list.next()) {
+ 				m_pSelectLB -> insertItem(view -> getName());
+-				m_nIdList[count++] = view -> getID();
++				m_nIdList.append(view -> getID());
+ 			}
+ 			m_pSelectLB -> selectAll(true);
+ 			break;
+@@ -157,7 +160,7 @@
+ 			m_pSelectLB -> clear();
+ 			for(view = list.first(); view; view = list.next()) {
+ 				m_pSelectLB -> insertItem(view -> getName());
+-				m_nIdList[count++] = view -> getID();
++				m_nIdList.append(view -> getID());
+ 			}
+ 			break;
+ 
+@@ -168,9 +171,10 @@
+ 			for(view = list.first(); view; view = list.next()) {
+ 				if(view -> getType() == m_ViewType) {
+ 					m_pSelectLB -> insertItem(view -> getName());
+-					m_nIdList[count++] = view -> getID();
++					m_nIdList.append(view -> getID());
+ 				}
+ 			}
++			m_pSelectLB -> selectAll(true);
+ 			break;
+ 	}
+ }
+@@ -178,7 +182,6 @@
+ void DiagramPrintPage::slotActivated(const QString & text) {
+ 	UMLViewList list = m_pDoc -> getViewIterator();
+ 	UMLView * view = 0;
+-	int count = 0;
+ 
+ 	if(text == i18n("Class"))
+ 		m_ViewType = Uml::dt_Class;
+@@ -189,12 +192,14 @@
+ 	else if(text == i18n("Collaboration"))
+ 		m_ViewType = Uml::dt_Collaboration;
+ 	m_pSelectLB -> clear();
++	m_nIdList.clear();
+ 	for(view = list.first(); view; view = list.next()) {
+ 		if(view -> getType() == m_ViewType) {
+ 			m_pSelectLB -> insertItem(view -> getName());
+-			m_nIdList[count++] = view -> getID();
++			m_nIdList.append(view -> getID());
+ 		}
+ 	}
++	m_pSelectLB -> selectAll(true);
+ }
+ 
+ #include "diagramprintpage.moc"
+diff -urN -x CVS kdesdk.orig/umbrello/umbrello/dialogs/diagramprintpage.h kdesdk/umbrello/umbrello/dialogs/diagramprintpage.h
+--- kdesdk.orig/umbrello/umbrello/dialogs/diagramprintpage.h	Mon Aug 25 23:49:38 2003
++++ kdesdk/umbrello/umbrello/dialogs/diagramprintpage.h	Fri Aug 20 14:32:25 2004
+@@ -49,7 +49,8 @@
+ 	~DiagramPrintPage();
+ 
+ 	/**
+-	 * Overriden method.
++	 * Overriden method. It builds a list with the diagram name and the diagram
++	 * IDs.
+ 	 */
+ 	void getOptions(QMap<QString,QString>& opts, bool /* incldef=false */);
+ 
+@@ -72,11 +73,26 @@
+ 
+ 	UMLDoc * m_pDoc;
+ 	Uml::Diagram_Type m_ViewType;
+-	int m_nIdList[100];//allow 100 diagrams
++
++	/**
++	 * list containing the IDs of diagrams to print
++	 */
++	QValueList<int> m_nIdList;
+ 
+ 	enum FilterType{Current = 0, All, Select, Type};
+ public slots:
++
++	/**
++	 * Gets called when the users chooses to print all diagrams, the current
++	 * diagram, a selection of diagrams or diagrams by type. It will change the
++	 * listed diagrams in the diagram box.
++	 */
+ 	void slotClicked(int id);
++
++	/**
++	 * Gets called when the user chooses another diagram type. Only diagrams of
++	 * this type will be shown in the diagram box.
++	 */
+ 	void slotActivated(const QString & text);
+ };
+ 
+diff -urN -x CVS kdesdk.orig/umbrello/umbrello/umldoc.cpp kdesdk/umbrello/umbrello/umldoc.cpp
+--- kdesdk.orig/umbrello/umbrello/umldoc.cpp	Sat Jul 31 15:41:05 2004
++++ kdesdk/umbrello/umbrello/umldoc.cpp	Fri Aug 20 14:32:24 2004
+@@ -2295,6 +2295,11 @@
+ 	types.append("float");
+ 	types.append("date");
+ 
++	// adding for perl The 3 base type (SV,AV,HV)
++	types.append("$");
++	types.append("@");
++	types.append("%");
++
+ 	//now add the Classes and Interfaces (both are Concepts)
+ 	UMLClassifierList namesList( getConcepts() );
+ 	UMLClassifier* pConcept = 0;
