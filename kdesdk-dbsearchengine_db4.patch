@@ -1,0 +1,535 @@
+--- kdesdk-3.1.2/kbabel/kbabeldict/modules/dbsearchengine/configure.in.in.orig	2003-05-07 13:48:11.000000000 +0200
++++ kdesdk-3.1.2/kbabel/kbabeldict/modules/dbsearchengine/configure.in.in	2003-05-14 00:48:52.000000000 +0200
+@@ -29,9 +29,12 @@
+ #include <db.h>
+ ],
+ [
+-#if DB_VERSION_MAJOR == 4
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
+ DB *db;
+ db->open( db, "test.db", NULL, DB_BTREE, DB_CREATE, 0644 );
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++DB *db;
++db->open( db, NULL, "test.db", NULL, DB_BTREE, DB_CREATE, 0644 );
+ #else
+ error
+ #endif
+@@ -43,12 +46,15 @@
+      #include <db4/db.h>
+      ],
+      [
+-     #if     DB_VERSION_MAJOR == 4
++     #if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
++     DB *db;
++     db->open( db, "test.db", NULL, DB_BTREE, DB_CREATE, 0644 );
++     #elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
+      DB *db;
+-	  db->open( db, "test.db", NULL, DB_BTREE, DB_CREATE, 0644 );
++     db->open( db, NULL, "test.db", NULL, DB_BTREE, DB_CREATE, 0644 );
+      #else
+      error
+-     #endif 
++     #endif
+      ],
+     kde_cv_berk_database=db4,
+     [
+@@ -57,14 +63,18 @@
+          #include <db.h>
+          ],
+          [
+-         #if     DB_VERSION_MAJOR == 4
++	 #if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
+ 	 DB *db;
+-         DBC *cursor;
+-			db->open( db, "test.db", NULL, DB_BTREE, DB_CREATE, 0644 );
+-         #else
+-         error
+-         #endif 
+-         ],
++	 DBC *cursor;
++	 db->open( db, "test.db", NULL, DB_BTREE, DB_CREATE, 0644 );
++	 #elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++	 DB *db;
++	 DBC *cursor;
++	 db->open( db, NULL, "test.db", NULL, DB_BTREE, DB_CREATE, 0644 );
++	 #else
++	 error
++	 #endif
++	 ],
+         kde_cv_berk_database=db4-db,        
+     kde_cv_berk_database=NO
+    ) 
+--- kdesdk-3.1.2/kbabel/kbabeldict/modules/dbsearchengine/database.cpp.orig	2003-05-07 13:48:11.000000000 +0200
++++ kdesdk-3.1.2/kbabel/kbabeldict/modules/dbsearchengine/database.cpp	2003-05-14 00:49:50.000000000 +0200
+@@ -12,6 +12,7 @@
+ 
+   Copyright  2000
+   Andrea Rizzi rizzi@kde.org
++  Copyright 2003 Stanislav Visnovsky visnovsky@kde.org
+ 
+   License GPL v 2.0
+ 
+@@ -22,6 +23,11 @@
+ #include "database.h"
+ #include <unistd.h>
+ 
++#include <qfile.h>
++
++#include <ktempfile.h>
++#include <kio/netaccess.h>
++
+ WordItem::WordItem(char *data,QString w)
+ {
+ word=w;
+@@ -73,7 +79,7 @@
+ InfoItem::InfoItem()
+ {
+   catalogName="No catalog";  
+-  lastTranslator="No tranlsator";
++  lastTranslator="No translator";
+   lastFullPath="";
+   charset="No charset";
+   language="No language";
+@@ -143,7 +149,27 @@
+ return _size;
+ }
+ 
+-
++// this is a quick hack to copy a local file
++int copy_hack( QFile& input, QFile& output )
++{
++    if( !input.isOpen() ) {
++	if( ! input.open( IO_ReadOnly ) ) return -1;
++    }
++    
++    if( !output.isOpen() ) {
++	if( ! output.open( IO_WriteOnly ) ) return -1;
++    }
++    
++    char buffer[10240];
++    int s = 0;
++    while( !input.atEnd() ) {
++        s = input.readBlock(buffer, 10240);
++        output.writeBlock(buffer, s);
++    }
++    output.close();
++    input.close();
++    return 0;
++}
+ 
+ DataBaseItem::DataBaseItem()
+ {
+@@ -256,53 +282,164 @@
+ 
+ void DataBaseManager::openDataBase()
+ {
+-QString filename,directory;
++kdDebug() << "Opendatabase" << endl;
++QString directory;
+ directory=basedir;
+ QString ll="."+language;
+ if(ll==".") ll=".NOLANG";
+-filename="%1/translations%2.db";
+-filename=filename.arg(directory).arg(ll);
++
++QString transfilename="%1/translations%2.db";
++transfilename=transfilename.arg(directory).arg(ll);
++
++QString infofilename="%1/catalogsinfo%2.db";
++infofilename=infofilename.arg(directory).arg(ll);
++
++QString wordsfilename="%1/wordsindex%2.db";
++wordsfilename=wordsfilename.arg(directory).arg(ll);
++
++QString keysfilename="%1/keysindex%2.db";
++keysfilename=keysfilename.arg(directory).arg(ll);
+ 
+ cursor=0;
+ int ret;
+ 
+  if (!db)
+      db_create( &db, 0, 0);
+-ret=db->open(db, filename.local8Bit(), 0, DB_BTREE, 0,0644);
+-if(ret!=0)
+- {
+-  iAmOk=false;
+-  emit cannotOpenDB(ret);
+-  //Process error here.
+- }
+ 
++ db_create(&infoDb, 0, 0);
++ db_create(&wordDb, 0, 0);
++ db_create(&indexDb,0, 0);
++
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
++ ret=db->open(db,transfilename.local8Bit(), 0, DB_BTREE, 0,0644);
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++ ret=db->open(db, NULL,transfilename.local8Bit(), 0, DB_BTREE, 0,0644);
++#endif
++ if( ret == DB_OLD_VERSION ) {
++    // try upgrade
++    
++    KTempFile transFile, infoFile, keysFile, wordsFile;
++    
++    // do the upgrade on the translation file
++    QFile transfilenameFile( transfilename );
++    
++    if( (ret = copy_hack( transfilenameFile , *transFile.file())) == 0 ) { 
++        ret = db->upgrade( db, transFile.name().local8Bit(), 0 );
++    }
++    
++    if( ret!= 0 ) {
++	// cleanup
++	transFile.unlink();
++	iAmOk=false;
++	emit cannotOpenDB(ret);
++	return ;
++    }
++    
++    // do the upgrade on the info file
++    QFile infofilenameFile( infofilename );
++    if( (ret = copy_hack( infofilenameFile , *infoFile.file())) == 0 ) { 
++        ret = infoDb->upgrade( infoDb, infoFile.name().local8Bit(), 0 );
++    }
++    
++    if( ret!= 0 ) {
++	// cleanup
++	transFile.unlink();
++	infoFile.unlink();
++	iAmOk=false;
++	emit cannotOpenDB(ret);
++	return ;
++    }
++    
++    // do the upgrade on the words file
++    QFile wordfilenameFile( wordsfilename );
++    if( (ret = copy_hack( wordfilenameFile , *wordsFile.file())) == 0 ) { 
++        ret = wordDb->upgrade( wordDb, wordsFile.name().local8Bit(), 0 );
++    }
++    
++    if( ret!= 0 ) {
++	// cleanup
++	transFile.unlink();
++	infoFile.unlink();
++	wordsFile.unlink();
++	iAmOk=false;
++	emit cannotOpenDB(ret);
++	return ;
++    }
++    
++    // do the upgrade on the keys file
++    QFile keysfilenameFile( keysfilename );
++    if( (ret = copy_hack( keysfilenameFile , *keysFile.file())) == 0 ) { 
++        ret = indexDb->upgrade( indexDb, keysFile.name().local8Bit(), 0 );
++    }
++    
++    if( ret!= 0 ) {
++	// cleanup
++	transFile.unlink();
++	infoFile.unlink();
++	wordsFile.unlink();
++	keysFile.unlink();
++	iAmOk=false;
++	emit cannotOpenDB(ret);
++	return ;
++    }
++    
++    // use temporary file instead
++    if( ret==0 ) {
++	KIO::NetAccess::del( transfilename );
++	copy_hack( *transFile.file(), transfilenameFile );
++	transFile.unlink();
++
++	KIO::NetAccess::del( infofilename );
++	copy_hack( *infoFile.file(), infofilenameFile );
++	infoFile.unlink();
++	
++	KIO::NetAccess::del( wordsfilename );
++	copy_hack( *wordsFile.file(), wordfilenameFile );
++	wordsFile.unlink();
++
++	KIO::NetAccess::del( keysfilename );
++	copy_hack( *keysFile.file(), keysfilenameFile );
++	keysFile.unlink();
++
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
++	ret = db->open(db,transfilename.local8Bit(), 0, DB_BTREE, 0,0644);
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++	ret = db->open(db, NULL,transfilename.local8Bit(), 0, DB_BTREE, 0,0644);
++#endif
++	if( ret != 0 ) {
++	    iAmOk=false;
++	    emit cannotOpenDB(ret);
++	    return;
++	}
+ 
++    }
++}
+ 
+ // Open catalogs information database
+ 
+ 
+-filename="%1/catalogsinfo%2.db";
+-filename=filename.arg(directory).arg(ll);
+- db_create(&infoDb, 0, 0);
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
++ret=infoDb->open(infoDb, infofilename.local8Bit(), 0, DB_RECNO, 0,0644);
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++ret=infoDb->open(infoDb, NULL, infofilename.local8Bit(), 0, DB_RECNO, 0,0644);
++#endif
+ 
+-ret=infoDb->open(infoDb, filename.local8Bit(), 0, DB_RECNO, 0,0644);
+ if(ret!=0)
+  {
+   iAmOk=false;
+   emit cannotOpenDB(ret);
+   //Process error here.
+  }
+-  else
+-  loadInfo();  
++  else loadInfo();  
+ 
+ 
+ 
+ // Words index database
+-
+-filename="%1/wordsindex%2.db";
+-filename=filename.arg(directory).arg(ll);
+- db_create(&wordDb, 0, 0);
+-ret=wordDb->open(wordDb, filename.local8Bit(), 0, DB_BTREE, 0,0644);
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
++ret=wordDb->open(wordDb, wordsfilename.local8Bit(), 0, DB_BTREE, 0,0644);
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++ret=wordDb->open(wordDb, NULL,wordsfilename.local8Bit(), 0, DB_BTREE, 0,0644);
++#endif
+ if(ret!=0)
+  {
+   iAmOk=false;
+@@ -311,11 +448,11 @@
+  }
+ 
+ //Index of keys.
+-
+-filename="%1/keysindex%2.db";
+-filename=filename.arg(directory).arg(ll);
+- db_create(&indexDb,0, 0);
+-ret=indexDb->open(indexDb, filename.local8Bit(), 0, DB_RECNO,0,0644);
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
++ret=indexDb->open(indexDb, keysfilename.local8Bit(), 0, DB_RECNO,0,0644);
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++ret=indexDb->open(indexDb, NULL,keysfilename.local8Bit(), 0, DB_RECNO,0,0644);
++#endif
+ if(ret!=0)
+  {
+    iAmOk=false;
+@@ -571,8 +708,12 @@
+  }
+ 
+ db->set_flags(db, DB_RECNUM);
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
+ ret=db->open(db, filename.local8Bit(),0, DB_BTREE, DB_CREATE|DB_EXCL, mode);
+- if(ret!=0) {
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++ret=db->open(db, NULL, filename.local8Bit(),0, DB_BTREE, DB_CREATE|DB_EXCL, mode);
++#endif
++if(ret!=0) {
+      qDebug("db->open %s %d failed", filename.latin1(), mode);
+      iAmOk=false;
+  }
+@@ -583,7 +724,11 @@
+ rename(filename.local8Bit(),filename.local8Bit()+",old");
+ 
+  db_create( &infoDb, 0, 0);
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
+ ret=infoDb->open(infoDb, filename.local8Bit(),0, DB_RECNO, DB_CREATE,mode);
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++ret=infoDb->open(infoDb, NULL, filename.local8Bit(),0, DB_RECNO, DB_CREATE,mode);
++#endif
+ if(ret!=0)
+  iAmOk=false;
+ 
+@@ -594,18 +739,25 @@
+ rename(filename.local8Bit(),filename.local8Bit()+",old");
+ 
+  db_create( &wordDb, 0, 0);
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
+ ret=wordDb->open(wordDb, filename.local8Bit(), 0, DB_BTREE, DB_CREATE,mode);
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++ret=wordDb->open(wordDb, NULL,filename.local8Bit(), 0, DB_BTREE, DB_CREATE,mode);
++#endif
++
+ if(ret!=0)
+  iAmOk=false;
+ 
+-
+-
+ filename="%1/keysindex%2.db";
+ filename=filename.arg(directory).arg(ll);
+ rename(filename.local8Bit(),filename.local8Bit()+",old");
+  
+ db_create( &indexDb, 0, 0);
++#if DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==0
+ ret=indexDb->open(indexDb, filename.local8Bit(),0, DB_RECNO, DB_CREATE, mode);
++#elif DB_VERSION_MAJOR == 4 && DB_VERSION_MINOR==1
++ret=indexDb->open(indexDb, NULL, filename.local8Bit(),0, DB_RECNO, DB_CREATE, mode);
++#endif
+ if(ret!=0)
+  iAmOk=false;
+  
+@@ -863,7 +1015,7 @@
+ 
+ int antibounce=0;
+ //d+=4;
+-int score=d[1];
++//int score=d[1];
+ //d+=4; 
+ bool forward,end=false;
+ 
+@@ -1012,10 +1164,11 @@
+ }
+ 
+ 
+-bool DataBaseManager::removeLocation(QString word, int location)
++bool DataBaseManager::removeLocation(QString /*word*/, int /*location*/)
+ {
+ 
+ //#warning TODO: REMOVE LOCATION
++return true;
+ 	
+ }
+ 
+@@ -1156,9 +1309,9 @@
+    QString msgstr=tran;
+ //   TranslationItem tr;
+ //   DataBaseItem newItem=dbit;
+-    int ref;
++//    int ref;
+     bool found=false,foundTr=false,isThisOne=false;
+-    int removed=0;
++//    int removed=0;
+ 
+     QValueList<TranslationItem>::Iterator ittr; //,ittrb;
+     bool rem=false;
+@@ -1239,7 +1392,7 @@
+ 
+ void DataBaseManager::rebuildIndexes()
+ {
+-  uint32 loc;
++//  uint32 loc;
+ #if 0
+ //Reset the 2 databases here.
+ 
+===================================================================
+RCS file: /home2/webcvs/mirror/kdesdk/kbabel/kbabeldict/modules/dbsearchengine/KDBSearchEngine.cpp,v
+retrieving revision 1.75
+retrieving revision 1.76
+diff -u -p -r1.75 -r1.76
+--- kdesdk/kbabel/kbabeldict/modules/dbsearchengine/KDBSearchEngine.cpp	2003/01/05 18:38:13	1.75
++++ kdesdk/kbabel/kbabeldict/modules/dbsearchengine/KDBSearchEngine.cpp	2003/05/06 14:28:51	1.76
+@@ -23,6 +23,7 @@
+ #include <qinputdialog.h>
+ #include <klocale.h>
+ #include <kdebug.h>
++#include <kio/netaccess.h>
+ #include <kmessagebox.h>
+ #include <kfiledialog.h>
+ #include <kurlrequester.h>
+@@ -139,6 +140,58 @@ bool KDBSearchEngine::loadDatabase(QStri
+  
+   if(ret)
+   {
++      // test, if there are both of ,old and standard databases
++      QString transFile = database+"/translations."+lang+".db";
++      
++      bool oldstuff = QFile::exists( transFile+",old" );
++      bool newstuff = QFile::exists( transFile );
++      
++      if( oldstuff && newstuff ) {
++        // there is an old db2 database, ask user
++	
++	if( KMessageBox::questionYesNo(0
++	    ,i18n("<p>There are backup database files from previous versions "
++	    "of KBabel. However, another version of KBabel (probably from KDE 3.1.1 or 3.1.2) "
++	    "created a new database. As a result, your KBabel installation contains two versions "
++	    "of database files. Unfortunatelly, the old and new version "
++	    "can't be merged. You need to choose one of them.<br/><br/>"
++	    "If you choose the old version, the new one will be removed. "
++	    "If you choose the new version, the old database files will be left alone "
++	    "and you need to remove them manually. Otherwise this message will be displayed "
++	    "again (the old files are at $KDEHOME/share/apps/kbabeldict/dbsearchengine/*,old).</p>")
++	    , i18n("Old database found"), i18n("Use &old database"), i18n("Use &new database")
++	  ) == KMessageBox::Yes ) {
++	    // remove the new files
++	    QFile::remove( transFile );
++	    QFile::remove( database+"/wordsindex."+lang+".db" );
++	    QFile::remove( database+"/keysindex."+lang+".db" );
++	    QFile::remove( database+"/catalogsinfo."+lang+".db" );
++	    
++	    // rename the old files
++	    KIO::NetAccess::copy( transFile+",old", transFile );
++	    KIO::NetAccess::copy( database+"/wordsindex."+lang+".db,old", database+"/wordsindex."+lang+".db" );
++	    KIO::NetAccess::copy( database+"/keysindex."+lang+".db,old", database+"/keysindex."+lang+".db" );
++	    KIO::NetAccess::copy( database+"/catalogsinfo."+lang+".db,old", database+"/catalogsinfo."+lang+".db" );
++
++	    QFile::remove( transFile+",old" );
++	    QFile::remove( database+"/wordsindex."+lang+".db,old" );
++	    QFile::remove( database+"/keysindex."+lang+".db,old" );
++	    QFile::remove( database+"/catalogsinfo."+lang+".db,old" );
++	  }
++      }
++      else if ( oldstuff ) {
++    	  // rename the old files
++	    KIO::NetAccess::copy( transFile+",old", transFile );
++	    KIO::NetAccess::copy( database+"/wordsindex."+lang+".db,old", database+"/wordsindex."+lang+".db" );
++	    KIO::NetAccess::copy( database+"/keysindex."+lang+".db,old", database+"/keysindex."+lang+".db" );
++	    KIO::NetAccess::copy( database+"/catalogsinfo."+lang+".db,old", database+"/catalogsinfo."+lang+".db" );
++
++	    QFile::remove( transFile+",old" );
++	    QFile::remove( database+"/wordsindex."+lang+".db,old" );
++	    QFile::remove( database+"/keysindex."+lang+".db,old" );
++	    QFile::remove( database+"/catalogsinfo."+lang+".db,old" );
++      }
++      
+       dm= new DataBaseManager(database,lang,this,"Database manager");
+ 
+       if(!dm->isOk())
+@@ -541,9 +594,10 @@ bool KDBSearchEngine::startSearchNow(int
+     {
+       idMod=&((*it).string);
+ 	int pos;
+-	for(i=0;i<len;i++)
++	for(i=0;i<len;i++){
+ 	 while((pos=idMod->find(remchar.at(i)))!=-1)
+ 	idMod->remove(pos,1);
++	}
+ 
+         if(comm)
+ 	 idMod->replace(QRegExp("\\_\\:.*\\\\n"),"");  //Read it from catalog !!! (NOT ONLY HERE)
+@@ -573,8 +627,9 @@ bool KDBSearchEngine::startSearchNow(int
+   bool gk=(searchmode==MD_GOOD_KEYS)||allkey;
+   int k=0;
+   
+-  if(gk) {
++    if(gk) {
+      goodkeys=searchWords(mainRequest,thre,threorig,listmax);//FIX IT, mainReq?
++     if( goodkeys.count() == 0 ) gk = false; // if no good keys, use the whole database
+ 	}
+    totalprogress=gk?goodkeys.count():totalRecord;
+    int step=(totalprogress/30)+1;
+@@ -587,7 +642,7 @@ bool KDBSearchEngine::startSearchNow(int
+ 
+ //   Emit progress, process event and check stop now
+       if(count%step==0){
+-           emit progress(100*count/QMAX(totalprogress,1));
++           emit progress(100*count/ /*QMAX(*/totalprogress/*,1)*/);
+            kapp->processEvents(100);
+          }
+       if(stopNow) {
+@@ -965,7 +1020,6 @@ PrefWidget * KDBSearchEngine::preference
+ {
+ 
+  pw =  new PreferencesWidget(parent);
+- kdDebug(0) << "new pref" << endl;
+  setSettings();
+  connect(pw,SIGNAL(restoreNow()),this,SLOT(setSettings()));
+  connect(pw,SIGNAL(applyNow()),this,SLOT(updateSettings()));
