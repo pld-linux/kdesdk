@@ -303,8 +303,6 @@ Summary:	KBabel header files
 Summary(pl):	Pliki nag³ówkowe KBabel
 Group:		X11/Development/Libraries
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}-%{release}
 
 %description kbabel-devel
 KBabel header files.
