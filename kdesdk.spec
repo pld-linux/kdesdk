@@ -547,18 +547,6 @@ A set of macros for xemacs.
 %description xemacs -l pl
 Zestaw makr do xemacsa.
 
-%package i18n
-Summary:	Common internationalization and localization files for kdesdk
-Summary(pl):	Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdesdk
-Group:		X11/Applications
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description i18n
-Common internationalization and localization files for kdesdk.
-
-%description i18n -l pl
-Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdesdk.
-
 %package kfile-i18n
 Summary:	Internationalization and localization files for kfile
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfile
@@ -577,6 +565,7 @@ Summary:	Internationalization and localization files for cervisia
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla cervisii
 Group:		X11/Applications
 Requires:	%{name}-cervisia = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description cervisia-i18n
 Internationalization and localization files for cervisia.
@@ -589,6 +578,7 @@ Summary:	Internationalization and localization files for kbabel
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbabel
 Group:		X11/Applications
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description kbabel-i18n
 Internationalization and localization files for kbabel.
@@ -601,6 +591,7 @@ Summary:	Internationalization and localization files for kbugbuster
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbugbustera
 Group:		X11/Applications
 Requires:	%{name}-kbugbuster = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description kbugbuster-i18n
 Internationalization and localization files for kbugbuster.
@@ -613,6 +604,7 @@ Summary:	Internationalization and localization files for kcachegrind
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kcachegrinda
 Group:		X11/Applications
 Requires:	%{name}-kcachegrind = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description kcachegrind-i18n
 Internationalization and localization files for kcachegrind.
@@ -625,6 +617,7 @@ Summary:	Internationalization and localization files for kompare
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kompare
 Group:		X11/Applications
 Requires:	%{name}-kompare = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description kompare-i18n
 Internationalization and localization files for kompare.
@@ -637,6 +630,7 @@ Summary:	Internationalization and localization files for kfilereplace
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfilereplace
 Group:		X11/Applications
 Requires:	%{name}-kfilereplace = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description kfilereplace-i18n
 Internationalization and localization files for kfilereplace.
@@ -649,6 +643,7 @@ Summary:	Internationalization and localization files for kstartperf
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kstartperfa
 Group:		X11/Applications
 Requires:	%{name}-kstartperf = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description kstartperf-i18n
 Internationalization and localization files for kstartperf.
@@ -661,6 +656,7 @@ Summary:	Internationalization and localization files for kuiviewer
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kuiviewera
 Group:		X11/Applications
 Requires:	%{name}-kuiviewer = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description kuiviewer-i18n
 Internationalization and localization files for kuiviewer.
@@ -673,6 +669,7 @@ Summary:	Internationalization and localization files for kspy
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kspy
 Group:		X11/Applications
 Requires:	%{name}-kspy = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 Obsoletes:	kdesdk-spy-i18n
 
 %description kspy-i18n
@@ -686,6 +683,7 @@ Summary:	Internationalization and localization files for umbrello
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla umbrello
 Group:		X11/Applications
 Requires:	%{name}-umbrello = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description umbrello-i18n
 Internationalization and localization files for umbrello.
