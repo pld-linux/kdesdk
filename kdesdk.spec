@@ -1,8 +1,8 @@
 # TODO:
 #   * scripts from scripts/ subdirectory are not installed.
-%define		_ver		3.0.1
+%define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		3
+%define		_rel		0.5
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
