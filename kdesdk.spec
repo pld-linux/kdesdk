@@ -151,9 +151,9 @@ Summary:        Kbabel headers
 Summary(pl):    Pliki nag³ówkowe KBabel
 Group:          X11/Development
 Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{version} 
-Requires:       %{name}-kbabel-catalog = %{version}
-Requires:       %{name}-kbabel-dictionary = %{version}
+Requires:	%{name}-kbabel = %{epoch}:%{version} 
+Requires:       %{name}-kbabel-catalog = %{epoch}:%{version}
+Requires:       %{name}-kbabel-dictionary = %{epoch}:%{version}
 Obsoletes:	%{name}-devel
 
 %description kbabel-devel
@@ -167,7 +167,7 @@ Summary:        Plugin that supports dictionaries made from po compendia
 Summary(pl):    Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
 Group:          X11/Development
 Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{version}
+Requires:	%{name}-kbabel = %{epoch}:%{version}
 Obsoletes:	%{name}-devel
 
 %description kbabel-dictionary
@@ -181,7 +181,7 @@ Summary:        A KBabel catalog manager
 Summary(pl):    Zarz±dca zbiorów plików po zintegrowany z KBabel
 Group:          X11/Development
 Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{version}
+Requires:	%{name}-kbabel = %{epoch}:%{version}
 Obsoletes:	%{name}-devel
 
 %description kbabel-catalog
