@@ -3,13 +3,13 @@
 #			for KBabel will be built.
 
 %define         _state          stable
-%define         _ver		3.1
+%define         _ver		3.1.1
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	5
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
