@@ -13,7 +13,7 @@ License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	593d80099430fad6fe8e75c3d38b6aa0
+# Source0-md5:	593d80099430fad6fe8e75c3d38b6aa0	
 BuildRequires:	bison
 BuildRequires:	ed
 BuildRequires:	flex
@@ -529,6 +529,7 @@ Zestaw makr do xemacsa.
 %setup -q -n %{name}-%{_snap}
 
 %build
+cp /usr/share/automake/config.sub admin
 for f in `find . -name \*.desktop | xargs grep -l '\[nb\]'` ; do
 	echo -e ',s/\[nb\]=/[no]=/\n,w' | ed $f 2>/dev/null
 done
@@ -537,6 +538,7 @@ done
 
 %configure \
 	--disable-rpath \
+	--with-qt-libraries=%{_libdir} \
 	--enable-final
 
 %{__make}
