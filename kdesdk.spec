@@ -3,10 +3,10 @@
 %define		_ver		3.1.4
 
 Summary:	KDESDK - Software Development Kit for KDE
-Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
+Summary(pl):	KDESDK - wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.3
+Release:	0.4
 Epoch:		8
 License:	GPL
 Group:		X11/Development/Tools
@@ -530,6 +530,8 @@ cat kfile_{cpp,diff}.lang > kfile.lang
 #%find_lang	kabcformat_kdeaccounts	--with-kde
 #%find_lang	lauri		--with-kde
 
+install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -556,10 +558,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/cervisia
 %{_libdir}/libcervisia.la
 %attr(755,root,root) %{_libdir}/libcervisia.so*
-%{_mandir}/man1/cervisia*
 %{_datadir}/apps/cervisia*
 %{_applnkdir}/Development/cervisia.desktop
 %{_pixmapsdir}/*/*/*/cervisia.png
+%{_mandir}/man1/cervisia*
 
 %files completions-bash
 %defattr(644,root,root,755)
@@ -580,6 +582,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kapptemplate/[!b]*
 %dir %{_datadir}/apps/kapptemplate/bin
 %attr(755,root,root) %{_datadir}/apps/kapptemplate/bin/*
+%{_mandir}/man1/kapptemplate.*
 
 %files kaddressbook-kdeaccounts
 #-f kabcformat_kdeaccounts.lang
@@ -603,6 +606,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/*po*
 %{_applnkdir}/Development/kbabel.desktop
 %{_pixmapsdir}/[!l]*/*/*/kbabel.png
+%{_mandir}/man1/kbabel.*
 
 %files kbabel-catalog
 %defattr(644,root,root,755)
@@ -616,6 +620,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/catalogmanager
 %{_applnkdir}/Development/catalogmanager.desktop
 %{_pixmapsdir}/[!l]*/*/*/catalogmanager.png
+%{_mandir}/man1/catalogmanager.*
 
 %files kbabel-dictionary
 %defattr(644,root,root,755)
@@ -627,6 +632,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Development/kbabeldict.desktop
 %{_datadir}/apps/kbabeldict
 %{_pixmapsdir}/[!l]*/*/*/kbabeldict.png
+%{_mandir}/man1/kbabeldict.*
 
 %files kbabel-devel
 %defattr(644,root,root,755)
@@ -638,6 +644,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbugbuster
 %{_applnkdir}/Development/kbugbuster.desktop
 %{_pixmapsdir}/[!l]*/*/*/kbugbuster.png
+%{_mandir}/man1/kbugbuster.*
 
 #%files kmtrace
 #%defattr(644,root,root,755)
@@ -649,6 +656,9 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_libdir}/libktrace*.so*
 #%{_includedir}/ktrace.h
 #%{_datadir}/apps/kmtrace
+#%{_mandir}/man1/kmtrace.*
+#%{_mandir}/man1/kminspector.*
+#%{_mandir}/man1/demangle.*
 
 %files kompare -f kompare.lang
 %defattr(644,root,root,755)
@@ -659,6 +669,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/service*/kompare*
 %{_applnkdir}/Development/kompare.desktop
 %{_pixmapsdir}/[!l]*/*/*/kompare.png
+%{_mandir}/man1/kompare.*
 
 %files kprofilemethod
 %defattr(644,root,root,755)
@@ -693,6 +704,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/swappo
 %attr(755,root,root) %{_bindir}/transxx
 %attr(755,root,root) %{_bindir}/xml2pot
+%{_mandir}/man1/fixsgml.*
+%{_mandir}/man1/po2xml.*
+%{_mandir}/man1/split2po.*
+%{_mandir}/man1/swappo.*
+%{_mandir}/man1/transxx.*
+%{_mandir}/man1/xml2pot.*
 
 %files scripts-build
 %defattr(644,root,root,755)
@@ -706,6 +723,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kde-build
 %attr(755,root,root) %{_bindir}/cheatmake
 %{_mandir}/man1/kde-build*
+%{_mandir}/man1/adddebug.*
+%{_mandir}/man1/create*
+%{_mandir}/man1/makeobj.*
+%{_mandir}/man1/licensecheck.*
+%{_mandir}/man1/cheatmake.*
+#%{_mandir}/man1/fixkdeincludes.*
 
 %files scripts-cvs
 %defattr(644,root,root,755)
@@ -713,31 +736,40 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/noncvslist
 %attr(755,root,root) %{_bindir}/pruneemptydirs
 %{_mandir}/man1/*cvs*
+%{_mandir}/man1/cvs.*
+%{_mandir}/man1/pruneemptydirs.*
 
 %files scripts-doc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/qtdoc
 %attr(755,root,root) %{_bindir}/kdedoc
+%attr(755,root,root) %{_bindir}/qtdoc
+%{_mandir}/man1/kdedoc.*
+%{_mandir}/man1/qtdoc.*
 
 %files scripts-extractrc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/extractrc
+%{_mandir}/man1/extractrc.*
 
 %files scripts-cxxmetric
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cxxmetric
+%{_mandir}/man1/cxxmetric.*
 
 %files scripts-kdekillall
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdekillall
+%{_mandir}/man1/kdekillall.*
 
 %files scripts-kdelnk2desktop
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdelnk2desktop.py
+%{_mandir}/man1/kdelnk2desktop.py.*
 
 %files scripts-zonetab2pot
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
+%{_mandir}/man1/zonetab2pot.py.*
 
 %files xemacs
 %defattr(644,root,root,755)
