@@ -7,7 +7,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -545,6 +545,8 @@ install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kd
 
 %{__make} -C kstartperf install DESTDIR=$RPM_BUILD_ROOT
 
+install cervisia/cvsservice/cvs{askpass,service} $RPM_BUILD_ROOT%{_bindir}
+
 install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes/
 cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
@@ -596,6 +598,8 @@ rm -rf $RPM_BUILD_ROOT
 %files cervisia -f cervisia.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cervisia
+%attr(755,root,root) %{_bindir}/cvsaskpass
+%attr(755,root,root) %{_bindir}/cvsservice
 %{_libdir}/libcvsservice.la
 %attr(755,root,root) %{_libdir}/libcvsservice.so.*.*.*
 %{_libdir}/kde3/libcervisiapart.la
