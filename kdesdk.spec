@@ -11,8 +11,9 @@ Release:	0.%{_snap}.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	86e27e18f4f833e05ed0200907d77eb4
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
