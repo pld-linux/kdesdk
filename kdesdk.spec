@@ -2,16 +2,15 @@
 Summary:	KDESDK - Software Development Kit for KDE.
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE.
 Name:		kdesdk
-Version: 	%{date}
+Version:	%{date}
 Release:	1
-Copyright:	GPL
+License:	GPL
 Group:		X11/KDE/Development
+Group(de):	X11/KDE/Entwicklung
 Group(pl):	X11/KDE/Programowanie
-#ftp:		ftp.kde.org
-#patch:		/pub/kde/snapshots
-Source:		%{name}-%{version}.tar.bz2
-Patch:		kdesdk-fix.patch
-Patch1:		kdesdk-scripts-fix.patch
+Source0:	%{name}-%{version}.tar.bz2
+Patch0:		%{name}-fix.patch
+Patch1:		%{name}-scripts-fix.patch
 Requires:	qt >= 1.44, kdelibs >= 1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -28,6 +27,7 @@ Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 Summary:	SGML-tools for KDE. 
 Summary(pl):	Narzêdzie SGML-u dla KDE
 Group:		X11/KDE/Utilities
+######		Unknown group!
 Group(pl):	X11/KDE/Narzêdzia
 
 %description kdesgmltools
@@ -38,6 +38,7 @@ Group(pl):	X11/KDE/Narzêdzia
 Summary:	KDE Translator Tools
 Summary(pl):	Prosty tlumacz dla KDE
 Group:		X11/KDE/Utilities
+######		Unknown group!
 Group(pl):	X11/KDE/Narzêdzia
 
 %description ktranslator
@@ -50,6 +51,7 @@ Program wspomagaj±cy tworzenie t³umaczeñ dla aplikacji tworzonych w
 Summary:	K documantation tools
 Summary(pl):	Kdoc
 Group:		X11/KDE/Utilities
+######		Unknown group!
 Group(pl):	X11/KDE/Narzêdzia
 
 %description kdoc
@@ -62,11 +64,12 @@ Narzêdzia do tworzenia dokumentacji dla KDE.
 Summary:	kappgen
 Summary(pl):	kappgen
 Group:		X11/KDE/Development
-Group(pl):	X11/KDE/Narzêdzia
+Group(de):	X11/KDE/Entwicklung
+Group(pl):	X11/KDE/Programowanie
 
 %description kappgen
 This program make abasic KDE application.
- 
+
 %description -l pl kappgen
 Program do tworzenia prostego szkieletu aplikacji dla KDE.
 
@@ -102,12 +105,13 @@ export KDEDIR=%{_prefix}
 %find_lang ktranslator
 %find_lang kappgen
 
-gzip -9 $RPM_BUILD_ROOT/usr/X11R6/man/man1/*
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files kdesgmltools 
+%defattr(644,root,root,755)
 #-f kdesgmltools.lang
 %defattr(644, root, root, 755)
 #%doc
@@ -118,37 +122,44 @@ rm -rf $RPM_BUILD_ROOT
 %lang(en) %{_datadir}/doc/HTML/en/ksgml2html/*
 
 %files ktranslator -f ktranslator.lang
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 #%doc
-%config(missingok) /etc/X11/kde/ktranslatorrc
-%config(missingok) /etc/X11/kde/applnk/Applications/ktranslator.kdelnk
+%config(missingok) %{_sysconfdir}/X11/kde/ktranslatorrc
+%config(missingok) %{_sysconfdir}/X11/kde/applnk/Applications/ktranslator.kdelnk
 
 %attr(755,root,root) %{_bindir}/ktranslator
 %lang(en) %{_datadir}/kde/doc/HTML/en/ktranslator
 
 %files kdoc
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 #%doc
 %attr(755,root,root) %{_bindir}/kdoc
 %attr(755,root,root) %{_bindir}/qt2kdoc
 %{_datadir}/kdoc
-/usr/X11R6/man/man1/kdoc.1.gz
-/usr/X11R6/man/man1/qt2kdoc.1.gz
+%{_mandir}/man1/kdoc.1.gz
+%{_mandir}/man1/qt2kdoc.1.gz
 
 %files kappgen
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 #%doc
 %attr(755,root,root) %{_bindir}/kappgen
 %{_datadir}/kde/apps/kappgen
 
 %files
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 #%doc
 %attr(755,root,root) %{_bindir}/cvs*
 %attr(755,root,root) %{_bindir}/cxxmetric
-%attr(644,root,root) /usr/X11R6/man/man1/cvs*.1.gz
+%attr(644,root,root) %{_mandir}/man1/cvs*.1.gz
 
 %changelog
+* %{date} PLD Team <pld-list@pld.org.pl>
+All persons listed below can be reached at <cvs_login>@pld.org.pl
+
+$Log: kdesdk.spec,v $
+Revision 1.5  2000-12-03 02:46:37  agaran
+Just adapterized
+
 * Sun Jun 13  1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
   [19990609]
 - update to last version.
