@@ -22,6 +22,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel = %{version}
 BuildRequires:	libltdl-devel
+BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
@@ -449,7 +450,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 for plik in `find ./ -name *.desktop` ; do
 	if [ -d $plik ]; then
 	echo $plik
-	sed -ie "s/[nb]/[no]/g" $plik
+	sed -ie 's/\[nb\]/\[no\]/g' $plik
 	fi
 done
 				
