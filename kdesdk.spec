@@ -12,7 +12,7 @@ Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{srcver}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_srcver}.tar.bz2
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 BuildRequires:	bison
@@ -31,6 +31,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_emacspkgdir	/usr/share/emacs/21.2
 %define		_xemacspkgdir	/usr/share/xemacs-packages
 %define		_zshfcdir	/usr/share/zsh/latest/functions
+
+%define         no_install_post_chrpath         1
 
 %description
 Software Development Kit for KDE.
@@ -524,12 +526,6 @@ cd -
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
-
-%post   cervisia -p /sbin/ldconfig
-%postun cervisia -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
