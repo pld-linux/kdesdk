@@ -698,7 +698,7 @@ export kde_htmldir=%{_kdedocdir}
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -790,7 +790,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/cervisia.desktop
 %{_iconsdir}/*/*/*/cervisia.png
 %{_mandir}/man1/cervisia.1*
-%{_kdedocdir}/en/cervisia
 
 %files completions-bash
 %defattr(644,root,root,755)
@@ -889,15 +888,10 @@ rm -rf $RPM_BUILD_ROOT
 %files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
-%{_libdir}/kde3/kcal_bugzilla.la
-%attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
 %{_datadir}/apps/kbugbuster
-# this dir belongs to kdepim
-%{_datadir}/services/kresources/kcal/bugzilla.desktop
 %{_desktopdir}/kde/kbugbuster.desktop
 %{_iconsdir}/[!l]*/*/*/kbugbuster.png
 %{_mandir}/man1/kbugbuster.1*
-%{_kdedocdir}/en/kbugbuster
 
 %files kcachegrind -f kcachegrind.lang
 %defattr(644,root,root,755)
@@ -907,7 +901,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kcachegrind.desktop
 %{_iconsdir}/hicolor/*/apps/kcachegrind.png
 %{_mandir}/man1/kcachegrind.1*
-%{_kdedocdir}/en/kcachegrind
 
 # -- doesn't build with glibc >= 2.3
 %files kmtrace
@@ -921,10 +914,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libktrace*.a
 %{_includedir}/ktrace.h
 %{_datadir}/apps/kmtrace
-#%{_mandir}/man1/demangle.1*
-#%{_mandir}/man1/kminspector.1*
-#%{_mandir}/man1/kmmatch.1*
-#%{_mandir}/man1/kmtrace.1*
+%{_mandir}/man1/demangle.1*
+%{_mandir}/man1/kminspector.1*
+%{_mandir}/man1/kmmatch.1*
+%{_mandir}/man1/kmtrace.1*
 
 %files kompare -f kompare.lang
 %defattr(644,root,root,755)
@@ -948,7 +941,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kompare.desktop
 %{_iconsdir}/[!l]*/*/*/kompare.*
 %{_mandir}/man1/kompare.1*
-%{_kdedocdir}/en/kompare
 
 %files kprofilemethod
 %defattr(644,root,root,755)
@@ -1102,7 +1094,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
 %{_iconsdir}/crystalsvg/*/*/umbrello*.*
 %{_mandir}/man1/umbrello.1*
-%{_kdedocdir}/en/umbrello
 
 %files xemacs
 %defattr(644,root,root,755)
