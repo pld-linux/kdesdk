@@ -10,7 +10,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -177,8 +177,7 @@ utrzymanie plików po.
 %package kbabel-devel
 Summary:	KBabel header files
 Summary(pl):	Pliki nag³ówkowe KBabel
-Group:		X11/Development
-######		Unknown group!
+Group:		X11/Development/Libraries
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}-%{release}
@@ -193,8 +192,7 @@ Pliki nag³ówkowe KBabel.
 %package kbabel-catalog
 Summary:	A KBabel catalog manager
 Summary(pl):	Zarz±dca zbiorów plików po zintegrowany z KBabel
-Group:		X11/Development
-######		Unknown group!
+Group:		X11/Development/Tools
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-devel
 
@@ -207,8 +205,7 @@ Zarz±dca zbiorów plików po zintegrowany z KBabel.
 %package kbabel-dictionary
 Summary:	Plugin that supports dictionaries made from po compendia
 Summary(pl):	Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po
-Group:		X11/Development
-######		Unknown group!
+Group:		X11/Development/Tools
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-devel
 
@@ -518,8 +515,7 @@ Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
 %package scheck
 Summary:	KDE Style - Scheck
 Summary(pl):	Motyw KDE - Scheck
-Group:		X11/Development
-######		Unknown group!
+Group:		X11/Development/Tools
 Obsoletes:	kdesdk-devel
 
 %description scheck
