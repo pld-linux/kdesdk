@@ -5,8 +5,8 @@
 %define		_snap		040702
 %define		_packager	djurban
 
-%define		_minlibsevr	9:3.2.90.040524
-%define		_minbaseevr	9:3.2.90.040524
+%define		_minlibsevr	9:3.2.91.040629
+%define		_minbaseevr	9:3.2.91.040629
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
