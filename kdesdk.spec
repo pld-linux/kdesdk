@@ -1,9 +1,9 @@
 # TODO:
 #   * scripts from scripts/ subdirectory are not installed.
 #   * separate aplications do subpackages
-%define		_ver		3.0.2
+%define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		1.1
+%define		_rel		0.1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -23,16 +23,16 @@ Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-BuildRequires:	bison
-BuildRequires:	kdebase-devel = %{version}
-BuildRequires:	gettext-devel
-BuildRequires:	db4-devel
-# kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
 BuildRequires:	binutils-static
-Requires:	kdelibs = %{version}
-Requires:	%{name}-extractrc = %{version}
+BuildRequires:	bison
+BuildRequires:	db4-devel
+BuildRequires:	gettext-devel
+BuildRequires:	kdebase-devel = %{version}
 # required by kbabel:
 Requires:	gettext-devel
+# kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
+Requires:	kdelibs = %{version}
+Requires:	%{name}-extractrc = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
