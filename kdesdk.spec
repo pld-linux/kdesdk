@@ -13,7 +13,7 @@ Source:		%{name}-%{version}.tar.bz2
 Patch:		kdesdk-fix.patch
 Patch1:		kdesdk-scripts-fix.patch
 Requires:	qt >= 1.44, kdelibs >= 1.1
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define _prefix	/usr/X11R6
 %define	_mandir	/usr/X11R6/man
@@ -70,7 +70,6 @@ This program make abasic KDE application.
 %description -l pl kappgen
 Program do tworzenia prostego szkieletu aplikacji dla KDE.
 
- 
 %prep
 %setup -q -n %{name}
 %patch -p0
