@@ -4,7 +4,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define		_snap		030406
+%define		_snap		030418
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
