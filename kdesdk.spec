@@ -1,5 +1,6 @@
 
 %define		_state		stable
+%define		_kdever		3.4
 %define		_ver		3.4.0
 
 %define		_minlibsevr	9:3.4.0
@@ -13,7 +14,7 @@ Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	5b88692972e65c5e7d3aafc6400bea2c
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
