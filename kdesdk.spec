@@ -84,7 +84,7 @@ CFLAGS="$RPM_OPT_FLAGS -Wall" \
 	--enable-nls \
 	--with-install-root=$RPM_BUILD_ROOT
 
-make KDEDIR=$KDEDIR
+%{__make} KDEDIR=$KDEDIR
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -92,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/kde/toolbar
 
 export KDEDIR=%{_prefix}
-make \
+%{__make} \
 	prefix=$RPM_BUILD_ROOT$KDEDIR \
 	sgml_prefix=$RPM_BUILD_ROOT/usr/lib/sgml-tools \
 	kde_prefix=$RPM_BUILD_ROOT$KDEDIR \
