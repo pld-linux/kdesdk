@@ -1,23 +1,21 @@
 #
-# _with_dbsearchengine	Dictionary plugin "Translation Database"
-#			for KBabel will be built.
 
 %define         _state          stable
-%define         _ver		3.1.1
+%define         _ver		3.1.2
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+Patch0:		%{name}-dbsearchengine_db4.patch
 BuildRequires:	bison
-%{?_with_dbsearchengine:BuildRequires:	db2-devel}
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel = %{version}
@@ -470,6 +468,8 @@ Zestaw makr do xemacsa.
 
 %prep
 %setup -q
+%patch0 -p1
+
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -477,20 +477,18 @@ kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 for plik in `find ./ -name *.desktop` ; do
-	if [ -d $plik ]; then
 	echo $plik
-	sed -ie 's/\[nb\]/\[no\]/g' $plik
-	fi
+	sed -i -e 's/\[nb\]/\[no\]/g' $plik
 done
-				
+
+%{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--enable-final \
 	--enable-nls
-	
-%{__make}
+#%%{__make}
 
-%{__make} -C kstartperf
+#%%{__make} -C kstartperf
 
 %install
 rm -rf $RPM_BUILD_ROOT
