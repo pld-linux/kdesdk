@@ -683,6 +683,11 @@ echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Translation;/' \
 	kbabel/kbabel/kbabel.desktop
 
+%ifarch amd64
+%{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/configure.in.in
+%{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/Makefile.am
+%endif
+
 %build
 cp %{_datadir}/automake/config.sub admin
 
