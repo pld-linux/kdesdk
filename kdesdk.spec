@@ -9,7 +9,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -655,23 +655,32 @@ Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
 echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;GUIDesigner;/' \
-	kuiviewer/kuiviewer.desktop
 
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;GUIDesigner;/' \
+	-e 's/Terminal=0/Terminal=false/' \
+	kuiviewer/kuiviewer.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;RevisionControl;/' \
+	-e 's/Terminal=0/Terminal=false/' \
 	cervisia/cervisia.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Profiling;/' \
+	-e 's/Terminal=0/Terminal=false/' \
 	kcachegrind/kcachegrind/kcachegrind.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;ProjectManagement;/' \
+	-e 's/Terminal=0/Terminal=false/' \
 	kbugbuster/kbugbuster.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Translation;/' \
+	-e 's/Terminal=0/Terminal=false/' \
 	kbabel/catalogmanager/catalogmanager.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Translation;/' \
+	-e 's/Terminal=0/Terminal=false/' \
 	kbabel/kbabeldict/kbabeldict.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Translation;/' \
+	-e 's/Terminal=0/Terminal=false/' \
 	kbabel/kbabel/kbabel.desktop
+%{__sed} -i -e 's/Terminal=0/Terminal=false/' \
+	kompare/kompare.desktop
+%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
+	umbrello/umbrello/umbrello.desktop
 
 %ifarch amd64
 %{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/configure.in.in
