@@ -6,7 +6,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -132,7 +132,7 @@ Definicje autouzupe³niania dla basha.
 Summary:	Autocomplete definitions for zsh
 Summary(pl):	Definicje autouzupe³niania dla zsh
 Group:		Applications/Shells
-Requires:	zsh >= 4.0.6-2
+Requires:	zsh-completions >= 4.0.6-2
 Obsoletes:	kdesdk-devel
 
 %description completions-zsh
@@ -772,6 +772,7 @@ install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
 cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
+rm -f ./scripts/completions/zsh/_dcop
 cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
 cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
