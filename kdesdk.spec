@@ -11,7 +11,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	3
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -204,6 +204,7 @@ kmtrace konwertuje mtrace glibca do pe³nego backtrace'a.
 Summary:	Kompare - a program to view the differences between files
 Summary(pl):	Kompare - program s³u¿±cy do porównywania zmian miêdzy plikami
 Group:		X11/Development/Tools
+Conflicts:	kdesdk-kbugbuster < 3:3.2.90.040517-3
 
 %description kompare
 Kompare is a program to view the differences between files. Features
@@ -300,7 +301,7 @@ Przegl±darka plików UI generowanych przez QT designera.
 Summary:	A KDE CVS frontendA cvsservice library
 Summary(pl):	Frontend do CVS dla KDEBiblioteka cvsservice
 Group:		X11/Libraries
-Requires:	kdelinbs >= %{_minlibsevr}
+Requires:	kdelibs >= %{_minlibsevr}
 Conflicts:	kdesdk-cervisia < 3:3.2.90.040516-2
 
 %description libcvsservice
@@ -662,8 +663,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kbugbuster
 %{_libdir}/kde3/kcal_bugzilla.la
 %attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
-%{_libdir}/kde3/libdialogpages.la
-%attr(755,root,root) %{_libdir}/kde3/libdialogpages.so*
 %{_datadir}/apps/kbugbuster
 # this dir belongs to kdepim
 %{_datadir}/services/kresources/kcal/bugzilla.desktop
@@ -704,8 +703,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkompareinterface.so.*.*.*
 %{_libdir}/kde3/kfile_diff.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_diff.so
-%{_libdir}/kde3/libkompare*.la
-%attr(755,root,root) %{_libdir}/kde3/libkompare*.so
+# TODO: this is shared lib - why in kde3 dir?
+%{_libdir}/kde3/libdialogpages.la
+%attr(755,root,root) %{_libdir}/kde3/libdialogpages.so*
+%{_libdir}/kde3/libkomparenavtreepart.la
+%attr(755,root,root) %{_libdir}/kde3/libkomparenavtreepart.so
+%{_libdir}/kde3/libkomparepart.la
+%attr(755,root,root) %{_libdir}/kde3/libkomparepart.so
 %{_datadir}/apps/kompare*
 %{_datadir}/services/kfile_diff.desktop
 %{_datadir}/services/kompare*.desktop
