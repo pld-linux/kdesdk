@@ -6,7 +6,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.5
+Release:	0.6
 Epoch:		8
 License:	GPL
 Group:		X11/Development/Tools
@@ -15,6 +15,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 # translations are generated from kde-i18n.spec now
 Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	3afe212bf8a89f8a51a991d8ad3ae552
+Source2:	%{name}-extra_icons.tar.bz2
+# Source2-md5:	eb3d8b795f042f00aea79962bd8bc6f3
 BuildRequires:	bison
 BuildRequires:	ed
 BuildRequires:	gettext-devel
@@ -140,6 +142,7 @@ Summary(pl):	Rozbudowany i ³atwy w obs³udze edytor plików PO
 Group:		X11/Development/Tools
 Requires:	gettext-devel
 Obsoletes:	%{name}-devel
+Obsoletes:	%{name}-kbabel-dictionary
 
 %description kbabel
 KBabel is a tool, that allows easy management, edition and upkeep of
@@ -156,7 +159,6 @@ Group:		X11/Development
 #Requires:	gettext-devel
 Requires:	%{name}-kbabel = %{epoch}:%{version}
 Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}
-Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}
 Obsoletes:	%{name}-devel
 
 %description kbabel-devel
@@ -164,20 +166,6 @@ KBabel headers.
 
 %description kbabel-devel -l pl
 Pliki nag³ówkowe KBabel.
-
-%package kbabel-dictionary
-Summary:	Plugin that supports dictionaries made from po compendia
-Summary(pl):	Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
-Group:		X11/Development
-#Requires:	gettext-devel
-Requires:	%{name}-kbabel = %{epoch}:%{version}
-Obsoletes:	%{name}-devel
-
-%description kbabel-dictionary
-Plugin that supports dictionaries made from po compendia.
-
-%description kbabel-dictionary -l pl
-Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po.
 
 %package kbabel-catalog
 Summary:	A KBabel catalog manager
@@ -509,10 +497,12 @@ cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
 cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT%{_zshfcdir}
 cp ./scripts/completions/bash/* $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
 
-cd $RPM_BUILD_ROOT%{_pixmapsdir}
-mv {locolor,crystalsvg}/32x32/apps/kbugbuster.png
-mv {locolor,crystalsvg}/32x32/apps/kompare.png
-cd -
+mv $RPM_BUILD_ROOT%{_pixmapsdir}/{locolor,crystalsvg}/32x32/apps/kbugbuster.png
+mv $RPM_BUILD_ROOT%{_pixmapsdir}/{locolor,crystalsvg}/32x32/apps/kompare.png
+
+bzip2 -dc %{SOURCE2} | tar xf - -C $RPM_BUILD_ROOT%{_pixmapsdir}
+ln -s crystalsvg/48x48/apps/catalogmanager.png $RPM_BUILD_ROOT%{_pixmapsdir}/catalogmanager.png
+ln -s crystalsvg/48x48/apps/kbabel.png $RPM_BUILD_ROOT%{_pixmapsdir}/kbabel.png
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
@@ -561,6 +551,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/cervisia*
 %{_applnkdir}/Development/cervisia.desktop
 %{_pixmapsdir}/*/*/*/cervisia.png
+%{_pixmapsdir}/cervisia.png
 %{_mandir}/man1/cervisia*
 
 %files completions-bash
@@ -594,19 +585,30 @@ rm -rf $RPM_BUILD_ROOT
 %files kbabel -f kbabel.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabel
+%attr(755,root,root) %{_bindir}/kbabeldict
 %{_libdir}/libkbabelcommon.la
 %attr(755,root,root) %{_libdir}/libkbabelcommon.so*
 %{_libdir}/libkbabel.la
 %attr(755,root,root) %{_libdir}/libkbabel.so*
+%{_libdir}/libkbabeldict*.la
+%attr(755,root,root) %{_libdir}/libkbabeldict*.so*
 %{_libdir}/kde3/kfile_po.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_po.so
+#%{_libdir}/kde3/libdbsearchengine.la
+#%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
 %{_libdir}/kde3/pothumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/pothumbnail.so
 %{_datadir}/apps/kbabel
+%{_datadir}/apps/kbabeldict
 %{_datadir}/services/*po*
 %{_applnkdir}/Development/kbabel.desktop
+%{_applnkdir}/Development/kbabeldict.desktop
 %{_pixmapsdir}/[!l]*/*/*/kbabel.png
+%{_pixmapsdir}/[!l]*/*/*/kbabeldict.png
+%{_pixmapsdir}/kbabel.png
+%{_pixmapsdir}/kbabeldict.png
 %{_mandir}/man1/kbabel.*
+%{_mandir}/man1/kbabeldict.*
 
 %files kbabel-catalog
 %defattr(644,root,root,755)
@@ -620,19 +622,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/catalogmanager
 %{_applnkdir}/Development/catalogmanager.desktop
 %{_pixmapsdir}/[!l]*/*/*/catalogmanager.png
+%{_pixmapsdir}/catalogmanager.png
 %{_mandir}/man1/catalogmanager.*
-
-%files kbabel-dictionary
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kbabeldict
-#%{_libdir}/kde3/libdbsearchengine.la
-#%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
-%{_libdir}/libkbabeldict*.la
-%attr(755,root,root) %{_libdir}/libkbabeldict*.so*
-%{_applnkdir}/Development/kbabeldict.desktop
-%{_datadir}/apps/kbabeldict
-%{_pixmapsdir}/[!l]*/*/*/kbabeldict.png
-%{_mandir}/man1/kbabeldict.*
 
 %files kbabel-devel
 %defattr(644,root,root,755)
@@ -644,6 +635,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbugbuster
 %{_applnkdir}/Development/kbugbuster.desktop
 %{_pixmapsdir}/[!l]*/*/*/kbugbuster.png
+%{_pixmapsdir}/kbugbuster.png
 %{_mandir}/man1/kbugbuster.*
 
 %files kmtrace
@@ -669,6 +661,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/service*/kompare*
 %{_applnkdir}/Development/kompare.desktop
 %{_pixmapsdir}/[!l]*/*/*/kompare.png
+%{_pixmapsdir}/kompare.png
 %{_mandir}/man1/kompare.*
 
 %files kprofilemethod
