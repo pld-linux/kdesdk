@@ -1,20 +1,20 @@
 
 %define		_state		stable
-%define		_ver		3.3.2
+%define		_ver		3.4.0
 
-%define		_minlibsevr	9:3.3.2
-%define		_minbaseevr	9:3.3.2
+%define		_minlibsevr	9:3.4.0
+%define		_minbaseevr	9:3.4.0
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	906bbcde1b3db2eaac8a257c8574e033
+# Source0-md5:	5b88692972e65c5e7d3aafc6400bea2c
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
 BuildRequires:	automake
@@ -27,7 +27,7 @@ BuildRequires:	kdepim-devel >= 3:3.3.1
 BuildRequires:	libltdl-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
-BuildRequires:	unsermake >= 040511
+#BuildRequires:	unsermake >= 040511
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
 Obsoletes:	kdesdk
@@ -663,8 +663,8 @@ Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 %setup -q
 %patch0 -p1
 
-echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
-echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
+#echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
+#echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;GUIDesigner;/' \
 	-e 's/Terminal=0/Terminal=false/' \
@@ -710,7 +710,7 @@ done
 %{__make} -f admin/Makefile.common cvs
 
 # Used in cervisia Makefile
-export kde_htmldir=%{_kdedocdir}
+#export kde_htmldir=%{_kdedocdir}
 
 %configure \
 	--disable-rpath \
@@ -813,6 +813,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config.kcfg/cervisiapart.kcfg
 %{_datadir}/apps/kconf_update/change_colors.pl
 %{_datadir}/apps/kconf_update/cervisia.upd
+%{_datadir}/apps/kconf_update/cervisia-change_repos_list.pl
+%{_datadir}/apps/kconf_update/cervisia-normalize_cvsroot.pl
 %{_datadir}/apps/kconf_update/move_repositories.pl
 %{_datadir}/services/cvsservice.desktop
 %{_desktopdir}/kde/cervisia.desktop
@@ -855,18 +857,28 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kbabel -f kbabel.lang
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/catalogmanager
 %attr(755,root,root) %{_bindir}/kbabel
+%attr(755,root,root) %{_bindir}/kbabeldict
 %{_libdir}/libkbabelcommon.la
 %attr(755,root,root) %{_libdir}/libkbabelcommon.so.*.*.*
 %{_libdir}/libkbabeldictplugin.la
 %attr(755,root,root) %{_libdir}/libkbabeldictplugin.so.*.*.*
 %{_libdir}/kde3/kbabel_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabel_*.so
+%{_libdir}/kde3/kbabeldict_*.la
+%attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so
+%{_libdir}/kde3/kfile_po.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_po.so
+%{_libdir}/kde3/pothumbnail.la
+%attr(755,root,root) %{_libdir}/kde3/pothumbnail.so
+%{_datadir}/apps/catalogmanager
 %{_datadir}/apps/kbabel
 %{_datadir}/config.kcfg/kbabel.kcfg
+%{_datadir}/config.kcfg/kbprojectsettings.kcfg
 %{_datadir}/apps/kconf_update/kbabel-project.upd
-# Already in kdelibs
-#%{_datadir}/mimelnk/application/x-gettext.desktop
+%{_datadir}/apps/kconf_update/kbabel-projectrename.upd
+%{_datadir}/services/dbsearchengine.desktop
 %{_datadir}/services/kbabel_accelstool.desktop
 %{_datadir}/services/kbabel_argstool.desktop
 %{_datadir}/services/kbabel_contexttool.desktop
@@ -881,37 +893,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kbabel_punctuationtool.desktop
 %{_datadir}/services/kbabel_setfuzzytool.desktop
 %{_datadir}/services/kbabel_whitespacetool.desktop
+%{_datadir}/services/kbabel_xliff_export.desktop
+%{_datadir}/services/kbabel_xliff_import.desktop
 %{_datadir}/services/kbabel_xmltool.desktop
-%{_datadir}/servicetypes/kbabel_*.desktop
-%{_datadir}/servicetypes/kbabelfilter.desktop
-%{_desktopdir}/kde/kbabel.desktop
-%{_iconsdir}/[!l]*/*/*/kbabel.png
-# Already in kdelibs
-#%{_iconsdir}/[!l]*/*/mimetypes/gettext.png
-%{_mandir}/man1/kbabel.1*
-# catalog part
-%attr(755,root,root) %{_bindir}/catalogmanager
-%{_libdir}/kde3/kfile_po.la
-%attr(755,root,root) %{_libdir}/kde3/kfile_po.so
-%{_libdir}/kde3/pothumbnail.la
-%attr(755,root,root) %{_libdir}/kde3/pothumbnail.so
-%{_datadir}/apps/catalogmanager
 %{_datadir}/services/kfile_po.desktop
-%{_datadir}/services/pothumbnail.desktop
-%{_desktopdir}/kde/catalogmanager.desktop
-%{_iconsdir}/[!l]*/*/*/catalogmanager.png
-%{_mandir}/man1/catalogmanager.1*
-# dictionary part
-%attr(755,root,root) %{_bindir}/kbabeldict
-%{_libdir}/kde3/kbabeldict_*.la
-%attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so
-%{_datadir}/services/dbsearchengine.desktop
-%{_datadir}/services/tmxcompendium.desktop
 %{_datadir}/services/poauxiliary.desktop
 %{_datadir}/services/pocompendium.desktop
+%{_datadir}/services/pothumbnail.desktop
+%{_datadir}/services/tmxcompendium.desktop
+%{_datadir}/servicetypes/kbabel_*.desktop
 %{_datadir}/servicetypes/kbabeldict_module.desktop
+%{_datadir}/servicetypes/kbabelfilter.desktop
+%{_desktopdir}/kde/catalogmanager.desktop
+%{_desktopdir}/kde/kbabel.desktop
 %{_desktopdir}/kde/kbabeldict.desktop
+%{_iconsdir}/[!l]*/*/*/catalogmanager.png
+%{_iconsdir}/[!l]*/*/*/kbabel.png
 %{_iconsdir}/[!l]*/*/*/kbabeldict.png
+%{_mandir}/man1/catalogmanager.1*
+%{_mandir}/man1/kbabel.1*
 %{_mandir}/man1/kbabeldict.1*
 
 %files kbabel-devel
@@ -962,9 +962,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkompareinterface.so.*.*.*
 %{_libdir}/kde3/kfile_diff.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_diff.so
-# TODO: this is shared lib - why in kde3 dir?
-%{_libdir}/kde3/libdialogpages.la
-%attr(755,root,root) %{_libdir}/kde3/libdialogpages.so*
 %{_libdir}/kde3/libkomparenavtreepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkomparenavtreepart.so
 %{_libdir}/kde3/libkomparepart.la
@@ -1003,7 +1000,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libkuiviewerpart.so
 %{_libdir}/kde3/quithumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/quithumbnail.so
-%{_datadir}/apps/kuiviewer/kuiviewer.rc
+%{_datadir}/apps/kuiviewer/kuiviewerui.rc
 %{_datadir}/apps/kuiviewerpart/kuiviewer_part.rc
 %{_datadir}/services/designerthumbnail.desktop
 %{_datadir}/services/kuiviewer_part.desktop
@@ -1033,13 +1030,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files po2xml
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/fixsgml
 %attr(755,root,root) %{_bindir}/po2xml
 %attr(755,root,root) %{_bindir}/split2po
 %attr(755,root,root) %{_bindir}/swappo
 %attr(755,root,root) %{_bindir}/transxx
 %attr(755,root,root) %{_bindir}/xml2pot
-#%{_mandir}/man1/fixsgml.1*
 %{_mandir}/man1/po2xml.1*
 %{_mandir}/man1/split2po.1*
 %{_mandir}/man1/swappo.1*
@@ -1059,6 +1054,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/create*
 %attr(755,root,root) %{_bindir}/cheatmake
 %attr(755,root,root) %{_bindir}/extend*
+%attr(755,root,root) %{_bindir}/extractattr
 %attr(755,root,root) %{_bindir}/fixkdeincludes
 %attr(755,root,root) %{_bindir}/fixuifiles
 %attr(755,root,root) %{_bindir}/includemocs
@@ -1092,16 +1088,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/includemocs.1*
 %{_mandir}/man1/kde-build.1*
 %{_mandir}/man1/licensecheck.1*
-%{_mandir}/man1/kdemangen.pl.1*
 %{_mandir}/man1/makeobj.1*
-%{_mandir}/man1/dprof2calltree.1*
-%{_mandir}/man1/hotshot2calltree.1*
-%{_mandir}/man1/memprof2calltree.1*
-%{_mandir}/man1/op2calltree.1*
-%{_mandir}/man1/package_crystalsvg.1*
-%{_mandir}/man1/png2mng.pl.1*
-%{_mandir}/man1/pprof2calltree.1*
-%{_mandir}/man1/fixuifiles.1*
 
 %files scripts-cvs
 %defattr(644,root,root,755)
