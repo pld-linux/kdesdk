@@ -6,7 +6,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.2
+Release:	0.3
 Epoch:		8
 License:	GPL
 Group:		X11/Development/Tools
@@ -518,8 +518,17 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
+%find_lang	kfile_po	--with-kde
+cat kfile_po.lang >> kbabel.lang
 %find_lang	kbugbuster	--with-kde
 %find_lang	kompare		--with-kde
+%find_lang	spy		--with-kde
+%find_lang	kfile_cpp	--with-kde
+%find_lang	kfile_diff	--with-kde
+cat kfile_{cpp,diff}.lang > kfile.lang
+%find_lang	kstartperf	--with-kde
+#%find_lang	kabcformat_kdeaccounts	--with-kde
+#%find_lang	lauri		--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -527,7 +536,7 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files
+%files -f kfile.lang
 %defattr(644,root,root,755)
 %doc README
 %{_libdir}/kde3/kfile_[!p]*.la
@@ -573,6 +582,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/apps/kapptemplate/bin/*
 
 %files kaddressbook-kdeaccounts
+#-f kabcformat_kdeaccounts.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kabcformat_kdeaccounts.la
 %attr(755,root,root) %{_libdir}/kde3/kabcformat_kdeaccounts.so
@@ -654,13 +664,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/kprofilemethod.h
 
-%files kspy
+%files kspy -f spy.lang
 %defattr(644,root,root,755)
 %{_libdir}/libkspy.la
 %attr(755,root,root) %{_libdir}/libkspy.so*
 %{_includedir}/kspy.h
 
-%files kstartperf
+%files kstartperf -f kstartperf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kstartperf
 %{_libdir}/libkstartperf.la
@@ -675,6 +685,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_appdefdir}
 
 %files po2xml
+# -f lauri.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/fixsgml
 %attr(755,root,root) %{_bindir}/po2xml
