@@ -1,19 +1,19 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.92
-%define		_snap		030930
+%define		_snap		031006
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	96e0e1ce3d7c502ed54098f90aed28aa
+# Source0-md5:	32963048eba8afb57f67d5abf80ac623
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
@@ -847,8 +847,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libcodegenerator.la
 %{_libdir}/libcodegenerator.so
 %attr(755,root,root) %{_libdir}/libcodegenerator.so.*.*.*
-%{_libdir}/kde3/libumlwidgets.la
-%attr(755,root,root) %{_libdir}/kde3/libumlwidgets.so*
+#%{_libdir}/kde3/libumlwidgets.la
+#%attr(755,root,root) %{_libdir}/kde3/libumlwidgets.so*
 %{_datadir}/apps/umbrello
 %{_datadir}/mimelnk/application/x-umbrello.desktop
 %{_desktopdir}/kde/umbrello.desktop
