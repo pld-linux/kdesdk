@@ -1,3 +1,4 @@
+%bcond_without	svn 	# without svn
 
 %define		_state		stable
 %define		_kdever		3.4
@@ -16,6 +17,7 @@ License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	5b88692972e65c5e7d3aafc6400bea2c
+Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
 BuildRequires:	automake
@@ -30,7 +32,7 @@ BuildRequires:	libltdl-devel
 BuildRequires:	perl-tools-pod
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
-BuildRequires:	subversion-devel
+%{?with_svn:BuildRequires:subversion-devel}
 #BuildRequires:	unsermake >= 040511
 Obsoletes:	kdesdk-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -663,6 +665,7 @@ Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %prep
 %setup -q
+%patch100 -p1
 %patch0 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
@@ -809,8 +812,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/cervisia
 %attr(755,root,root) %{_bindir}/cvsaskpass
 %attr(755,root,root) %{_bindir}/cvsservice
-%{_libdir}/kde3/libcervisiapart.la
-%attr(755,root,root) %{_libdir}/kde3/libcervisiapart.so
+%{_libdir}/kde3/*cervisia*.la
+%attr(755,root,root) %{_libdir}/kde3/*cervisia*.so
+%attr(755,root,root) %{_libdir}/libkdeinit_cervisia.so
+%{_libdir}/libkdeinit_cervisia.la
+
+
 %{_datadir}/apps/cervisia*
 %{_datadir}/config.kcfg/cervisiapart.kcfg
 %{_datadir}/apps/kconf_update/change_colors.pl
@@ -1014,6 +1021,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libcvsservice.la
 %attr(755,root,root) %{_libdir}/libcvsservice.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkdeinit_cvsservice.so
+%attr(755,root,root) %{_libdir}/libkdeinit_cvsaskpass.so
+%attr(755,root,root) %{_libdir}/kde3/cvs*.so
+%{_libdir}/kde3/cvs*.la
 
 %files libcvsservice-devel
 %defattr(644,root,root,755)
@@ -1021,6 +1032,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cvsservice_stub.h
 %{_includedir}/repository_stub.h
 %attr(755,root,root) %{_libdir}/libcvsservice.so
+%{_libdir}/libkdeinit_cvsservice.la
+%{_libdir}/libkdeinit_cvsaskpass.la
 
 %files pallette-gimp
 %defattr(644,root,root,755)
@@ -1091,6 +1104,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/kde-build.1*
 %{_mandir}/man1/licensecheck.1*
 %{_mandir}/man1/makeobj.1*
+%{_mandir}/man1/dprof2calltree.1*
+%{_mandir}/man1/extractattr.1*
+%{_mandir}/man1/fixuifiles.1*
+%{_mandir}/man1/hotshot2calltree.1*
+%{_mandir}/man1/kdemangen.pl.1*
+%{_mandir}/man1/memprof2calltree.1*
+%{_mandir}/man1/op2calltree.1*
+%{_mandir}/man1/package_crystalsvg.1*
+%{_mandir}/man1/png2mng.pl.1*
+%{_mandir}/man1/pprof2calltree.1*
+
 
 %files scripts-cvs
 %defattr(644,root,root,755)
