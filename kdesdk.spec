@@ -10,7 +10,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -42,6 +42,7 @@ Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 Summary:	Static libraries for kdesdk
 Summary(pl):	Statyczne biblioteki dla kdesdk
 Group:		X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description static
 Static libraries for kdesdk.
@@ -54,6 +55,7 @@ Summary:        A KDE cvs frontend
 Summary(pl):    Frontend CVS pod KDE
 Group:		X11/Development/Tools
 Requires:	cvs >= 1.10
+Obsoletes:	%{name}-devel
 
 %description cervisia
 A KDE cvs frontend.
@@ -65,6 +67,7 @@ Frontend CVS pod KDE.
 Summary:        A KDE cvs frontend - header files
 Summary(pl):    Frontend CVS pod KDE - pliki nag³ówkowe
 Group:		X11/Development
+Obsoletes:	%{name}-devel
 
 %description cervisia-devel
 A KDE cvs frontend. This package contains header files.
@@ -77,6 +80,7 @@ Summary:        Autocomplete definitions for bash
 Summary(pl):    Definicje autouzupe³niania dla basha
 Group:		Applications/Shells
 Requires:	bash-completion
+Obsoletes:	%{name}-devel
 
 %description completions-bash
 Autocomplete definitions for bash.
@@ -89,6 +93,7 @@ Summary:        Autocomplete definitions for zsh
 Summary(pl):    Definicje autouzupe³niania dla zsh
 Group:          Applications/Shells
 Requires:       zsh >= 4.0.6-2
+Obsoletes:	%{name}-devel
 
 %description completions-zsh
 Autocomplete definitions for zsh.
@@ -101,6 +106,7 @@ Summary:	A set of macros for emacs
 Summary(pl):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
 Requires: 	emacs-common
+Obsoletes:	%{name}-devel
 
 %description emacs
 A set of macros for emacs.
@@ -113,6 +119,7 @@ Summary:        A kdeaccounts plugin for the KDE adressbook
 Summary(pl):	Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts
 Group:          X11/Applications
 Requires:	kdepim-kaddressbook >= 3.0.8
+Obsoletes:	%{name}-devel
 
 %description kaddressbook-kdeaccounts
 A kdeaccounts plugin for the KDE adressbook. What is does is adding
@@ -126,6 +133,7 @@ ona osoby posiadaj±ce konta w CVS KDE do ksi±¿ki adresowej.
 Summary:        KDE application framework generator
 Summary(pl):    Generator szkieletu dla aplikacji KDE
 Group:          X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description kapptemplate
 Modular shell script that will automatically create a framework for
@@ -142,6 +150,7 @@ Summary:        An advanced and easy to use PO-file editor
 Summary(pl):    Rozbudowany i ³atwy w obs³udze edytor plików PO
 Group:          X11/Development/Tools
 Requires:	gettext-devel
+Obsoletes:	%{name}-devel
 
 %description kbabel
 KBabel is a tool, that allows easy management, edition and upkeep of 
@@ -159,6 +168,7 @@ Requires:       gettext-devel
 Requires:	%{name}-kbabel = %{version} 
 Requires:       %{name}-kbabel-catalog = %{version}
 Requires:       %{name}-kbabel-dictionary = %{version}
+Obsoletes:	%{name}-devel
 
 %description kbabel-devel
 KBabel headers.
@@ -172,6 +182,7 @@ Summary(pl):    Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
 Group:          X11/Development
 Requires:       gettext-devel
 Requires:	%{name}-kbabel = %{version}
+Obsoletes:	%{name}-devel
 
 %description kbabel-dictionary
 Plugin that supports dictionaries made from po compendia.
@@ -185,6 +196,7 @@ Summary(pl):    Zarz±dca zbiorów plików po zintegrowany z KBabel
 Group:          X11/Development
 Requires:       gettext-devel
 Requires:	%{name}-kbabel = %{version}
+Obsoletes:	%{name}-devel
 
 %description kbabel-catalog
 A KBabel catalog manager.
@@ -196,6 +208,7 @@ Zarz±dca zbiorów plików po zintegrowany z KBabel.
 Summary:        A tools that allows cooperation with bugs.kde.org
 Summary(pl):    Narzêdzie wspó³pracuj±ce z bugs.kde.org
 Group:          X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description kbugbuster
 KBugBuster allows easy bug management on bugs.kde.org.
@@ -208,6 +221,7 @@ Summary:        An mtrace to full backtrace conversion tool
 Summary(pl):    Narzêdzie do konwersji z mtrace do pe³nego backtrace'a
 Group:          X11/Development/Tools
 BuildRequires:  binutils-static
+Obsoletes:	%{name}-devel
 
 %description kmtrace
 Converts glibc's mtrace log into a full backtrace.
@@ -219,6 +233,7 @@ Konwertuje mtrace glibca do pe³nego backtrace'a.
 Summary:	Kompare is a program to view the differences between files
 Summary(pl):	Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami
 Group:		X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description kompare
 Kompare is a program to view the differences between files. Features
@@ -255,6 +270,7 @@ Aktualnie dostêpne funkcje:
 Summary:	Kprofilemethod is a set of macros which help profiling using QTime
 Summary(pl):	Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z wykorzystaniem QTime
 Group:		X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description kprofilemethod
 Kprofilemethod is a set of macros which help profiling using QTime.
@@ -269,6 +285,7 @@ Summary(pl):    Narzêdzie do badania stanu aplikacji QT/KDE
 Group:          X11/Development/Tools
 Obsoletes:	kdiff
 Obsoletes:	kdiff2
+Obsoletes:	%{name}-devel
 
 %description kspy
 KSpy is a utility intended to help developers examine the internal
@@ -292,6 +309,7 @@ wydaniu stabilnym.
 Summary:	A tool to measure startup time for KDE applications
 Summary(pl):	Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE
 Group:          X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description kstartperf
 kstartperf measures startup time for KDE applications.
@@ -304,6 +322,7 @@ Summary:        Adds the KDE Default pallette to GIMP
 Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do GIMP-a
 Group:          X11/Applications/Graphics
 Requires:	gimp
+Obsoletes:	%{name}-devel
 
 %description pallette-gimp
 Adds the KDE Default pallette to GIMP.
@@ -316,6 +335,7 @@ Summary:        Adds the KDE Default pallette to XPaint
 Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do XPainta
 Group:          X11/Applications/Graphics
 Requires:       xpaint
+Obsoletes:	%{name}-devel
 
 %description pallette-xpaint
 Adds the KDE Default pallette to XPaint.
@@ -328,6 +348,7 @@ Summary:	An xml2po and vice versa converters
 Summary(pl):	Konwertery po2xml i vice versa
 Group:          X11/Development/Tools
 Requires:	/usr/bin/python
+Obsoletes:	%{name}-devel
 
 %description po2xml
 An xml2po and vice versa converters.
@@ -340,6 +361,7 @@ Summary:        An set of scripts useful for building KDE
 Summary(pl):    Zestaw skryptów do kompilowania KDE
 Group:          X11/Development/Tools
 Requires:	/usr/bin/perl
+Obsoletes:	%{name}-devel
 
 %description scripts-build
 A set of scripts useful for building KDE.
@@ -352,6 +374,7 @@ Summary:	Statistic meter for c/c++ files
 Summary(pl):	Plik do tworzenia statystyki plików c/c++
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
+Obsoletes:	%{name}-devel
 
 %description scripts-cxxmetric
 Counts lines of code, comments and blank space in C and C++ source
@@ -366,6 +389,7 @@ Summary:        A set of scripts for maintaining KDE from CVS
 Summary(pl):    Zestaw skryptów do zarz±dzania KDE z CVS
 Group:          X11/Development/Tools
 Requires:	/usr/bin/perl
+Obsoletes:	%{name}-devel
 
 %description scripts-cvs 
 A set of scripts for maintaining KDE from CVS.
@@ -377,6 +401,7 @@ Zestaw skryptów do zarz±dzania KDE z CVS.
 Summary:        A set of scripts for quick access to qt/KDE documentation
 Summary(pl):    Zestaw skryptów szybkiego dostêpu do dokumentacji qt/KDE
 Group:          X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description scripts-doc
 A set of scripts for quick access to qt/KDE documentation.
@@ -389,7 +414,8 @@ Summary:	Extracts the strings from .rc files
 Summary(pl):	Wyci±ga ³añcuchy z plików .rc
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
-Obsoletes:	kdesdk-extractrc
+Obsoletes:	%{name}-extractrc
+Obsoletes:	%{name}-devel
 
 %description scripts-extractrc
 A Perl script, it extracts the strings in an application's .rc file,
@@ -405,6 +431,7 @@ tworzy siê t³umaczenia (pliki po).
 Summary:	A script for killing KDE apps started with kdeinit
 Summary(pl):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
 Group:          X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description scripts-kdekillall
 A script for killing KDE apps started with kdeinit.
@@ -416,6 +443,7 @@ Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit.
 Summary:	A kdelnk to desktop converter
 Summary(pl):	Konwerter plików kdelnk na desktop
 Group:          X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description scripts-kdelnk2desktop
 A kdelnk to desktop converter.
@@ -429,6 +457,7 @@ Summary(pl):	Konwerter plików zone.tab na .pot
 Group:          X11/Development/Tools
 Requires:	/usr/bin/python
 Requires:	gettext-devel
+Obsoletes:	%{name}-devel
 
 %description scripts-zonetab2pot
 This script reads timezone list as its first argument or from
@@ -442,6 +471,7 @@ Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
 Summary:	KDE Style - Scheck
 Summary(pl):	Motyw KDE - Scheck
 Group:		X11/Development
+Obsoletes:	%{name}-devel
 
 %description scheck
 Development style for searching accelerator and style guide conflicts.
@@ -453,6 +483,7 @@ Motyw KDE przeznaczony do szukania konfliktów w oprogramowaniu.
 Summary:	UML Modeler
 Summary(pl):	Modeler UML
 Group:		X11/Development/Tools
+Obsoletes:	%{name}-devel
 
 %description umbrello
 UML Modeler.
@@ -465,6 +496,7 @@ Summary:	A set of macros for xemacs
 Summary(pl):	Zestaw makr do xemacsa
 Group:		X11/Development/Tools
 Requires: 	xemacs-common
+Obsoletes:	%{name}-devel
 
 %description xemacs
 A set of macros for xemacs.
