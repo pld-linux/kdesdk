@@ -17,6 +17,7 @@ Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{n
 # Source1-md5:	3afe212bf8a89f8a51a991d8ad3ae552
 Source2:	%{name}-extra_icons.tar.bz2
 # Source2-md5:	eb3d8b795f042f00aea79962bd8bc6f3
+BuildConflicts:	kdesdk-kbabel-dictionary
 BuildRequires:	bison
 BuildRequires:	ed
 BuildRequires:	gettext-devel
