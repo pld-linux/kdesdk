@@ -1,7 +1,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define		_snap		030602
+%define		_snap		030613
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -12,8 +12,8 @@ Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	14709bfbf999171bc46fd954b9a66e5e
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	4a46d5d8f134a9105518279c33c0fd69
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
@@ -24,6 +24,7 @@ BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	%{_docdir}/kde/HTML
+%define		_icondir	%{_datadir}/icons
 %define		_gimpdir	%(gimp-config --gimpdatadir)
 %define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
 %define		_emacspkgdir	/usr/share/emacs/21.2
@@ -151,11 +152,11 @@ Requires:	gettext-devel
 Obsoletes:	%{name}-devel
 
 %description kbabel
-KBabel is a tool, that allows easy management, edition and upkeep of 
+KBabel is a tool, that allows easy management, edition and upkeep of
 gettext .po files.
 
 %description kbabel -l pl
-KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i 
+KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
 utrzymanie plików po.
 
 %package kbabel-devel
@@ -163,7 +164,7 @@ Summary:        Kbabel headers
 Summary(pl):    Pliki nag³ówkowe KBabel
 Group:          X11/Development
 Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{version} 
+Requires:	%{name}-kbabel = %{version}
 Requires:       %{name}-kbabel-catalog = %{version}
 Requires:       %{name}-kbabel-dictionary = %{version}
 Obsoletes:	%{name}-devel
@@ -224,7 +225,7 @@ Obsoletes:	%{name}-devel
 %description kmtrace
 Converts glibc's mtrace log into a full backtrace.
 
-%description kmtrace -l pl 
+%description kmtrace -l pl
 Konwertuje mtrace glibca do pe³nego backtrace'a.
 
 %package kompare
@@ -249,7 +250,7 @@ include:
   * graphical interface to commonly used diff command line options
   * switch source and destination with one command
   * diff statistics
-			    
+
 %description kompare -l pl
 Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami.
 Aktualnie dostêpne funkcje:
@@ -277,7 +278,7 @@ Kprofilemethod is a set of macros which help profiling using QTime.
 Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z
 wykorzystaniem QTime.
 
-%package kspy 
+%package kspy
 Summary:        A utility for egzamining the internal state of a QT/KDE application.
 Summary(pl):    Narzêdzie do badania stanu aplikacji QT/KDE
 Group:          X11/Development/Tools
@@ -389,7 +390,7 @@ Group:          X11/Development/Tools
 Requires:	/usr/bin/perl
 Obsoletes:	%{name}-devel
 
-%description scripts-cvs 
+%description scripts-cvs
 A set of scripts for maintaining KDE from CVS.
 
 %description scripts-cvs -l pl
@@ -506,9 +507,6 @@ Zestaw makr do xemacsa.
 %setup -q -n %{name}-%{_snap}
 
 %build
-kde_appsdir="%{_applnkdir}"; export kde_appsdir
-kde_htmldir="%{_htmldir}"; export kde_htmldir
-kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 for plik in `find ./ -name *.desktop` ; do
 	if [ -d $plik ]; then
@@ -518,7 +516,7 @@ for plik in `find ./ -name *.desktop` ; do
 done
 
 %configure
-	
+
 %{__make}
 
 %{__make} -C kstartperf
@@ -526,11 +524,12 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_appsdir=%{_applnkdir} \
+	kde_htmldir=%{_htmldir}
 
-%{__make} -C kstartperf install DESTDIR="$RPM_BUILD_ROOT"
-
-rm -rf `find . -name CVS`
+%{__make} -C kstartperf install DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_gimpdir}/palettes
 install -d $RPM_BUILD_ROOT%{_appdefdir}
@@ -539,12 +538,12 @@ install -d $RPM_BUILD_ROOT%{_xemacspkgdir}/kde
 install -d $RPM_BUILD_ROOT%{_zshfcdir}
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
-install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT%{_gimpdir}/palettes/
-cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_emacspkgdir}/kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
-cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT%{_zshfcdir}
-cp ./scripts/completions/bash/* $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
+install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes/
+cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
+cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
+cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
+cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
+cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
 
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/Development/*.desktop \
     $RPM_BUILD_ROOT%{_desktopdir}
@@ -552,6 +551,10 @@ mv -f $RPM_BUILD_ROOT%{_applnkdir}/Development/*.desktop \
 cd $RPM_BUILD_ROOT%{_desktopdir}
 cat umbrello.desktop |sed -e 's/umbrello.png/uml.png/' > umbrello.desktop.bak
 cat umbrello.desktop.bak > umbrello.desktop
+cd -
+
+cd $RPM_BUILD_ROOT
+rm -rf `find . -name CVS`
 cd -
 
 %find_lang	cervisia	--with-kde
@@ -602,7 +605,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kconf_update/move_repositories.pl
 %{_datadir}/services/cvsservice.desktop
 %{_desktopdir}/cervisia.desktop
-%{_pixmapsdir}/*/*/*/cervisia.png
+%{_icondir}/*/*/*/cervisia.png
 %{_mandir}/man1/cervisia*
 
 %files cervisia-devel
@@ -660,7 +663,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/servicetypes/kbabel_*.desktop
 %{_datadir}/servicetypes/kbabelfilter.desktop
 %{_desktopdir}/kbabel.desktop
-%{_pixmapsdir}/[!l]*/*/*/kbabel.png
+%{_icondir}/[!l]*/*/*/kbabel.png
 
 %files kbabel-catalog
 %defattr(644,root,root,755)
@@ -673,7 +676,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kfile_po.desktop
 %{_datadir}/services/pothumbnail.desktop
 %{_desktopdir}/catalogmanager.desktop
-%{_pixmapsdir}/[!l]*/*/*/catalogmanager.png
+%{_icondir}/[!l]*/*/*/catalogmanager.png
 
 %files kbabel-dictionary
 %defattr(644,root,root,755)
@@ -688,7 +691,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/pocompendium.desktop
 %{_datadir}/servicetypes/kbabeldict_module.desktop
 %{_desktopdir}/kbabeldict.desktop
-%{_pixmapsdir}/[!l]*/*/*/kbabeldict.png
+%{_icondir}/[!l]*/*/*/kbabeldict.png
 
 %files kbabel-devel
 %defattr(644,root,root,755)
@@ -701,7 +704,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kbugbuster
 %{_datadir}/apps/kbugbuster
 %{_desktopdir}/kbugbuster.desktop
-%{_pixmapsdir}/[!l]*/*/*/kbugbuster.png
+%{_icondir}/[!l]*/*/*/kbugbuster.png
 
 #%files kmtrace
 #%defattr(644,root,root,755)
@@ -726,7 +729,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kompare*.desktop
 %{_datadir}/servicetypes/kompare*.desktop
 %{_desktopdir}/kompare.desktop
-%{_pixmapsdir}/[!l]*/*/*/kompare.png
+%{_icondir}/[!l]*/*/*/kompare.png
 
 %files kprofilemethod
 %defattr(644,root,root,755)
@@ -826,7 +829,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/umbrello
 %{_datadir}/mimelnk/application/x-umbrello.desktop
 %{_desktopdir}/umbrello.desktop
-%{_pixmapsdir}/hicolor/*/apps/uml.png
+%{_icondir}/hicolor/*/apps/uml.png
 
 %files xemacs
 %defattr(644,root,root,755)
