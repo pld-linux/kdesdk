@@ -204,7 +204,7 @@ KBugBuster allows easy bug management on bugs.kde.org.
 KBugBuster u³atwia wyszukwianie i zarz±dzanie b³êdami na bugs.kde.org.
 
 %package kmtrace
-Summary:	An mtrace to full backtrace conversion tool
+Summary:	A mtrace to full backtrace conversion tool
 Summary(pl):	Narzêdzie do konwersji z mtrace do pe³nego backtrace'a
 Group:		X11/Development/Tools
 BuildRequires:	binutils-static
@@ -344,7 +344,7 @@ An xml2po and vice versa converters.
 Konwertery po2xml i vice versa.
 
 %package scripts-build
-Summary:	An set of scripts useful for building KDE
+Summary:	A set of scripts useful for building KDE
 Summary(pl):	Zestaw skryptów do kompilowania KDE
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
