@@ -1,26 +1,26 @@
 
-%define         _state          stable
-%define         _ver		3.1.3
+%define		_state		stable
+%define		_ver		3.1.4
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1.2
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	427586c481c0e503c197ff2d5aa3b81c
-# translations are  generated from kde-i18n.spec now
+# Source0-md5:	ed343cedeab6c6dc814fa8b4e164e4ec
+# translations are generated from kde-i18n.spec now
 Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	70b075cd3ab5f9f6f3135e4b1bee9d76
+# Source1-md5:	3afe212bf8a89f8a51a991d8ad3ae552
 BuildRequires:	bison
+BuildRequires:	ed
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel = %{epoch}:%{version}
 BuildRequires:	libltdl-devel
-BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
 
@@ -470,15 +470,14 @@ Zestaw makr do xemacsa.
 %prep
 %setup -q
 
-
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-for plik in `find ./ -name *.desktop` ; do
+for plik in `find ./ -name *.desktop | grep -l '\[nb\]'` ; do
 	echo $plik
-	sed -i -e 's/\[nb\]/\[no\]/g' $plik
+	echo -e ',s/\[nb\]/[no]/\n,w' | ed $plik
 done
 
 %configure \
@@ -609,8 +608,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kbabel-dictionary
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabeldict
-%{_libdir}/kde3/libdbsearchengine.la
-%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
+#%{_libdir}/kde3/libdbsearchengine.la
+#%attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
 %{_libdir}/libkbabeldict*.la
 %attr(755,root,root) %{_libdir}/libkbabeldict*.so*
 %{_applnkdir}/Development/kbabeldict.desktop
