@@ -1,11 +1,12 @@
-#
-# Conditional build:
-%bcond_with	i18n	# w/wo i18n subpackages
-#
+
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040506
-#
+%define		_snap		040511
+%define		_packager	adgor
+
+%define		_minlibsevr	9:3.2.90.040508
+%define		_minbaseevr	9:3.2.90.040508
+
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
@@ -15,18 +16,16 @@ Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
-Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	dcdb8ca2f0855b415138e09bc3965106
-#Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-##%% Source1-md5:        26387c5679d77b57788f0d01be6f6fed
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	dcdb8ca2f0855b415138e09bc3965106
 URL:		http://www.kde.org/
 BuildRequires:	bison
 BuildRequires:	ed
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
-BuildRequires:	kdebase-devel >= 9:%{version}
+BuildRequires:	kdebase-devel >= %{_minbaseevr}
 BuildRequires:	libltdl-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake
@@ -163,6 +162,8 @@ Summary(pl):	Rozbudowany i ³atwy w obs³udze edytor plików PO
 Group:		X11/Development/Tools
 Requires:	gettext-devel
 Obsoletes:	kdesdk-devel
+Obsoletes:	kdesdk-kbabel-catalog
+Obsoletes:	kdesdk-kbabel-dictionary
 
 %description kbabel
 KBabel is a tool, that allows easy management, edition and upkeep of
@@ -186,32 +187,6 @@ KBabel header files.
 
 %description kbabel-devel -l pl
 Pliki nag³ówkowe KBabel.
-
-%package kbabel-catalog
-Summary:	A KBabel catalog manager
-Summary(pl):	Zarz±dca zbiorów plików po zintegrowany z KBabel
-Group:		X11/Development/Tools
-Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Obsoletes:	kdesdk-devel
-
-%description kbabel-catalog
-A KBabel catalog manager.
-
-%description kbabel-catalog -l pl
-Zarz±dca zbiorów plików po zintegrowany z KBabel.
-
-%package kbabel-dictionary
-Summary:	Plugin that supports dictionaries made from po compendia
-Summary(pl):	Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po
-Group:		X11/Development/Tools
-Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Obsoletes:	kdesdk-devel
-
-%description kbabel-dictionary
-Plugin that supports dictionaries made from po compendia.
-
-%description kbabel-dictionary -l pl
-Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po.
 
 %package kbugbuster
 Summary:	A tools that allows cooperation with bugs.kde.org
@@ -401,21 +376,6 @@ A set of scripts useful for building KDE.
 %description scripts-build -l pl
 Zestaw skryptów do kompilowania KDE.
 
-%package scripts-cxxmetric
-Summary:	Statistic meter for c/c++ files
-Summary(pl):	Program do tworzenia statystyki plików c/c++
-Group:		X11/Development/Tools
-Requires:	/usr/bin/perl
-Obsoletes:	kdesdk-devel
-
-%description scripts-cxxmetric
-This program counts lines of code, comments and blank space in C and
-C++ source files.
-
-%description scripts-cxxmetric -l pl
-Ten program zlicza linijki kodu, komentarzy i znaków bia³ych w plikach
-¼ród³owych C i C++.
-
 %package scripts-cvs
 Summary:	A set of scripts for maintaining KDE from CVS
 Summary(pl):	Zestaw skryptów do zarz±dzania KDE z CVS
@@ -441,35 +401,6 @@ A set of scripts for quick access to Qt/KDE documentation.
 %description scripts-doc -l pl
 Zestaw skryptów szybkiego dostêpu do dokumentacji Qt/KDE.
 
-%package scripts-extractrc
-Summary:	Extracting the strings from .rc files
-Summary(pl):	Wyci±ganie ³añcuchów z plików .rc
-Group:		X11/Development/Tools
-Requires:	/usr/bin/perl
-Obsoletes:	kdesdk-devel
-Obsoletes:	kdesdk-extractrc
-
-%description scripts-extractrc
-A Perl script, it extracts the strings in an application's .rc file,
-e.g. testappui.rc, and writes into the pot file where the translations
-are build with (po-files).
-
-%description scripts-extractrc -l pl
-Skrypt napisany w Perlu, który wyci±ga ³añcuchy z plików .rc
-aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
-tworzy siê t³umaczenia (pliki po).
-
-%package scripts-findmissingcrystal
-Summary:	A script for finding missing crystal icons
-Summary(pl):	Skrypt do wyszukiwania brakuj±cych ikon z tematu crystal
-Group:		X11/Development/Tools
-
-%description scripts-findmissingcrystal
-A script for finding missing crystal icons.
-
-%description scripts-findmissingcrystal -l pl
-Skrypt do wyszukiwania brakuj±cych ikon z tematu crystal.
-
 %package scripts-kdekillall
 Summary:	A script for killing KDE apps started with kdeinit
 Summary(pl):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
@@ -482,33 +413,24 @@ A script for killing KDE apps started with kdeinit.
 %description scripts-kdekillall -l pl
 Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit.
 
-%package scripts-kdelnk2desktop
-Summary:	A kdelnk to desktop converter
-Summary(pl):	Konwerter plików kdelnk na desktop
+%package scripts-misc
+Summary:	TODO
+Summary(pl):	TODO
 Group:		X11/Development/Tools
+Requires:	/usr/bin/perl
 Obsoletes:	kdesdk-devel
+Obsoletes:	kdesdk-extractrc
+Obsoletes:	kdesdk-scripts-cxxmetric
+Obsoletes:	kdesdk-scripts-extractrc
+Obsoletes:	kdesdk-scripts-findmissingcrystal
+Obsoletes:	kdesdk-scripts-kdelnk2desktop
+Obsoletes:	kdesdk-scripts-zonetab2pot
 
-%description scripts-kdelnk2desktop
-A kdelnk to desktop converter.
+%description scripts-misc
+TODO.
 
-%description scripts-kdelnk2desktop -l pl
-Konwerter plików kdelnk na desktop.
-
-%package scripts-zonetab2pot
-Summary:	A zone.tab to .pot converter
-Summary(pl):	Konwerter plików zone.tab na .pot
-Group:		X11/Development/Tools
-Requires:	/usr/bin/python
-Requires:	gettext-devel
-Obsoletes:	kdesdk-devel
-
-%description scripts-zonetab2pot
-This script reads timezone list as its first argument or from
-/usr/share/zoneinfo/zone.tab, and converts it to a PO file template.
-
-%description scripts-zonetab2pot -l pl
-Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
-/usr/share/zoneinfo/zone.tab i konwertuje je na plik POT.
+%description scripts-misc -l pl
+TODO.
 
 %package scheck
 Summary:	KDE Style - Scheck
@@ -547,173 +469,21 @@ A set of macros for xemacs.
 %description xemacs -l pl
 Zestaw makr do xemacsa.
 
-%package i18n
-Summary:	Common internationalization and localization files for kdesdk
-Summary(pl):	Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdesdk
-Group:		X11/Applications
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description i18n
-Common internationalization and localization files for kdesdk.
-
-%description i18n -l pl
-Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdesdk.
-
-%package kfile-i18n
-Summary:	Internationalization and localization files for kfile
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfile
-Group:		X11/Applications
-Requires:	%{name}-kfile = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	konqueror-i18n >= 9:%{version}
-
-%description kfile-i18n
-Internationalization and localization files for kfile.
-
-%description kfile-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kfile.
-
-%package cervisia-i18n
-Summary:	Internationalization and localization files for cervisia
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla cervisii
-Group:		X11/Applications
-Requires:	%{name}-cervisia = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description cervisia-i18n
-Internationalization and localization files for cervisia.
-
-%description cervisia-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla cervisii.
-
-%package kbabel-i18n
-Summary:	Internationalization and localization files for kbabel
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbabel
-Group:		X11/Applications
-Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kbabel-i18n
-Internationalization and localization files for kbabel.
-
-%description kbabel-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kbabel.
-
-%package kbugbuster-i18n
-Summary:	Internationalization and localization files for kbugbuster
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbugbustera
-Group:		X11/Applications
-Requires:	%{name}-kbugbuster = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kbugbuster-i18n
-Internationalization and localization files for kbugbuster.
-
-%description kbugbuster-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kbugbustera.
-
-%package kcachegrind-i18n
-Summary:	Internationalization and localization files for kcachegrind
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kcachegrinda
-Group:		X11/Applications
-Requires:	%{name}-kcachegrind = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kcachegrind-i18n
-Internationalization and localization files for kcachegrind.
-
-%description kcachegrind-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kcachegrinda.
-
-%package kompare-i18n
-Summary:	Internationalization and localization files for kompare
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kompare
-Group:		X11/Applications
-Requires:	%{name}-kompare = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kompare-i18n
-Internationalization and localization files for kompare.
-
-%description kompare-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kompare.
-
-%package kfilereplace-i18n
-Summary:	Internationalization and localization files for kfilereplace
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfilereplace
-Group:		X11/Applications
-Requires:	%{name}-kfilereplace = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kfilereplace-i18n
-Internationalization and localization files for kfilereplace.
-
-%description kfilereplace-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kfilereplace.
-
-%package kstartperf-i18n
-Summary:	Internationalization and localization files for kstartperf
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kstartperfa
-Group:		X11/Applications
-Requires:	%{name}-kstartperf = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kstartperf-i18n
-Internationalization and localization files for kstartperf.
-
-%description kstartperf-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kstartperfa.
-
-%package kuiviewer-i18n
-Summary:	Internationalization and localization files for kuiviewer
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kuiviewera
-Group:		X11/Applications
-Requires:	%{name}-kuiviewer = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kuiviewer-i18n
-Internationalization and localization files for kuiviewer.
-
-%description kuiviewer-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kuiviewera.
-
-%package kspy-i18n
-Summary:	Internationalization and localization files for kspy
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kspy
-Group:		X11/Applications
-Requires:	%{name}-kspy = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kspy-i18n
-Internationalization and localization files for spy.
-
-%description kspy-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla spy.
-
-%package umbrello-i18n
-Summary:	Internationalization and localization files for umbrello
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla umbrello
-Group:		X11/Applications
-Requires:	%{name}-umbrello = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description umbrello-i18n
-Internationalization and localization files for umbrello.
-
-%description umbrello-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla umbrello.
-
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{_snap}
+
+echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
+echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
 
 %build
 cp %{_datadir}/automake/config.sub admin
 
 export UNSERMAKE=/usr/share/unsermake/unsermake
 
-echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
-
 %{__make} -f admin/Makefile.common cvs
+
+# Used in cervisia Makefile
+export kde_htmldir=%{_kdedocdir}
 
 %configure \
 	--disable-rpath \
@@ -722,20 +492,25 @@ echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
 
 %{__make}
 
-%{__make} -C kstartperf
+# Undefined references
+#%%{__make} -C kstartperf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-# Grrr...
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
-%{__make} -C kstartperf install \
-	DESTDIR=$RPM_BUILD_ROOT
+#%%%{__make} -C kstartperf install \
+#	DESTDIR=$RPM_BUILD_ROOT
+
+# Workaround for doc caches (unsermake bug?)
+cd doc
+for i in `find . -name index.cache.bz2`; do
+	install -c -p -m 644 $i $RPM_BUILD_ROOT%{_kdedocdir}/en/$i
+done
+cd -	 
 
 install -d \
 	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
@@ -744,6 +519,7 @@ install -d \
 	$RPM_BUILD_ROOT%{_emacspkgdir}/kde \
 	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde \
 	$RPM_BUILD_ROOT%{_zshfcdir} \
+	$RPM_BUILD_ROOT%{_mandir}/man1
 
 cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
@@ -752,27 +528,11 @@ cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
 cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
 
-cd $RPM_BUILD_ROOT
-rm -rf `find . -name CVS`
-cd -
+rm -rf `find $RPM_BUILD_ROOT -name CVS`
 
 # Debian manpages
 # overwrites cvscheck.1 - it's OK (original manual is much shorter)
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
-
-%if %{with i18n}
-if [ -f "%{SOURCE1}" ] ; then
-	bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
-	for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
-		if [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] ; then
-			rm -f $f
-		fi
-	done
-else
-	echo "No i18n sources found and building --with i18n. FIXIT!"
-	exit 1
-fi
-%endif
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
@@ -780,54 +540,6 @@ fi
 %find_lang	kbugbuster	--with-kde
 %find_lang	kompare		--with-kde
 %find_lang	umbrello	--with-kde
-
-%if %{with i18n}
-kfile="\
-	cpp \
-	diff \
-	po \
-	ts"
-
-> i18n.lang
-
-for i in $kfile; do
-	%find_lang kfile_${i} --with-kde
-	cat kfile_${i}.lang >> kfile.lang
-done
-
-%find_lang desktop_kdesdk	--with-kde
-%find_lang cvsservice	--with-kde
-cat cvsservice.lang >> cervisia.lang
-##%find_lang kfilereplace
-%find_lang kstartperf
-%find_lang kuiviewer
-%find_lang spy
-%endif
-
-files="\
-	cervisia \
-	kbabel \
-	kcachegrind \
-	kbugbuster \
-	kompare \
-	umbrello"
-
-for i in $files; do
-        echo "%defattr(644,root,root,755)" > ${i}_en.lang
-	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
-	grep -v apidocs $i.lang|grep -v en\/ > ${i}.lang.1
-	mv ${i}.lang.1 ${i}.lang
-done
-
-durne=`ls -1 *.lang|grep -v _en|grep -v i18n`
-
-for i in $durne; do
-	echo $i >> control
-	grep -v en\/ $i|grep -v apidocs >> ${i}.1
-	if [ -f ${i}.1 ] ; then
-		mv ${i}.1 ${i}
-	fi
-done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -838,9 +550,6 @@ rm -rf $RPM_BUILD_ROOT
 %post	kbabel			-p /sbin/ldconfig
 %postun	kbabel			-p /sbin/ldconfig
 
-%post	kbabel-dictionary	-p /sbin/ldconfig
-%postun	kbabel-dictionary	-p /sbin/ldconfig
-
 %post	kspy			-p /sbin/ldconfig
 %postun	kspy			-p /sbin/ldconfig
 
@@ -849,33 +558,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	umbrello		-p /sbin/ldconfig
 %postun	umbrello		-p /sbin/ldconfig
-
-%if %{with i18n}
-%files i18n -f desktop_kdesdk.lang
-%defattr(644,root,root,755)
-%files kfile-i18n -f kfile.lang
-%defattr(644,root,root,755)
-%files cervisia-i18n -f cervisia.lang
-%defattr(644,root,root,755)
-%files kbabel-i18n -f kbabel.lang
-%defattr(644,root,root,755)
-%files kbugbuster-i18n -f kbugbuster.lang
-%defattr(644,root,root,755)
-%files kcachegrind-i18n -f kcachegrind.lang
-%defattr(644,root,root,755)
-%files kompare-i18n -f kompare.lang
-%defattr(644,root,root,755)
-##%files kfilereplace-i18n -f kfilereplace.lang
-##%defattr(644,root,root,755)
-%files kstartperf-i18n -f kstartperf.lang
-%defattr(644,root,root,755)
-%files kuiviewer-i18n -f kuiviewer.lang
-%defattr(644,root,root,755)
-%files kspy-i18n -f spy.lang
-%defattr(644,root,root,755)
-%files umbrello-i18n -f umbrello.lang
-%defattr(644,root,root,755)
-%endif
 
 %files kfile
 %defattr(644,root,root,755)
@@ -886,7 +568,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kfile_h.desktop
 %{_datadir}/services/kfile_ts.desktop
 
-%files cervisia -f cervisia_en.lang
+%files cervisia -f cervisia.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cervisia
 %attr(755,root,root) %{_bindir}/cvsaskpass
@@ -938,7 +620,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kabcformat_kdeaccounts.so
 %{_datadir}/apps/kabc/formats/*
 
-%files kbabel -f kbabel_en.lang
+%files kbabel -f kbabel.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabel
 %{_libdir}/libkbabelcommon.la
@@ -948,6 +630,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/kbabel_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabel_*.so
 %{_datadir}/apps/kbabel
+%{_datadir}/config.kcfg/kbabel.kcfg
 # Already in kdelibs
 #%{_datadir}/mimelnk/application/x-gettext.desktop
 %{_datadir}/services/kbabel_accelstool.desktop
@@ -972,15 +655,7 @@ rm -rf $RPM_BUILD_ROOT
 # Already in kdelibs
 #%{_iconsdir}/[!l]*/*/mimetypes/gettext.png
 %{_mandir}/man1/kbabel.1*
-
-%files kbabel-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkbabelcommon.so
-%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so
-%{_includedir}/kbabel
-
-%files kbabel-catalog
-%defattr(644,root,root,755)
+# catalog part
 %attr(755,root,root) %{_bindir}/catalogmanager
 %{_libdir}/kde3/kfile_po.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_po.so
@@ -992,9 +667,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/catalogmanager.desktop
 %{_iconsdir}/[!l]*/*/*/catalogmanager.png
 %{_mandir}/man1/catalogmanager.1*
-
-%files kbabel-dictionary
-%defattr(644,root,root,755)
+# dictionary part
 %attr(755,root,root) %{_bindir}/kbabeldict
 %{_libdir}/kde3/kbabeldict_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so
@@ -1007,17 +680,27 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/[!l]*/*/*/kbabeldict.png
 %{_mandir}/man1/kbabeldict.1*
 
-%files kbugbuster -f kbugbuster_en.lang
+%files kbabel-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libkbabelcommon.so
+%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so
+%{_includedir}/kbabel
+
+%files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
-#%{_libdir}/kde3/kcal_bugzilla.la
-#%attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
+%{_libdir}/kde3/kcal_bugzilla.la
+%attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
+%{_libdir}/kde3/libdialogpages.la
+%attr(755,root,root) %{_libdir}/kde3/libdialogpages.so*
 %{_datadir}/apps/kbugbuster
+# this dir belongs to kdepim
+%{_datadir}/services/kresources/kcal/bugzilla.desktop
 %{_desktopdir}/kde/kbugbuster.desktop
 %{_iconsdir}/[!l]*/*/*/kbugbuster.png
 %{_mandir}/man1/kbugbuster.1*
 
-%files kcachegrind -f kcachegrind_en.lang
+%files kcachegrind -f kcachegrind.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kcachegrind
 %{_datadir}/apps/kcachegrind
@@ -1042,7 +725,7 @@ rm -rf $RPM_BUILD_ROOT
 #%{_mandir}/man1/kmmatch.1*
 #%{_mandir}/man1/kmtrace.1*
 
-%files kompare -f kompare_en.lang
+%files kompare -f kompare.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kompare
 %{_libdir}/libkompareinterface.la
@@ -1072,12 +755,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/kspy.h
 %{_mandir}/man1/testkspy.1*
 
-%files kstartperf
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kstartperf
-%{_libdir}/libkstartperf.la
-%{_libdir}/libkstartperf.so
-%attr(755,root,root) %{_libdir}/libkstartperf.so.*.*.*
+#%files kstartperf
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_bindir}/kstartperf
+#%{_libdir}/libkstartperf.la
+#%{_libdir}/libkstartperf.so
+#%attr(755,root,root) %{_libdir}/libkstartperf.so.*.*.*
 
 %files kuiviewer
 %defattr(644,root,root,755)
@@ -1092,7 +775,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kuiviewer_part.desktop
 %{_desktopdir}/kde/kuiviewer.desktop
 %{_iconsdir}/[!l]*/*/apps/kuiviewer.png
-#%{_mandir}/man1/kuiviewer.1*
+%{_mandir}/man1/kuiviewer.1*
 
 %files pallette-gimp
 %defattr(644,root,root,755)
@@ -1128,13 +811,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/adddebug
 %attr(755,root,root) %{_bindir}/build-progress.sh
 %attr(755,root,root) %{_bindir}/create*
-%attr(755,root,root) %{_bindir}/extend*
-%attr(755,root,root) %{_bindir}/makeobj
-%attr(755,root,root) %{_bindir}/licensecheck
-%attr(755,root,root) %{_bindir}/includemocs
-%attr(755,root,root) %{_bindir}/fixkdeincludes
-%attr(755,root,root) %{_bindir}/kde-build
 %attr(755,root,root) %{_bindir}/cheatmake
+%attr(755,root,root) %{_bindir}/extend*
+%attr(755,root,root) %{_bindir}/fixkdeincludes
+%attr(755,root,root) %{_bindir}/includemocs
+%attr(755,root,root) %{_bindir}/kde-build
+%attr(755,root,root) %{_bindir}/kdemangen.pl
+%attr(755,root,root) %{_bindir}/licensecheck
+%attr(755,root,root) %{_bindir}/makeobj
 %{_mandir}/man1/adddebug.1*
 %{_mandir}/man1/cheatmake.1*
 %{_mandir}/man1/create*.1*
@@ -1144,6 +828,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/kde-build.1*
 %{_mandir}/man1/licensecheck.1*
 %{_mandir}/man1/makeobj.1*
+# TODO
+# Merge all scripts into one subpkg?
+%attr(755,root,root) %{_bindir}/dprof2calltree
+%attr(755,root,root) %{_bindir}/hotshot2calltree
+%attr(755,root,root) %{_bindir}/memprof2calltree
+%attr(755,root,root) %{_bindir}/op2calltree
+%attr(755,root,root) %{_bindir}/png2mng.pl
+%attr(755,root,root) %{_bindir}/pprof2calltree
 
 %files scripts-cvs
 %defattr(644,root,root,755)
@@ -1154,11 +846,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/noncvslist.1*
 %{_mandir}/man1/pruneemptydirs.1*
 
-%files scripts-cxxmetric
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/cxxmetric
-%{_mandir}/man1/cxxmetric.1*
-
 %files scripts-doc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdedoc
@@ -1166,32 +853,26 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/kdedoc.1*
 %{_mandir}/man1/qtdoc.1*
 
-%files scripts-extractrc
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/extractrc
-%{_mandir}/man1/extractrc.1*
-
-%files scripts-findmissingcrystal
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/findmissingcrystal
-#%{_mandir}/man1/findmissingcrystal.1*
-
 %files scripts-kdekillall
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdekillall
 %{_mandir}/man1/kdekillall.1*
 
-%files scripts-kdelnk2desktop
+%files scripts-misc
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/cxxmetric
+%attr(755,root,root) %{_bindir}/extractrc
+%attr(755,root,root) %{_bindir}/findmissingcrystal
 %attr(755,root,root) %{_bindir}/kdelnk2desktop.py
-%{_mandir}/man1/kdelnk2desktop.py.1*
-
-%files scripts-zonetab2pot
-%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/package_crystalsvg
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
+%{_mandir}/man1/cxxmetric.1*
+%{_mandir}/man1/extractrc.1*
+%{_mandir}/man1/findmissingcrystal.1*
+%{_mandir}/man1/kdelnk2desktop.py.1*
 %{_mandir}/man1/zonetab2pot.py.1*
 
-%files umbrello -f umbrello_en.lang
+%files umbrello -f umbrello.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/umbrello
 #%{_libdir}/libcodegenerator.la
@@ -1204,6 +885,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/umbrello.desktop
 %{_iconsdir}/hicolor/*/apps/umbrello.png
 %{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
+%{_iconsdir}/crystalsvg/*/apps/umbrello.png
+%{_iconsdir}/crystalsvg/*/mimetypes/umbrellofile.png
+%{_iconsdir}/crystalsvg/scalable/apps/kompare.svgz
+%{_iconsdir}/crystalsvg/scalable/apps/umbrello.svgz
+%{_iconsdir}/crystalsvg/scalable/mimetypes/umbrellofile.svgz
 %{_mandir}/man1/umbrello.1*
 
 %files xemacs
