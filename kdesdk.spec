@@ -10,7 +10,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -18,7 +18,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 # Source0-md5:	170baf93150c231605bec047d49d0742
 %if %{with i18n}
-Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
+Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:        26387c5679d77b57788f0d01be6f6fed
 %endif
 Patch0:		%{name}-kuiviewer.patch
@@ -119,7 +119,7 @@ Definicje autouzupe³niania dla zsh.
 Summary:	A set of macros for emacs
 Summary(pl):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
-Requires: 	emacs-common
+Requires:	emacs-common
 Obsoletes:	kdesdk-devel
 
 %description emacs
@@ -178,6 +178,7 @@ utrzymanie plików po.
 Summary:	KBabel header files
 Summary(pl):	Pliki nag³ówkowe KBabel
 Group:		X11/Development
+######		Unknown group!
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}-%{release}
@@ -193,6 +194,7 @@ Pliki nag³ówkowe KBabel.
 Summary:	A KBabel catalog manager
 Summary(pl):	Zarz±dca zbiorów plików po zintegrowany z KBabel
 Group:		X11/Development
+######		Unknown group!
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-devel
 
@@ -206,6 +208,7 @@ Zarz±dca zbiorów plików po zintegrowany z KBabel.
 Summary:	Plugin that supports dictionaries made from po compendia
 Summary(pl):	Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po
 Group:		X11/Development
+######		Unknown group!
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-devel
 
@@ -261,32 +264,33 @@ Obsoletes:	kdesdk-devel
 Kompare is a program to view the differences between files. Features
 include:
 
-  * comparison of files or directories via a graphical interface
-  * bezier-based connection widget lets you see both source and destination
-    as they really appear
-  * graphical viewing of patch files in normal, context, unified and
+  - comparison of files or directories via a graphical interface
+  - bezier-based connection widget lets you see both source and
+    destination as they really appear
+  - graphical viewing of patch files in normal, context, unified and
     diff formats
-  * interactive application of differences
-  * full network transparency
-  * ability to view plain-text diff output in embedded viewer
-  * easy navigation of multiple-file diffs with dockable navigation tree
-  * graphical interface to commonly used diff command line options
-  * switch source and destination with one command
-  * diff statistics
+  - interactive application of differences
+  - full network transparency
+  - ability to view plain-text diff output in embedded viewer
+  - easy navigation of multiple-file diffs with dockable navigation tree
+  - graphical interface to commonly used diff command line options
+  - switch source and destination with one command
+  - diff statistics
 
 %description kompare -l pl
 Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami.
 Aktualnie dostêpne funkcje:
-  * porównanie plików lub katalogów poprzez graficzny interfejs
-  * przedstawienie ¼ród³a i celu za pomoc± krzywej Beziera
-  * graficzne przegl±danie ³at w formatach diff, unidiff, context i
+  - porównanie plików lub katalogów poprzez graficzny interfejs
+  - przedstawienie ¼ród³a i celu za pomoc± krzywej Beziera
+  - graficzne przegl±danie ³at w formatach diff, unidiff, context i
     zwyk³ym
-  * interaktywne wprowadzanie zmian
-  * przezroczysto¶æ sieciowa
-  * mo¿liwo¶æ ogl±dania wyj¶cia diff w wewnêtrznej przegl±darce
-  * ³atwa nawigacja miêdzy wieloplikowymi diffami wraz z dokowalnym drzewem
-  * zamiana ¼ród³a i celu za pomoc± pojedynczej komendy
-  * statystyki diffów
+  - interaktywne wprowadzanie zmian
+  - przezroczysto¶æ sieciowa
+  - mo¿liwo¶æ ogl±dania wyj¶cia diff w wewnêtrznej przegl±darce
+  - ³atwa nawigacja miêdzy wieloplikowymi diffami wraz z dokowalnym
+    drzewem
+  - zamiana ¼ród³a i celu za pomoc± pojedynczej komendy
+  - statystyki diffów
 
 %package kprofilemethod
 Summary:	Kprofilemethod - a set of macros which help profiling using QTime
@@ -515,6 +519,7 @@ Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
 Summary:	KDE Style - Scheck
 Summary(pl):	Motyw KDE - Scheck
 Group:		X11/Development
+######		Unknown group!
 Obsoletes:	kdesdk-devel
 
 %description scheck
@@ -539,7 +544,7 @@ Modeler UML.
 Summary:	A set of macros for xemacs
 Summary(pl):	Zestaw makr do xemacsa
 Group:		X11/Development/Tools
-Requires: 	xemacs-common
+Requires:	xemacs-common
 Obsoletes:	kdesdk-devel
 
 %description xemacs
@@ -691,12 +696,25 @@ Internationalization and localization files for spy.
 %description spy-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla spy.
 
+%package umbrello-i18n
+Summary:	Internationalization and localization files for umbrello
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla umbrello
+Group:		X11/Applications
+Requires:	%{name}-umbrello = %{epoch}:%{version}-%{release}
+Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
+
+%description umbrello-i18n
+Internationalization and localization files for umbrello.
+
+%description umbrello-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla umbrello.
+
 %prep
-%setup -q 
+%setup -q
 %patch0 -p1
 
 %build
-cp /usr/share/automake/config.sub admin
+cp %{_datadir}/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -780,7 +798,6 @@ cat cvsservice.lang >> cervisia.lang
 %find_lang kstartperf
 %find_lang kuiviewer
 %find_lang spy
-
 %endif
 
 for i in $files; do
@@ -813,16 +830,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with i18n}
 %files i18n -f desktop_kdesdk.lang
+%defattr(644,root,root,755)
 %files kfile-i18n -f kfile.lang
+%defattr(644,root,root,755)
 %files cervisia-i18n -f cervisia.lang
+%defattr(644,root,root,755)
 %files kbabel-i18n -f kbabel.lang
+%defattr(644,root,root,755)
 %files kbugbuster-i18n -f kbugbuster.lang
+%defattr(644,root,root,755)
 %files kcachegrind-i18n -f kcachegrind.lang
+%defattr(644,root,root,755)
 %files kompare-i18n -f kompare.lang
+%defattr(644,root,root,755)
 %files kfilereplace-i18n -f kfilereplace.lang
+%defattr(644,root,root,755)
 %files kstartperf-i18n -f kstartperf.lang
+%defattr(644,root,root,755)
 %files kuiviewer-i18n -f kuiviewer.lang
+%defattr(644,root,root,755)
 %files spy-i18n -f spy.lang
+%defattr(644,root,root,755)
+%files umbrello-i18n -f umbrello.lang
+%defattr(644,root,root,755)
 %endif
 
 %files kfile
@@ -1044,6 +1074,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xml2pot
 
 %files scheck
+%defattr(644,root,root,755)
 %{_libdir}/kde3/plugins/styles/scheck.la
 %attr(755,root,root) %{_libdir}/kde3/plugins/styles/scheck.so
 %{_datadir}/apps/kstyle/themes/scheck.themerc
@@ -1099,7 +1130,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
 
-%files umbrello -f umbrello.lang
+%files umbrello -f umbrello_en.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/umbrello
 #%{_libdir}/libcodegenerator.la
