@@ -1,6 +1,7 @@
 
 %define         _state          stable
-%define         _ver		3.1.1
+%define         _ver		3.1.1a
+%define         _srcver 	3.1.1
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -10,7 +11,8 @@ Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{srcver}.tar.bz2
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 BuildRequires:	bison
@@ -467,7 +469,7 @@ A set of macros for xemacs.
 Zestaw makr do xemacsa.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{_srcver}
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
