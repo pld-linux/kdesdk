@@ -2,7 +2,7 @@
 #   * scripts from scripts/ subdirectory are not installed.
 %define		_ver		3.0.1
 #define		_sub_ver
-%define		_rel		2
+%define		_rel		3
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -29,6 +29,7 @@ BuildRequires:	db4-devel
 # kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
 BuildRequires:	binutils-static
 Requires:	kdelibs = %{version}
+Requires:	%{name}-extractrc = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -40,6 +41,21 @@ Software Development Kit for KDE.
 
 %description -l pl
 Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
+
+%package extractrc
+Summary:	extracts the strings from .rc files
+Summary(pl):	odnajduje stringi w plikach .rc
+Group:		X11/Development/Tools
+Requires:	/usr/bin/perl
+
+%description extractrc
+A Perl script, it extracts the strings in an application´s .rc file,
+e.g. testappui.rc, and writes into the pot file where the translations
+are build with (po-files)
+
+%description extractrc -l pl
+Skrypt napisany w Perlu, który odnajduje stringi w plikach .rc aplikacji,
+np. testappgui.rc i zapisuje je do plików pot
 
 %package devel
 Summary:	Header files for kdesdk
@@ -55,7 +71,7 @@ Pliki nag³ówkowe dla kdesdk.
 %package static
 Summary:	Static libraries for kdesdk
 Summary(pl):	Statyczne biblioteki dla kdesdk
-Group:		X11/Development/Libraries
+Group:		X11/Development/Tools
 
 %description static
 Static libraries for kdesdk.
@@ -112,7 +128,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kdesdk.lang
 %defattr(644,root,root,755)
 %doc *.gz
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/[!e]*
+%attr(755,root,root) %{_bindir}/extend_dmalloc
 %attr(755,root,root) %{_libdir}/kde3/*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %attr(755,root,root) %{_libdir}/lib*.la
@@ -122,6 +139,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/*
 %{_datadir}/apps/*
 %{_pixmapsdir}/*/*/*
+
+%files extractrc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/extractrc
 
 %files devel
 %defattr(644,root,root,755)
