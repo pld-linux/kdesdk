@@ -1,38 +1,30 @@
 # TODO:
-#   * scripts from scripts/ subdirectory are not installed.
-#   * separate aplications do subpackages
-%define		_ver		3.0.3
-#define		_sub_ver
-%define		_rel		1
+#   * grouping scripts from scripts/ subdir
+#   * installing emacs and shell advancements
 
-%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
-%{!?_sub_ver:	%define	_version	%{_ver}}
-%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
-%{!?_sub_ver:	%define	_release	%{_rel}}
-%{!?_sub_ver:	%define	_ftpdir	stable}
-%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
+%define         _state          unstable
+%define         _kdever         kde-3.1-beta2
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	%{_version}
-Release:	%{_release}
+Version:	3.0.8
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
-# generated from kde-i18n
-Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-BuildRequires:	binutils-static
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
+# translations are  generated from kde-i18n.spec now
+# Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 BuildRequires:	bison
 BuildRequires:	db4-devel
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel = %{version}
 # required by kbabel:
-Requires:	gettext-devel
+#Requires:	gettext-devel
 # kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
-Requires:	kdelibs = %{version}
-Requires:	%{name}-extractrc = %{version}
+#Requires:	kdelibs = %{version}
+#Requires:	%{name}-extractrc = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -82,6 +74,176 @@ Static libraries for kdesdk.
 %description static -l pl
 Statyczne biblioteki dla kdesdk.
 
+%package kapptemplate
+Summary:        KDE application framework generator
+Summary(pl):    Generator szkieletu do aplikacji KDE
+Group:          X11/Development/Tools
+
+%description kapptemplate
+Modular shell script that will automatically create a
+framework for either a normal KDE 3.x application, a
+KPart application, a KPart plugin, or convert an
+existing application.
+						
+
+%description kapptemplate -l pl
+Modularny skrypt, któr potrafi automagicznie wygenerowaæ 
+szkielet katalogów dla zwyk³ej aplikacji pod KDE 3.x, aplikacji
+KPart lub skonwertowaæ istniej±c± aplikacji.
+
+%package kbabel
+Summary:        An advanced and easy to use PO-file editor
+Summary(pl):    Rozbudowany i ³atwy w obs³udze edytor plików PO
+Group:          X11/Development/Tools
+Requires:	gettext-devel
+
+%description kbabel
+KBabel is a tool, that allows easy management, edition and upkeep of 
+gettext .po files.
+
+%description kbabel -l pl
+KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i 
+utrzymanie plików po.
+
+%package kbugbuster
+Summary:        A tools that allows cooperation with bugs.kde.org
+Summary(pl):    Narzêdzie wspó³pracuj±ce z bugs.kde.org
+Group:          X11/Development/Tools
+
+%description kbugbuster
+KBugBuster allows easy bug management on bugs.kde.org
+
+%description kbugbuster -l pl
+KBugBuster u³atwia wyszukwianie i zarz±dzanie b³êdami na bugs.kde.org
+
+%package kaddressbook-kdeaccounts
+Summary:        A kdeaccounts plugin for the KDE adressbook
+Summary(pl):    Plugin do ksi±¿ki adresowej KDE dodaj±cy obs³ugê kdeaccounts
+Group:          X11/Applications
+Requires:	kdepim-kaddressbook >= 3.0.8
+
+%description kaddressbook-kdeaccounts
+A kdeaccounts plugin for the KDE adressbook. What is does is adding the people from kde's cvs accounts file
+to the addressbook.
+
+%description kaddressbook-kdeaccounts -l pl
+Plugin do ksi±¿ki adresowej KDE dodaj±cy obs³ugê kdeaccounts. Dodaje on osoby posiadaj±ce konta w cvs kde do 
+ksi±zki adresowej.
+
+%package pallette-gimp
+Summary:        Adds the KDE Default pallette to GIMP
+Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do GIMPa
+Group:          X11/Applications/Graphics
+Requires:	gimp
+
+%description pallette-gimp
+Adds the KDE Default pallette to GIMP
+
+%description pallette-gimp -l pl
+Dodaje domy¶ln± paletê kolorów KDE do GIMPa
+
+%package pallette-xpaint
+Summary:        Adds the KDE Default pallette to XPaint
+Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do Xpainta
+Group:          X11/Applications/Graphics
+Requires:       xpaint
+
+%description pallette-xpaint
+Adds the KDE Default pallette to XPaint
+
+%description pallette-xpaint -l pl
+Dodaje domy¶ln± paletê kolorów KDE do XPainta
+
+%package kmtrace
+Summary:        An mtrace to full backtrace conversion tool
+Summary(pl):    Narzêdzie do konwersji z mtrace do pe³nego backtrace'a
+Group:          X11/Development/Tools
+BuildRequires:  binutils-static
+
+%description kmtrace
+Converts glibc's mtrace log into a full backtrace.
+
+%description kmtrace -l pl 
+Konwertuje mtrace glibca do pe³nego backtrace'a.
+
+%package kompare
+Summary:	Kompare is a program to view the differences between files.
+Summary(pl):	Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami.
+Group:		X11/Development/Tools
+
+%description kompare
+Kompare is a program to view the differences between files. Features include:
+
+  * comparison of files or directories via a graphical interface
+  * bezier-based connection widget lets you see both source and destination
+    as they really appear
+  * graphical viewing of patch files in normal, context, unified and
+    diff formats
+  * interactive application of differences
+  * full network transparency
+  * ability to view plain-text diff output in embedded viewer
+  * easy navigation of multiple-file diffs with dockable navigation tree
+  * graphical interface to commonly used diff command line options
+  * switch source and destination with one command
+  * diff statistics
+			    
+
+%description kompare -l pl
+Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami. Aktualnie dostêpne funkcje:
+  * porównanie plików lub katalogów poprzez graficzny interfejs
+  * przedstawienie ¼ród³a i celu za pomoc± krzywej beziera
+  * graficzne przegl±danie paczy w formatach diff, unidiff, context i zwyk³ym
+  * interaktywne wprowadzanie zmian
+  * prze¼roczysto¶æ sieciowa
+  * mo¿liwo¶æ ogl±dania wyj¶cia diff w wewnêtrznej przegl±darce
+  * ³atwa nawigacja miêdzy wieloplikowymi diffami wraz z dokowalnym drzewem
+  * zamiana ¼rod³a i celu za pomoc± pojedyñczej komendy
+  * statystyki diffów
+
+
+%package kspy 
+Summary:        A utility for egzamining the internal state of a QT/KDE application.
+Summary(pl):    Narzêdzie do badania stanu aplikacji QT/KDE
+Group:          X11/Development/Tools
+
+%description kspy
+KSpy is a utility intended to help developers examine the internal
+state of a Qt/KDE application. KSpy graphically displays all the
+QObjects in use, and allows you to browse their properties. Using KSpy
+is very simple, include kspy.h and call KSpy::invoke() when you want
+to looks inside your app. The KSpy function is inline and the main
+part of KSpy is dynamically loaded, so you may even want to leave this
+in the release build of an application.
+
+%description kspy -l pl
+KSpy to nar¿edzie maj±ce u³atwiæ programisto badanie wewnêtrznego stanu aplikacji
+QT/KDE. KSpy ilustruje graficznie wszystkie Qobjects jakie s± w u¿yciu i pozwala
+na ³atwe przegl±danie ich w³a¶ciwo¶ci. Korzystanie z KSpy jest bardzo proste (wystarczy
+do³±czyæ plik kspy.h i wywo³aæ KSpy::invoke() w miejscu, któ?e chcemy obejrzeæ w naszej 
+aplikacji. Funkcja KSpy jest inline, wiêc mo¿esz nawet zostawiæ j± nawet w wydaniu stabilnym.
+
+%package kstartperf
+Summary:	A tool to measure startup time for KDE applications.
+Summary(pl):	Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
+Group:          X11/Development/Tools
+
+%description kstartperf
+kstartperf measures startup time for KDE applications.
+
+%description kstartperf -l pl
+Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
+
+%package po2xml
+Summary:	An xml2po and vice versa converters.
+Summary(pl):	Konwertery po2xml i vice versa.
+Group:          X11/Development/Tools
+
+%description po2xml
+An xml2po and vice versa converters.
+
+%description po2xml -l pl
+Konwertery po2xml i vice versa.
+
 %prep
 %setup -q
 
@@ -95,29 +257,24 @@ fi
 
 %configure \
 	--enable-nls \
-	--with-db-name=db3 \
+	--with-db-name=db4 \
 	--enable-final
 
 %{__make}
+
+cd kstartperf
+%{__make}
+cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+cd kstartperf
+%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+cd ..
 
-%find_lang cervisia	--with-kde
-%find_lang gideon	--with-kde
-%find_lang kbabel	--with-kde
-%find_lang kbabeldict	--with-kde
-%find_lang kbugbuster	--with-kde
-%find_lang kdevtipofday	--with-kde
-%find_lang kompare	--with-kde
-%find_lang kstartperf	--with-kde
-%find_lang spy		--with-kde
-
-cat {cervisia,gideon,kbabel,kbabeldict,kbugbuster,kdevtipofday,kompare,kstartperf,spy}.lang > kdesdk.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -128,7 +285,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 /sbin/ldconfig
 
-%files -f kdesdk.lang
+%files 
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_bindir}/[!e]*
@@ -155,3 +312,8 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+
+%files kapptemplate
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kapptemplate
+%{_datadir}/apps/kapptemplate
