@@ -25,7 +25,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
 
 %define		_htmldir	/usr/share/doc/kde/HTML
-%define		_gimpdir	%(gimp-config --gimpdatadir)
+%define		_gimpdir	%(gimptool --gimpdatadir)
 %define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
 %define		_emacspkgdir	/usr/share/emacs/21.2
 %define		_xemacspkgdir	/usr/share/xemacs-packages
