@@ -1,7 +1,7 @@
 
 %define		_state		snapshots
-%define		_ver		3.1.93
-%define		_snap		031114
+%define		_ver		3.1.94
+%define		_snap		031204
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -13,7 +13,7 @@ License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	115009b81e22f98f83b2993b66e6d805
+# Source0-md5:	69553c08b766f9cbe0d648cfa6694b65
 BuildRequires:	bison
 BuildRequires:	ed
 BuildRequires:	flex
