@@ -7,7 +7,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -468,7 +468,7 @@ Zestaw makr do xemacsa.
 
 %prep
 %setup -q
-%patch0 -p1
+#%%patch0 -p1
 
 
 %build
@@ -480,8 +480,6 @@ for plik in `find ./ -name *.desktop` ; do
 	echo $plik
 	sed -i -e 's/\[nb\]/\[no\]/g' $plik
 done
-
-%{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--enable-final \
