@@ -9,7 +9,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -67,7 +67,7 @@ Group:		X11/Development/Tools
 Requires:	cvs >= 1.10
 Requires:	kdebase-core >= %{_minbaseevr}
 Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
-
+Conflicts:	kdesdk-scripts-cvs < 3:3.3.0-1
 %description cervisia
 A KDE CVS frontend. It features:
 - updating or retrieving the status of a working directory or single
@@ -1055,6 +1055,8 @@ rm -rf $RPM_BUILD_ROOT
 %files scripts-cvs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cvs*
+%exclude %{_bindir}/cvsaskpass
+%exclude %{_bindir}/cvsservice
 %attr(755,root,root) %{_bindir}/noncvslist
 %attr(755,root,root) %{_bindir}/pruneemptydirs
 %{_mandir}/man1/cvs*.1*
