@@ -166,7 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/extend_dmalloc
 %attr(755,root,root) %{_libdir}/kde3/*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
-%attr(755,root,root) %{_libdir}/lib*.la
+%{_libdir}/lib*.la
 %{_mandir}/man1/[^etk]*
 %{_mandir}/man1/extend_dmalloc*
 %{_mandir}/man1/transxx*
