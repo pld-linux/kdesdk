@@ -5,7 +5,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.0.3
-Release:	3
+Release:	4
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -30,9 +30,9 @@ Provides:	kdiff
 Provides:	kdiff2
 Obsoletes:	kdiff
 Obsoletes:	kdiff2
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kbabel
 Obsoletes:	kless
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
@@ -63,6 +63,7 @@ np. testappgui.rc i zapisuje je do plików pot
 Summary:	Header files for kdesdk
 Summary(pl):	Pliki nag³ówkowe dla kdesdk
 Group:		X11/Development/Libraries
+Requires:	%{name} = %{version}
 
 %description devel
 Header files for kdesdk.
@@ -74,6 +75,7 @@ Pliki nag³ówkowe dla kdesdk.
 Summary:	Static libraries for kdesdk
 Summary(pl):	Statyczne biblioteki dla kdesdk
 Group:		X11/Development/Tools
+Requires:	%{name}-devel = %{version}
 
 %description static
 Static libraries for kdesdk.
@@ -133,7 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/*/*
 %{_datadir}/services/*
 %{_datadir}/apps/*
-%{_pixmapsdir}/*/*/*
+%{_pixmapsdir}/*/*/*/*.png
 
 %files extractrc
 %defattr(644,root,root,755)
