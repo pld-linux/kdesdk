@@ -1,7 +1,6 @@
 
 %define		_state		unstable
 %define		_ver		3.3.0
-%define		_snap		rc2
 
 %define		_minlibsevr	9:3.3.0
 %define		_minbaseevr	9:3.3.0
@@ -10,12 +9,12 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
+#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
 # Source0-md5:	504f8c835c59bc9350e8946a77cb1f7d
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
@@ -690,7 +689,6 @@ export kde_htmldir=%{_kdedocdir}
 
 %{__make}
 
-# Undefined references
 %{__make} -C kstartperf
 
 %ifarch amd64
