@@ -685,6 +685,7 @@ Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kspy
 Group:		X11/Applications
 Requires:	%{name}-kspy = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
+Obsoletes:	kdesdk-spy-i18n
 
 %description kspy-i18n
 Internationalization and localization files for spy.
