@@ -636,7 +636,8 @@ echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/dialogs/Makefile.am
 echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/classparser/Makefile.am
 
 %ifarch amd64
-%{__sed} -i -e "s,lib,lib64,g" kmtrace/configure.in.in
+%{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/configure.in.in
+%{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/Makefile.am
 %endif
 
 %build
