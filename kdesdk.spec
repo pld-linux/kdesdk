@@ -10,7 +10,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	4
+Release:	5
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -1064,7 +1064,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/designerthumbnail.desktop
 %{_datadir}/services/kuiviewer_part.desktop
 %{_desktopdir}/kde/kuiviewer.desktop
-%{_iconsdir}/*/*/apps/kuiviewer.png
+%{_iconsdir}/[!l]*/*/apps/kuiviewer.png
 
 %files pallette-gimp
 %defattr(644,root,root,755)
