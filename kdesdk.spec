@@ -7,7 +7,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -24,6 +24,7 @@ BuildRequires:	kdebase-devel >= %{version}
 BuildRequires:	libltdl-devel
 BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	kdesdk-devel
 
 %define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
