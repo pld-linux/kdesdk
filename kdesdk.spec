@@ -1,6 +1,6 @@
 # TODO:
 #   * scripts from scripts/ subdirectory are not installed.
-%define		_ver		3.0
+%define		_ver		3.0.1
 #define		_sub_ver
 %define		_rel		1
 
@@ -16,6 +16,7 @@ Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_version}
 Release:	%{_release}
+Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
