@@ -27,7 +27,7 @@ Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 %package kdesgmltools
 Summary:	SGML-tools for KDE. 
 Summary(pl):	Narzêdzie SGML-u dla KDE
-Group:		X11/KDE/Development
+Group:		X11/KDE/Utilities
 Group(pl):	X11/KDE/Narzêdzia
 
 %description kdesgmltools
@@ -37,7 +37,7 @@ Group(pl):	X11/KDE/Narzêdzia
 %package ktranslator
 Summary:	KDE Translator Tools
 Summary(pl):	Prosty tlumacz dla KDE
-Group:		X11/KDE/Development
+Group:		X11/KDE/Utilities
 Group(pl):	X11/KDE/Narzêdzia
 
 %description ktranslator
@@ -49,7 +49,7 @@ Program wspomagaj±cy tworzenie t³umaczeñ dla aplikacji tworzonych w
 %package kdoc
 Summary:	K documantation tools
 Summary(pl):	Kdoc
-Group:		X11/KDE/Development
+Group:		X11/KDE/Utilities
 Group(pl):	X11/KDE/Narzêdzia
 
 %description kdoc
