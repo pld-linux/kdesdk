@@ -1,7 +1,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.90
-%define		_snap		030726
+%define		_snap		030918
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -13,7 +13,7 @@ License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	d4e9ad73d9e3a2a9307f61a35c9d2617
+# Source0-md5:	bbcadf95625508c785aa32b18d50eefe
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
@@ -24,8 +24,6 @@ BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
 
-%define		_htmldir	%{_docdir}/kde/HTML
-%define		_icondir	%{_datadir}/icons
 %define		_gimpdir	%(gimptool --gimpdatadir)
 %define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
 %define		_emacspkgdir	/usr/share/emacs/21.2
@@ -215,6 +213,18 @@ KBugBuster allows easy bug management on bugs.kde.org.
 
 %description kbugbuster -l pl
 KBugBuster u³atwia wyszukwianie i zarz±dzanie b³êdami na bugs.kde.org.
+
+%package kcachegrind
+Summary:        TODO
+Summary(pl):    TODO
+Group:          X11/Development/Tools
+Obsoletes:	%{name}-devel
+
+%description kcachegrind
+TODO.
+
+%description kcachegrind -l pl
+TODO.
 
 %package kmtrace
 Summary:        An mtrace to full backtrace conversion tool
@@ -516,6 +526,8 @@ for plik in `find ./ -name *.desktop` ; do
 	fi
 done
 
+%{__make} -f admin/Makefile.common cvs
+
 %configure
 
 %{__make}
@@ -529,8 +541,7 @@ install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kd
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_appsdir=%{_applnkdir} \
-	kde_htmldir=%{_htmldir}
+	kde_htmldir=%{_docdir}/kde/HTML
 
 %{__make} -C kstartperf install DESTDIR=$RPM_BUILD_ROOT
 
@@ -541,15 +552,13 @@ cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
 cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
 cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
 
-mv -f $RPM_BUILD_ROOT%{_applnkdir}/Development/*.desktop \
-    $RPM_BUILD_ROOT%{_desktopdir}
-
 cd $RPM_BUILD_ROOT
 rm -rf `find . -name CVS`
 cd -
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
+%find_lang	kcachegrind	--with-kde
 %find_lang	kbugbuster	--with-kde
 %find_lang	kompare		--with-kde
 %find_lang	umbrello	--with-kde
@@ -557,41 +566,23 @@ cd -
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	cervisia
-/sbin/ldconfig
+%post	cervisia		-p /sbin/ldconfig
+%postun	cervisia		-p /sbin/ldconfig
 
-%postun	cervisia
-/sbin/ldconfig
+%post	kbabel			-p /sbin/ldconfig
+%postun	kbabel			-p /sbin/ldconfig
 
-%post	kbabel
-/sbin/ldconfig
+%post	kbabel-dictionary	-p /sbin/ldconfig
+%postun	kbabel-dictionary	-p /sbin/ldconfig
 
-%postun	kbabel
-/sbin/ldconfig
+%post	kspy			-p /sbin/ldconfig
+%postun	kspy			-p /sbin/ldconfig
 
-%post	kbabel-dictionary
-/sbin/ldconfig
+%post	kstartperf		-p /sbin/ldconfig
+%postun	kstartperf		-p /sbin/ldconfig
 
-%postun	kbabel-dictionary
-/sbin/ldconfig
-
-%post	kspy
-/sbin/ldconfig
-
-%postun	kspy
-/sbin/ldconfig
-
-%post	kstartperf
-/sbin/ldconfig
-
-%postun	kstartperf
-/sbin/ldconfig
-
-%post	umbrello
-/sbin/ldconfig
-
-%postun	umbrello
-/sbin/ldconfig
+%post	umbrello		-p /sbin/ldconfig
+%postun	umbrello		-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -610,11 +601,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/libcervisiapart.la
 %attr(755,root,root) %{_libdir}/kde3/libcervisiapart.so
 %{_datadir}/apps/cervisia*
+%{_datadir}/apps/kconf_update/change_colors.pl
 %{_datadir}/apps/kconf_update/cervisia.upd
 %{_datadir}/apps/kconf_update/move_repositories.pl
 %{_datadir}/services/cvsservice.desktop
-%{_desktopdir}/cervisia.desktop
-%{_icondir}/*/*/*/cervisia.png
+%{_desktopdir}/kde/cervisia.desktop
+%{_iconsdir}/*/*/*/cervisia.png
 %{_mandir}/man1/cervisia*
 
 %files cervisia-devel
@@ -659,23 +651,27 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbabel
 # Already in kdelibs
 #%{_datadir}/mimelnk/application/x-gettext.desktop
-%{_datadir}/services/accelstool.desktop
-%{_datadir}/services/argstool.desktop
-%{_datadir}/services/contexttool.desktop
-%{_datadir}/services/equationstool.desktop
-%{_datadir}/services/kbabel_gettext_*.desktop
-%{_datadir}/services/kbabel_linguist_*.desktop
-%{_datadir}/services/lengthtool.desktop
-%{_datadir}/services/nottranslatedtool.desktop
-%{_datadir}/services/pluralformstool.desktop
-%{_datadir}/services/setfuzzytool.desktop
-%{_datadir}/services/whitespacetool.desktop
-%{_datadir}/services/xmltool.desktop
+#
+%{_datadir}/services/kbabel_accelstool.desktop
+%{_datadir}/services/kbabel_argstool.desktop
+%{_datadir}/services/kbabel_contexttool.desktop
+%{_datadir}/services/kbabel_equationstool.desktop
+%{_datadir}/services/kbabel_gettext_export.desktop
+%{_datadir}/services/kbabel_gettext_import.desktop
+%{_datadir}/services/kbabel_lengthtool.desktop
+%{_datadir}/services/kbabel_linguist_export.desktop
+%{_datadir}/services/kbabel_linguist_import.desktop
+%{_datadir}/services/kbabel_nottranslatedtool.desktop
+%{_datadir}/services/kbabel_pluralformstool.desktop
+%{_datadir}/services/kbabel_setfuzzytool.desktop
+%{_datadir}/services/kbabel_whitespacetool.desktop
+%{_datadir}/services/kbabel_xmltool.desktop
 %{_datadir}/servicetypes/kbabel_*.desktop
 %{_datadir}/servicetypes/kbabelfilter.desktop
-%{_desktopdir}/kbabel.desktop
-%{_icondir}/[!l]*/*/*/kbabel.png
-%{_icondir}/*/*/*/gettext.png
+%{_desktopdir}/kde/kbabel.desktop
+%{_iconsdir}/[!l]*/*/*/kbabel.png
+# Already in kdelibs
+#%{_iconsdir}/[!l]*/*/mimetypes/gettext.png
 
 %files kbabel-catalog
 %defattr(644,root,root,755)
@@ -687,8 +683,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/catalogmanager
 %{_datadir}/services/kfile_po.desktop
 %{_datadir}/services/pothumbnail.desktop
-%{_desktopdir}/catalogmanager.desktop
-%{_icondir}/[!l]*/*/*/catalogmanager.png
+%{_desktopdir}/kde/catalogmanager.desktop
+%{_iconsdir}/[!l]*/*/*/catalogmanager.png
 
 %files kbabel-dictionary
 %defattr(644,root,root,755)
@@ -702,8 +698,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/poauxiliary.desktop
 %{_datadir}/services/pocompendium.desktop
 %{_datadir}/servicetypes/kbabeldict_module.desktop
-%{_desktopdir}/kbabeldict.desktop
-%{_icondir}/[!l]*/*/*/kbabeldict.png
+%{_desktopdir}/kde/kbabeldict.desktop
+%{_iconsdir}/[!l]*/*/*/kbabeldict.png
 
 %files kbabel-devel
 %defattr(644,root,root,755)
@@ -715,8 +711,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
 %{_datadir}/apps/kbugbuster
-%{_desktopdir}/kbugbuster.desktop
-%{_icondir}/[!l]*/*/*/kbugbuster.png
+%{_desktopdir}/kde/kbugbuster.desktop
+%{_iconsdir}/[!l]*/*/*/kbugbuster.png
+
+%files kcachegrind -f kcachegrind.lang                                            
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kcachegrind
+%{_datadir}/apps/kcachegrind
+%{_datadir}/mimelnk/application/x-kcachegrind.desktop
+%{_desktopdir}/kde/kcachegrind.desktop
+%{_iconsdir}/hicolor/*/apps/kcachegrind.png
 
 #%files kmtrace
 #%defattr(644,root,root,755)
@@ -732,6 +736,9 @@ rm -rf $RPM_BUILD_ROOT
 %files kompare -f kompare.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kompare
+%{_libdir}/libkompareinterface.la
+%attr(755,root,root) %{_libdir}/libkompareinterface.so
+%attr(755,root,root) %{_libdir}/libkompareinterface.so.*.*.*
 %{_libdir}/kde3/kfile_diff.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_diff.so
 %{_libdir}/kde3/libkompare*.la
@@ -740,8 +747,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kfile_diff.desktop
 %{_datadir}/services/kompare*.desktop
 %{_datadir}/servicetypes/kompare*.desktop
-%{_desktopdir}/kompare.desktop
-%{_icondir}/[!l]*/*/*/kompare.png
+%{_desktopdir}/kde/kompare.desktop
+%{_iconsdir}/[!l]*/*/*/kompare.png
 
 %files kprofilemethod
 %defattr(644,root,root,755)
@@ -840,8 +847,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libumlwidgets.so*
 %{_datadir}/apps/umbrello
 %{_datadir}/mimelnk/application/x-umbrello.desktop
-%{_desktopdir}/umbrello.desktop
-%{_icondir}/hicolor/*/apps/umbrello.png
+%{_desktopdir}/kde/umbrello.desktop
+%{_iconsdir}/hicolor/*/apps/umbrello.png
+%{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
 
 %files xemacs
 %defattr(644,root,root,755)
