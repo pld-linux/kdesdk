@@ -21,7 +21,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:        26387c5679d77b57788f0d01be6f6fed
 %endif
-Patch0:		%{name}-kuiviewer.patch
+Patch0:		%{name}-3.2branch.diff
+Patch1:		%{name}-kuiviewer.patch
 URL:		http://www.kde.org/
 BuildRequires:	bison
 BuildRequires:	ed
@@ -707,6 +708,7 @@ Pliki umiêdzynarodawiaj±ce dla umbrello.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
