@@ -69,6 +69,7 @@ Requires:	cvs >= 1.10
 Requires:	kdebase-core >= %{_minbaseevr}
 Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
 Conflicts:	kdesdk-scripts-cvs < 3:3.3.0-1
+
 %description cervisia
 A KDE CVS frontend. It features:
 - updating or retrieving the status of a working directory or single
@@ -166,7 +167,8 @@ Requires:	kdepim-kaddressbook >= 3.0.8
 %description kde-resource-bugzilla
 A KDE PIM plugin that allows creating bugzilla TODO lists.
 
-#description kde-resource-bugzilla -l pl
+%description kde-resource-bugzilla -l pl
+Wtyczka KDE PIM umo¿liwiaj±ca tworzenie list TODO w bugzilli.
 
 %package kapptemplate
 Summary:	KDE application framework generator
@@ -534,10 +536,10 @@ This package contains:
 - kdelnk to desktop and zonetab2pot converter
 - set of kde-build scripts
 - set of scripts that allow more comfortable profiling of KDE apps
-- set of scripts to fix licence header/kde includes directives and
+- set of scripts to fix licence header/KDE includes directives and
   strip irrelevant tags from .ui files
-- kde man pages generator
-- multi-frame png to mng converter
+- KDE man pages generator
+- multi-frame PNG to MNG converter
 
 %description scripts-developer -l pl
 Ten pakiet zawiera:
@@ -546,9 +548,16 @@ Ten pakiet zawiera:
   t³umaczenia (pliki po)
 - skrypt zliczaj±cy linijki kodu, komentarzy i znaków bia³ych w
   plikach ¼ród³owych C i C++
-- skrypt do wyszukiwania brakuj±cych ikon z tematu crystal.
+- skrypt do wyszukiwania brakuj±cych i pakietowania ikon z motywu
+  crystal.
 - konwerter plików kdelnk na desktop i zonetab na pot
-
+- zestaw skryptów kde-build
+- zestaw skryptów umo¿liwiaj±cych wygodne profilowanie aplikacji KDE
+- zestaw skryptów do poprawiania nag³ówków informuj±cych o licencji
+  i dyrektyw w plikach nag³ówkowych KDE oraz usuwania nieistotnych
+  znaczników z plików .ui
+- generator stron man dla KDE
+- konwerter wieloramkowych PNG na MNG
 
 %package scripts-cvs
 Summary:	A set of scripts for maintaining KDE from CVS
