@@ -28,6 +28,9 @@ BuildRequires:	kdepim-devel >= 3:3.3.1
 BuildRequires:	libltdl-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
+BuildRequires:	db-devel
+BuildRequires:	subversion-devel
+BuildRequires:	perl-tools-pod
 #BuildRequires:	unsermake >= 040511
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
