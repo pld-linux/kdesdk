@@ -1,15 +1,14 @@
 # TODO:
-#   * grouping scripts from scripts/ subdir
-#   * installing emacs and shell advancements
 
-%define         _state          unstable
-%define         _kdever         kde-3.1-rc5
+
+%define         _state          stable
+%define         _kdever         3.1
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.1
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -19,7 +18,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 #Patch0:		%{name}-kbabel_am.patch
 BuildRequires:	bison
 BuildRequires:	db2-devel
-BuildRequires:	db4-devel
+BuildRequires:	db-devel >= 4.1.25-1
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel = %{version}
 # required by kbabel:
@@ -29,9 +28,8 @@ BuildRequires:	kdebase-devel = %{version}
 #Requires:	%{name}-extractrc = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
+
 %define		_htmldir	/usr/share/doc/kde/HTML
-%define		_mandir		%{_prefix}/man
 
 %description
 Software Development Kit for KDE.
@@ -631,7 +629,7 @@ cd -
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kompare
 %attr(755,root,root) %{_libdir}/kde3/libkompare*
-%attr(755,root,root) %{_libdir}/libdiff*
+#attr(755,root,root) %{_libdir}/libdiff*
 %{_datadir}/apps/kompare*
 %{_datadir}/service*/kompare*
 %{_applnkdir}/Development/kompare.desktop
