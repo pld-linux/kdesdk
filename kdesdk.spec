@@ -10,7 +10,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	6
+Release:	7
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -679,17 +679,17 @@ Internationalization and localization files for kuiviewer.
 %description kuiviewer-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kuiviewera.
 
-%package spy-i18n
-Summary:	Internationalization and localization files for spy
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla spy
+%package kspy-i18n
+Summary:	Internationalization and localization files for kspy
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kspy
 Group:		X11/Applications
-Requires:	%{name}-spy = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kspy = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
-%description spy-i18n
+%description kspy-i18n
 Internationalization and localization files for spy.
 
-%description spy-i18n -l pl
+%description kspy-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla spy.
 
 %package umbrello-i18n
@@ -795,7 +795,7 @@ done
 %find_lang desktop_kdesdk	--with-kde
 %find_lang cvsservice	--with-kde
 cat cvsservice.lang >> cervisia.lang
-%find_lang kfilereplace
+##%find_lang kfilereplace
 %find_lang kstartperf
 %find_lang kuiviewer
 %find_lang spy
@@ -855,13 +855,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %files kompare-i18n -f kompare.lang
 %defattr(644,root,root,755)
-%files kfilereplace-i18n -f kfilereplace.lang
-%defattr(644,root,root,755)
+##%files kfilereplace-i18n -f kfilereplace.lang
+##%defattr(644,root,root,755)
 %files kstartperf-i18n -f kstartperf.lang
 %defattr(644,root,root,755)
 %files kuiviewer-i18n -f kuiviewer.lang
 %defattr(644,root,root,755)
-%files spy-i18n -f spy.lang
+%files kspy-i18n -f spy.lang
 %defattr(644,root,root,755)
 %files umbrello-i18n -f umbrello.lang
 %defattr(644,root,root,755)
