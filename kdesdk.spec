@@ -808,7 +808,7 @@ for i in $files; do
 	mv ${i}.lang.1 ${i}.lang
 done
 
-durne=`ls -1 *.lang|grep -v _en`
+durne=`ls -1 *.lang|grep -v _en|grep -v i18n`
 
 for i in $durne; 
 do
@@ -1012,6 +1012,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/application/x-kcachegrind.desktop
 %{_desktopdir}/kde/kcachegrind.desktop
 %{_iconsdir}/hicolor/*/apps/kcachegrind.png
+%{_mandir}/man1/kcachegrind.1*
 
 # -- doesn't build with glibc >= 2.3
 #%files kmtrace
@@ -1057,6 +1058,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkspy.so
 %attr(755,root,root) %{_libdir}/libkspy.so.*.*.*
 %{_includedir}/kspy.h
+%{_mandir}/man1/testkspy.1*
 
 %files kstartperf
 %defattr(644,root,root,755)
@@ -1078,6 +1080,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kuiviewer_part.desktop
 %{_desktopdir}/kde/kuiviewer.desktop
 %{_iconsdir}/[!l]*/*/apps/kuiviewer.png
+%{_mandir}/man1/kuiviewer.1*
 
 %files pallette-gimp
 %defattr(644,root,root,755)
@@ -1159,6 +1162,7 @@ rm -rf $RPM_BUILD_ROOT
 %files scripts-findmissingcrystal
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/findmissingcrystal
+%{_mandir}/man1/findmissingcrystal.1*
 
 %files scripts-kdekillall
 %defattr(644,root,root,755)
@@ -1188,6 +1192,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/umbrello.desktop
 %{_iconsdir}/hicolor/*/apps/umbrello.png
 %{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
+%{_mandir}/man1/umbrello.1*
 
 %files xemacs
 %defattr(644,root,root,755)
