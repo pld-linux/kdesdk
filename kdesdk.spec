@@ -1,23 +1,20 @@
 
-%define		_state		unstable
-%define		_ver		3.3.92
-%define		_snap		050217
+%define		_state		stable
+%define		_ver		3.4.0
 
-%define		_minlibsevr	9:3.3.92.050217
-%define		_minbaseevr	9:3.3.92.050217
+%define		_minlibsevr	9:3.4.0
+%define		_minbaseevr	9:3.4.0
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	%{_ver}.%{_snap}
-#Version:	%{_ver}
-Release:	1
+Version:	%{_ver}
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:        ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-#%% Source0-md5:	906bbcde1b3db2eaac8a257c8574e033
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	5b88692972e65c5e7d3aafc6400bea2c
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
 BuildRequires:	automake
@@ -662,8 +659,7 @@ A set of macros for xemacs useful for developing KDE applications.
 Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %prep
-%setup -q -n %{name}-%{_snap}
-#%setup -q
+%setup -q
 %patch0 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
