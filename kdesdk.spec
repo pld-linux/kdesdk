@@ -9,8 +9,8 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(ko):	K 데스크탑 환경 - 소프트웨어 개발 도구 모음
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.0.4
-Release:	2
+Version:	3.0.5a
+Release:	0.2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -95,7 +95,7 @@ Statyczne biblioteki dla kdesdk.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+#%patch2 -p1	- needs update
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
@@ -145,7 +145,7 @@ done
 %find_lang gideon	--with-kde
 %find_lang kbabel	--with-kde
 %find_lang kbabeldict	--with-kde
-#%find_lang kbugbuster	--with-kde
+%find_lang kbugbuster	--with-kde
 %find_lang kdevtipofday	--with-kde
 %find_lang kompare	--with-kde
 %find_lang kstartperf	--with-kde
