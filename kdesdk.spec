@@ -1,7 +1,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.92
-%define		_snap		031006
+%define		_snap		031014
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -13,7 +13,7 @@ License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	32963048eba8afb57f67d5abf80ac623
+# Source0-md5:	350f8ce7dbf212d53181051c02ee6e45
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
@@ -174,20 +174,6 @@ KBabel headers.
 %description kbabel-devel -l pl
 Pliki nag³ówkowe KBabel.
 
-%package kbabel-dictionary
-Summary:        Plugin that supports dictionaries made from po compendia
-Summary(pl):    Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
-Group:          X11/Development
-Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-devel
-
-%description kbabel-dictionary
-Plugin that supports dictionaries made from po compendia.
-
-%description kbabel-dictionary -l pl
-Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po.
-
 %package kbabel-catalog
 Summary:        A KBabel catalog manager
 Summary(pl):    Zarz±dca zbiorów plików po zintegrowany z KBabel
@@ -201,6 +187,20 @@ A KBabel catalog manager.
 
 %description kbabel-catalog -l pl
 Zarz±dca zbiorów plików po zintegrowany z KBabel.
+
+%package kbabel-dictionary
+Summary:        Plugin that supports dictionaries made from po compendia
+Summary(pl):    Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
+Group:          X11/Development
+Requires:       gettext-devel
+Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
+Obsoletes:	%{name}-devel
+
+%description kbabel-dictionary
+Plugin that supports dictionaries made from po compendia.
+
+%description kbabel-dictionary -l pl
+Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po.
 
 %package kbugbuster
 Summary:        A tools that allows cooperation with bugs.kde.org
@@ -326,6 +326,17 @@ kstartperf measures startup time for KDE applications.
 
 %description kstartperf -l pl
 Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
+
+%package kuiviewer
+Summary:	TODO
+Summary(pl):	TODO
+Group:          X11/Development/Tools
+
+%description kuiviewer
+TODO.
+
+%description kuiviewer -l pl
+TODO.
 
 %package pallette-gimp
 Summary:        Adds the KDE Default pallette to GIMP
@@ -519,11 +530,8 @@ Zestaw makr do xemacsa.
 
 %build
 
-for plik in `find ./ -name *.desktop` ; do
-	if [ -d $plik ]; then
-	echo $plik
-	sed -ie 's/\[nb\]/\[no\]/g' $plik
-	fi
+for f in `find . -name *.desktop` ; do
+	sed -i 's/\[nb\]/\[no\]/g' $f
 done
 
 %{__make} -f admin/Makefile.common cvs
@@ -650,12 +658,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kbabel
 %{_libdir}/libkbabelcommon.la
 %attr(755,root,root) %{_libdir}/libkbabelcommon.so.*.*.*
+%{_libdir}/libkbabeldictplugin.la
+%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so.*.*.*
 %{_libdir}/kde3/kbabel_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabel_*.so
 %{_datadir}/apps/kbabel
 # Already in kdelibs
 #%{_datadir}/mimelnk/application/x-gettext.desktop
-#
 %{_datadir}/services/kbabel_accelstool.desktop
 %{_datadir}/services/kbabel_argstool.desktop
 %{_datadir}/services/kbabel_contexttool.desktop
@@ -677,6 +686,12 @@ rm -rf $RPM_BUILD_ROOT
 # Already in kdelibs
 #%{_iconsdir}/[!l]*/*/mimetypes/gettext.png
 
+%files kbabel-devel
+%defattr(644,root,root,755)
+%{_includedir}/kbabel
+%{_libdir}/libkbabelcommon.so
+%{_libdir}/libkbabeldictplugin.so
+
 %files kbabel-catalog
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/catalogmanager
@@ -693,8 +708,6 @@ rm -rf $RPM_BUILD_ROOT
 %files kbabel-dictionary
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabeldict
-%{_libdir}/libkbabeldictplugin.la
-%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so.*.*.*
 %{_libdir}/kde3/kbabeldict_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so
 %{_datadir}/services/dbsearchengine.desktop
@@ -704,12 +717,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/servicetypes/kbabeldict_module.desktop
 %{_desktopdir}/kde/kbabeldict.desktop
 %{_iconsdir}/[!l]*/*/*/kbabeldict.png
-
-%files kbabel-devel
-%defattr(644,root,root,755)
-%{_includedir}/kbabel
-%{_libdir}/libkbabelcommon.so
-%{_libdir}/libkbabeldictplugin.so
 
 %files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
@@ -772,6 +779,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkstartperf.so
 %attr(755,root,root) %{_libdir}/libkstartperf.so.*.*.*
 
+%files kuiviewer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kuiviewer
+%{_libdir}/kde3/libkuiviewerpart.la
+%attr(755,root,root) %{_libdir}/kde3/libkuiviewerpart.so
+%{_libdir}/kde3/quithumbnail.la
+%attr(755,root,root) %{_libdir}/kde3/quithumbnail.so
+%{_datadir}/apps/kuiviewer/kuiviewer.rc
+%{_datadir}/apps/kuiviewerpart/kuiviewer_part.rc
+%{_datadir}/services/designerthumbnail.desktop
+%{_datadir}/services/kuiviewer_part.desktop
+%{_desktopdir}/kde/kuiviewer.desktop
+%{_iconsdir}/*/*/apps/kuiviewer.png
+
 %files pallette-gimp
 %defattr(644,root,root,755)
 %{_gimpdir}/palettes
@@ -782,12 +803,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files po2xml
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/fixsgml
+#%attr(755,root,root) %{_bindir}/fixsgml
 %attr(755,root,root) %{_bindir}/po2xml
 %attr(755,root,root) %{_bindir}/split2po
 %attr(755,root,root) %{_bindir}/swappo
 %attr(755,root,root) %{_bindir}/transxx
 %attr(755,root,root) %{_bindir}/xml2pot
+
+%files scheck
+%{_libdir}/kde3/plugins/styles/scheck.la
+%attr(755,root,root) %{_libdir}/kde3/plugins/styles/scheck.so
+%{_datadir}/apps/kstyle/themes/scheck.themerc
 
 %files scripts-build
 %defattr(644,root,root,755)
@@ -835,11 +861,6 @@ rm -rf $RPM_BUILD_ROOT
 %files scripts-zonetab2pot
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
-
-%files scheck
-%{_libdir}/kde3/plugins/styles/scheck.la
-%attr(755,root,root) %{_libdir}/kde3/plugins/styles/scheck.so
-%{_datadir}/apps/kstyle/themes/scheck.themerc
 
 %files umbrello -f umbrello.lang
 %defattr(644,root,root,755)
