@@ -681,6 +681,11 @@ echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
 	kompare/kompare.desktop
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	umbrello/umbrello/umbrello.desktop
+for f in `find . -name \*.desktop`; do
+	if grep -q '^Categories=.*[^;]$' $f; then
+		sed -i -e 's/\(^Categories=.*$\)/\1;/' $f
+	fi
+done
 
 %ifarch amd64
 %{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/configure.in.in
