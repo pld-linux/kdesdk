@@ -1,29 +1,21 @@
 # TODO:
 #   * scripts from scripts/ subdirectory are not installed.
 #   * separate aplications do subpackages
-%define		_ver		3.0.3
-#define		_sub_ver
-%define		_rel		1
-
-%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
-%{!?_sub_ver:	%define	_version	%{_ver}}
-%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
-%{!?_sub_ver:	%define	_release	%{_rel}}
-
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	%{_version}
-Release:	%{_release}
+Version:	3.0.3
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+Patch0:		%{name}-fix-kbabel-mem-leak.patch
 BuildRequires:	binutils-static
 BuildRequires:	bison
-BuildRequires:	db4-devel
+BuildRequires:	db3-devel
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel = %{version}
 # required by kbabel:
@@ -31,9 +23,9 @@ Requires:	gettext-devel
 # kmtrace need /usr/lib/libiberty.a (path hardcoded into configure).
 Requires:	kdelibs = %{version}
 Requires:	%{name}-extractrc = %{version}
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kbabel
 Obsoletes:	kless
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
@@ -118,11 +110,8 @@ cat {cervisia,gideon,kbabel,kbabeldict,kbugbuster,kdevtipofday,kompare,kstartper
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/ldconfig
-
-%postun
-/sbin/ldconfig
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files -f kdesdk.lang
 %defattr(644,root,root,755)
