@@ -22,6 +22,7 @@ BuildRequires:	kdebase-devel = %{version}
 BuildRequires:	libltdl-devel
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	kdesdk-devel
 
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_gimpdir	%(gimp-config --gimpdatadir)
