@@ -1,7 +1,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040511
+%define		_snap		040516
 %define		_packager	adgor
 
 %define		_minlibsevr	9:3.2.90.040508
@@ -28,7 +28,7 @@ BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel >= %{_minbaseevr}
 BuildRequires:	libltdl-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	unsermake
+BuildRequires:	unsermake >= 040511
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
 Obsoletes:	kdesdk
@@ -504,13 +504,6 @@ rm -rf $RPM_BUILD_ROOT
 
 #%%%{__make} -C kstartperf install \
 #	DESTDIR=$RPM_BUILD_ROOT
-
-# Workaround for doc caches (unsermake bug?)
-cd doc
-for i in `find . -name index.cache.bz2`; do
-	install -c -p -m 644 $i $RPM_BUILD_ROOT%{_kdedocdir}/en/$i
-done
-cd -	 
 
 install -d \
 	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
