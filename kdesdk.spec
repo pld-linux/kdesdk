@@ -23,7 +23,7 @@ BuildRequires:	kdebase-devel = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
-%define		_gimpdir	/usr/share/gimp/1.3
+%define		_gimpdir	%(gimp-config --gimpdatadir)
 
 %description
 Software Development Kit for KDE.
@@ -43,9 +43,9 @@ Static libraries for kdesdk.
 Statyczne biblioteki dla kdesdk.
 
 %package cervisia
-Summary:        A KDE cvs frontend.
-Summary(pl):    Frontend CVS pod KDE.
-Group:            X11/Development/Tools
+Summary:        A KDE cvs frontend
+Summary(pl):    Frontend CVS pod KDE
+Group:		X11/Development/Tools
 Requires:	cvs >= 1.10
 
 %description cervisia
@@ -55,8 +55,8 @@ A KDE cvs frontend.
 Frontend CVS pod KDE.
 
 %package completions-bash
-Summary:        Autocomplete definitions for bash.
-Summary(pl):    Definicje autouzupe³niania dla basha.
+Summary:        Autocomplete definitions for bash
+Summary(pl):    Definicje autouzupe³niania dla basha
 Group:		Applications/Shells
 Requires:	bash-completion
 
@@ -67,8 +67,8 @@ Autocomplete definitions for bash.
 Definicje autouzupe³niania dla basha.
 
 %package completions-zsh
-Summary:        Autocomplete definitions for zsh.
-Summary(pl):    Definicje autouzupe³niania dla zsh.
+Summary:        Autocomplete definitions for zsh
+Summary(pl):    Definicje autouzupe³niania dla zsh
 Group:          Applications/Shells
 Requires:       zsh >= 4.0.6-2
 
@@ -80,45 +80,44 @@ Definicje autouzupe³niania dla zsh.
 
 %package emacs
 Summary:	A set of macros for emacs
-Summary(pl):	Zestaw makr do emacs.
+Summary(pl):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
 Requires: 	emacs
 
 %description emacs
-A set of macros for emacs
+A set of macros for emacs.
 
 %description emacs -l pl
-Zestaw makr do emacs.
+Zestaw makr do emacsa.
 
 %package kaddressbook-kdeaccounts
 Summary:        A kdeaccounts plugin for the KDE adressbook
-Summary(pl):    Plugin do ksi±¿ki adresowej KDE dodaj±cy obs³ugê kdeaccounts
+Summary(pl):	Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts
 Group:          X11/Applications
 Requires:	kdepim-kaddressbook >= 3.0.8
 
 %description kaddressbook-kdeaccounts
-A kdeaccounts plugin for the KDE adressbook. What is does is adding the people from kde's cvs accounts file
-to the addressbook.
+A kdeaccounts plugin for the KDE adressbook. What is does is adding
+the people from KDE's CVS accounts file to the addressbook.
 
 %description kaddressbook-kdeaccounts -l pl
-Plugin do ksi±¿ki adresowej KDE dodaj±cy obs³ugê kdeaccounts. Dodaje on osoby posiadaj±ce konta w cvs kde do 
-ksi±zki adresowej.
+Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts. Dodaje
+ona osoby posiadaj±ce konta w CVS KDE do ksi±¿ki adresowej.
 
 %package kapptemplate
 Summary:        KDE application framework generator
-Summary(pl):    Generator szkieletu do aplikacji KDE
+Summary(pl):    Generator szkieletu dla aplikacji KDE
 Group:          X11/Development/Tools
 
 %description kapptemplate
-Modular shell script that will automatically create a
-framework for either a normal KDE 3.x application, a
-KPart application, a KPart plugin, or convert an
-existing application.
+Modular shell script that will automatically create a framework for
+either a normal KDE 3.x application, a KPart application, a KPart
+plugin, or convert an existing application.
 
 %description kapptemplate -l pl
-Modularny skrypt, któr potrafi automagicznie wygenerowaæ 
-szkielet katalogów dla zwyk³ej aplikacji pod KDE 3.x, aplikacji
-KPart lub skonwertowaæ istniej±c± aplikacji.
+Modularny skrypt, który potrafi automatycznie wygenerowaæ szkielet
+katalogów dla zwyk³ej aplikacji pod KDE 3.x, aplikacji KPart, wtyczki
+KPart lub skonwertowaæ istniej±c± aplikacjê.
 
 %package kbabel
 Summary:        An advanced and easy to use PO-file editor
@@ -135,8 +134,8 @@ KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
 utrzymanie plików po.
 
 %package kbabel-devel
-Summary:        Kbabel headers.
-Summary(pl):    Pliki nag³owkowe KBabel.
+Summary:        Kbabel headers
+Summary(pl):    Pliki nag³ówkowe KBabel
 Group:          X11/Development
 Requires:       gettext-devel
 Requires:	%{name}-kbabel = %{version} 
@@ -147,11 +146,11 @@ Requires:       %{name}-kbabel-dictionary = %{version}
 KBabel headers.
 
 %description kbabel-devel -l pl
-Pliki nag³owkowe KBabel.
+Pliki nag³ówkowe KBabel.
 
 %package kbabel-dictionary
-Summary:        Plugin that supports dictionaries made from po compendia.
-Summary(pl):    Plugin kbabel obs³uguj±cy s³owniki z kompendiów po.
+Summary:        Plugin that supports dictionaries made from po compendia
+Summary(pl):    Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
 Group:          X11/Development
 Requires:       gettext-devel
 Requires:	%{name}-kbabel = %{version}
@@ -160,11 +159,11 @@ Requires:	%{name}-kbabel = %{version}
 Plugin that supports dictionaries made from po compendia.
 
 %description kbabel-dictionary -l pl
-Plugin kbabel obs³uguj±cy s³owniki z kompendiów po.
+Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po.
 
 %package kbabel-catalog
-Summary:        A KBabel catalog manager.
-Summary(pl):    Mened¿er zbiorów plików po zintegrowany z KBabel.
+Summary:        A KBabel catalog manager
+Summary(pl):    Zarz±dca zbiorów plików po zintegrowany z KBabel
 Group:          X11/Development
 Requires:       gettext-devel
 Requires:	%{name}-kbabel = %{version}
@@ -173,7 +172,7 @@ Requires:	%{name}-kbabel = %{version}
 A KBabel catalog manager.
 
 %description kbabel-catalog -l pl
-Mened¿er zbiorów plików po zintegrowany z KBabel.
+Zarz±dca zbiorów plików po zintegrowany z KBabel.
 
 %package kbugbuster
 Summary:        A tools that allows cooperation with bugs.kde.org
@@ -181,10 +180,10 @@ Summary(pl):    Narzêdzie wspó³pracuj±ce z bugs.kde.org
 Group:          X11/Development/Tools
 
 %description kbugbuster
-KBugBuster allows easy bug management on bugs.kde.org
+KBugBuster allows easy bug management on bugs.kde.org.
 
 %description kbugbuster -l pl
-KBugBuster u³atwia wyszukwianie i zarz±dzanie b³êdami na bugs.kde.org
+KBugBuster u³atwia wyszukwianie i zarz±dzanie b³êdami na bugs.kde.org.
 
 %package kmtrace
 Summary:        An mtrace to full backtrace conversion tool
@@ -199,12 +198,13 @@ Converts glibc's mtrace log into a full backtrace.
 Konwertuje mtrace glibca do pe³nego backtrace'a.
 
 %package kompare
-Summary:	Kompare is a program to view the differences between files.
-Summary(pl):	Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami.
+Summary:	Kompare is a program to view the differences between files
+Summary(pl):	Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami
 Group:		X11/Development/Tools
 
 %description kompare
-Kompare is a program to view the differences between files. Features include:
+Kompare is a program to view the differences between files. Features
+include:
 
   * comparison of files or directories via a graphical interface
   * bezier-based connection widget lets you see both source and destination
@@ -220,27 +220,30 @@ Kompare is a program to view the differences between files. Features include:
   * diff statistics
 			    
 %description kompare -l pl
-Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami. Aktualnie dostêpne funkcje:
+Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami.
+Aktualnie dostêpne funkcje:
   * porównanie plików lub katalogów poprzez graficzny interfejs
-  * przedstawienie ¼ród³a i celu za pomoc± krzywej beziera
-  * graficzne przegl±danie paczy w formatach diff, unidiff, context i zwyk³ym
+  * przedstawienie ¼ród³a i celu za pomoc± krzywej Beziera
+  * graficzne przegl±danie ³at w formatach diff, unidiff, context i
+    zwyk³ym
   * interaktywne wprowadzanie zmian
-  * prze¼roczysto¶æ sieciowa
+  * przezroczysto¶æ sieciowa
   * mo¿liwo¶æ ogl±dania wyj¶cia diff w wewnêtrznej przegl±darce
   * ³atwa nawigacja miêdzy wieloplikowymi diffami wraz z dokowalnym drzewem
-  * zamiana ¼rod³a i celu za pomoc± pojedyñczej komendy
+  * zamiana ¼ród³a i celu za pomoc± pojedynczej komendy
   * statystyki diffów
 
 %package kprofilemethod
-Summary:	Kprofilemethod is a set of macros which help profiling using QTime.
-Summary(pl):	Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z wykorzystaniem QTime.
+Summary:	Kprofilemethod is a set of macros which help profiling using QTime
+Summary(pl):	Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z wykorzystaniem QTime
 Group:		X11/Development/Tools
 
 %description kprofilemethod
 Kprofilemethod is a set of macros which help profiling using QTime.
 
 %description kprofilemethod -l pl
-Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z wykorzystaniem QTime.
+Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z
+wykorzystaniem QTime.
 
 %package kspy 
 Summary:        A utility for egzamining the internal state of a QT/KDE application.
@@ -259,15 +262,17 @@ part of KSpy is dynamically loaded, so you may even want to leave this
 in the release build of an application.
 
 %description kspy -l pl
-KSpy to nar¿edzie maj±ce u³atwiæ programisto badanie wewnêtrznego stanu aplikacji
-QT/KDE. KSpy ilustruje graficznie wszystkie Qobjects jakie s± w u¿yciu i pozwala
-na ³atwe przegl±danie ich w³a¶ciwo¶ci. Korzystanie z KSpy jest bardzo proste (wystarczy
-do³±czyæ plik kspy.h i wywo³aæ KSpy::invoke() w miejscu, któ?e chcemy obejrzeæ w naszej 
-aplikacji. Funkcja KSpy jest inline, wiêc mo¿esz nawet zostawiæ j± nawet w wydaniu stabilnym.
+KSpy to narzêdzie maj±ce u³atwiæ programistom badanie wewnêtrznego
+stanu aplikacji QT/KDE. KSpy ilustruje graficznie wszystkie QObjects
+jakie s± w u¿yciu i pozwala na ³atwe przegl±danie ich w³a¶ciwo¶ci.
+Korzystanie z KSpy jest bardzo proste (wystarczy do³±czyæ plik kspy.h
+i wywo³aæ KSpy::invoke() w miejscu, które chcemy obejrzeæ w naszej
+aplikacji. Funkcja KSpy jest inline, wiêc mo¿na zostawiæ j± nawet w
+wydaniu stabilnym.
 
 %package kstartperf
-Summary:	A tool to measure startup time for KDE applications.
-Summary(pl):	Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
+Summary:	A tool to measure startup time for KDE applications
+Summary(pl):	Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE
 Group:          X11/Development/Tools
 
 %description kstartperf
@@ -278,31 +283,31 @@ Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
 
 %package pallette-gimp
 Summary:        Adds the KDE Default pallette to GIMP
-Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do GIMPa
+Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do GIMP-a
 Group:          X11/Applications/Graphics
 Requires:	gimp >= 1.3
 
 %description pallette-gimp
-Adds the KDE Default pallette to GIMP
+Adds the KDE Default pallette to GIMP.
 
 %description pallette-gimp -l pl
-Dodaje domy¶ln± paletê kolorów KDE do GIMPa
+Dodaje domy¶ln± paletê kolorów KDE do GIMP-a.
 
 %package pallette-xpaint
 Summary:        Adds the KDE Default pallette to XPaint
-Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do Xpainta
+Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do XPainta
 Group:          X11/Applications/Graphics
 Requires:       xpaint
 
 %description pallette-xpaint
-Adds the KDE Default pallette to XPaint
+Adds the KDE Default pallette to XPaint.
 
 %description pallette-xpaint -l pl
-Dodaje domy¶ln± paletê kolorów KDE do XPainta
+Dodaje domy¶ln± paletê kolorów KDE do XPainta.
 
 %package po2xml
-Summary:	An xml2po and vice versa converters.
-Summary(pl):	Konwertery po2xml i vice versa.
+Summary:	An xml2po and vice versa converters
+Summary(pl):	Konwertery po2xml i vice versa
 Group:          X11/Development/Tools
 Requires:	/usr/bin/python
 
@@ -313,82 +318,85 @@ An xml2po and vice versa converters.
 Konwertery po2xml i vice versa.
 
 %package scripts-build
-Summary:        An set of scripts useful for building kde.
-Summary(pl):    Zestaw skryptów do kompilowania kde.
+Summary:        An set of scripts useful for building KDE
+Summary(pl):    Zestaw skryptów do kompilowania KDE
 Group:          X11/Development/Tools
 Requires:	/usr/bin/perl
 
 %description scripts-build
-A set of scripts useful for building kde.
+A set of scripts useful for building KDE.
 
 %description scripts-build -l pl
-Zestaw skryptów do kompilowania kde.
+Zestaw skryptów do kompilowania KDE.
 
 %package scripts-cxxmetric
-Summary:	Statistic meter for c/c++ files.
-Summary(pl):	Plik do tworzenia statystyki plików c/c++.
+Summary:	Statistic meter for c/c++ files
+Summary(pl):	Plik do tworzenia statystyki plików c/c++
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
 
 %description scripts-cxxmetric
-Counts lines of code, comments and blank space in C and C++ source files.
+Counts lines of code, comments and blank space in C and C++ source
+files.
 
 %description scripts-cxxmetric -l pl
-Zlicza linijki kodu, komentarzy i znaków bia³ych w plikach ¼ród³owych C i C++.
+Zlicza linijki kodu, komentarzy i znaków bia³ych w plikach ¼ród³owych
+C i C++.
 
 %package scripts-cvs
-Summary:        A set of scripts for mainatining kde from cvs.
-Summary(pl):    Zestaw skryptów do zarz±dzania kde z cvs.
+Summary:        A set of scripts for maintaining KDE from CVS
+Summary(pl):    Zestaw skryptów do zarz±dzania KDE z CVS
 Group:          X11/Development/Tools
 Requires:	/usr/bin/perl
 
 %description scripts-cvs 
-A set of scripts for mainatining kde from cvs.
+A set of scripts for maintaining KDE from CVS.
 
 %description scripts-cvs -l pl
-Zestaw skryptów do zarz±dzania kde z cvs.
+Zestaw skryptów do zarz±dzania KDE z CVS.
 
 %package scripts-doc
-Summary:        A set of scripts forquick access to qt/kde documentation.
-Summary(pl):    Zestaw skryptów szybkiego dostêpu do dokumentacji qt/kde.
+Summary:        A set of scripts for quick access to qt/KDE documentation
+Summary(pl):    Zestaw skryptów szybkiego dostêpu do dokumentacji qt/KDE
 Group:          X11/Development/Tools
 
 %description scripts-doc
-A set of scripts forquick access to qt/kde documentation.
+A set of scripts for quick access to qt/KDE documentation.
 
 %description scripts-doc -l pl
-Zestaw skryptów szybkiego dostêpu do dokumentacji qt/kde.
+Zestaw skryptów szybkiego dostêpu do dokumentacji qt/KDE.
 
 %package scripts-extractrc
 Summary:	Extracts the strings from .rc files
-Summary(pl):	Odnajduje stringi w plikach .rc
+Summary(pl):	Wyci±ga ³añcuchy z plików .rc
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
 Obsoletes:	kdesdk-extractrc
 
 %description scripts-extractrc
-A Perl script, it extracts the strings in an application´s .rc file,
+A Perl script, it extracts the strings in an application's .rc file,
 e.g. testappui.rc, and writes into the pot file where the translations
-are build with (po-files)
+are build with (po-files).
 
 %description scripts-extractrc -l pl
-Skrypt napisany w Perlu, który odnajduje stringi w plikach .rc aplikacji,
-np. testappgui.rc i zapisuje je do plików pot
+Skrypt napisany w Perlu, który wyci±ga ³añcuchy z plików .rc
+aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
+tworzy siê t³umaczenia (pliki po).
 
 %package scripts-kdekillall
-Summary:        A script for killing KDE appsstarted with kdeinit.
-Summary(pl):   Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit.
+Summary:	A script for killing KDE apps started with kdeinit
+Summary(pl):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
 Group:          X11/Development/Tools
 
 %description scripts-kdekillall
-A script for killing KDE appsstarted with kdeinit.
+A script for killing KDE apps started with kdeinit.
 
 %description scripts-kdekillall -l pl
 Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit.
 
 %package scripts-kdelnk2desktop
-Summary:        A kdelnk to desktop converter.
-Summary(pl):   Konwerter plików kdelnk na desktop.
+Summary:	A kdelnk to desktop converter
+Summary(pl):	Konwerter plików kdelnk na desktop
 Group:          X11/Development/Tools
 
 %description scripts-kdelnk2desktop
@@ -398,34 +406,31 @@ A kdelnk to desktop converter.
 Konwerter plików kdelnk na desktop.
 
 %package scripts-zonetab2pot
-Summary:        A zone.tab to .pot converter.
-Summary(pl):    Konwerter plików zone.tab na .pot
+Summary:	A zone.tab to .pot converter
+Summary(pl):	Konwerter plików zone.tab na .pot
 Group:          X11/Development/Tools
 Requires:	/usr/bin/python
 Requires:	gettext-devel
 
 %description scripts-zonetab2pot
-This script reads timezone list as its first argument
-or from /usr/share/zoneinfo/zone.tab, and converts it
-to a PO file template.
+This script reads timezone list as its first argument or from
+/usr/share/zoneinfo/zone.tab, and converts it to a PO file template.
 
 %description scripts-zonetab2pot -l pl
-Ten skrypt wczytuje listê stref czasowych z linii 
-poleceñ lub pliku /usr/share/zoneinfo/zone.tab i konwertuje je
-na plik POT.
+Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
+/usr/share/zoneinfo/zone.tab i konwertuje je na plik POT.
 
 %package xemacs
 Summary:	A set of macros for xemacs
-Summary(pl):	Zestaw makr do xemacs.
+Summary(pl):	Zestaw makr do xemacsa
 Group:		X11/Development/Tools
 Requires: 	xemacs
 
 %description xemacs
-A set of macros for xemacs
+A set of macros for xemacs.
 
 %description xemacs -l pl
-Zestaw makr do xemacs.
-
+Zestaw makr do xemacsa.
 
 %prep
 %setup -q
@@ -435,10 +440,6 @@ Zestaw makr do xemacs.
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
-
-if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
-        CPPFLAGS="`pkg-config libpng12 --cflags`"
-fi
 
 %configure \
 	--enable-final \
@@ -457,19 +458,19 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -rf `find . -name CVS`
 
-install -d $RPM_BUILD_ROOT/%{_gimpdir}/palettes
-install -d $RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults
-install -d $RPM_BUILD_ROOT/%{_datadir}/emacs-packages/kde
-install -d $RPM_BUILD_ROOT/%{_datadir}/xemacs-packages/kde
-install -d $RPM_BUILD_ROOT/%{_datadir}/zsh/latest/functions
-install -d $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d
+install -d $RPM_BUILD_ROOT%{_gimpdir}/palettes
+install -d $RPM_BUILD_ROOT%{_libdir}/X11/app-defaults
+install -d $RPM_BUILD_ROOT%{_datadir}/emacs-packages/kde
+install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/kde
+install -d $RPM_BUILD_ROOT%{_datadir}/zsh/latest/functions
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
-install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT/%{_gimpdir}/palettes/
-cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults/XPaint.kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_datadir}/emacs-packages/kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_datadir}/xemacs-packages/kde
-cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_datadir}/zsh/latest/functions
-cp ./scripts/completions/bash/* $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d/
+install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT%{_gimpdir}/palettes/
+cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_libdir}/X11/app-defaults/XPaint.kde
+cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_datadir}/emacs-packages/kde
+cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/kde
+cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT%{_datadir}/zsh/latest/functions
+cp ./scripts/completions/bash/* $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
 
 cd $RPM_BUILD_ROOT%{_pixmapsdir}
 mv {locolor,crystalsvg}/32x32/apps/kbugbuster.png
@@ -484,11 +485,8 @@ cd -
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/ldconfig
-
-%postun
-/sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files 
 %defattr(644,root,root,755)
