@@ -266,7 +266,7 @@ utrzymanie plików gettexta .po. Jego mo¿liwo¶ci to:
 - pokazywanie kodu ¼ród³owego po odno¶nikach w komentarzach do
   komunikatów.
 
-Zawiera te¿ zarz±dce katalogów zintegrowany z KBabel. Jego mo¿liwo¶ci
+Zawiera te¿ zarz±dcê katalogów zintegrowany z KBabel. Jego mo¿liwo¶ci
 to:
 - widok zarz±dcy plików dla katalogów kde-i18n (lub podobnie
   skonstruowanych), pokazuj±cy aktualny stan ka¿dego pliku PO: czy
