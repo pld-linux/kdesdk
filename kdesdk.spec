@@ -31,7 +31,14 @@ Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 %package devel
 Summary:	Header files for kdesdk
 Summary(pl):	Pliki nag³ówkowe dla kdesdk
-Group:		X11/Applications/Developement
+Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
+Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 
 %description devel
 Header files for kdesdk.
@@ -42,19 +49,25 @@ Pliki nag³ówkowe dla kdesdk.
 %package static
 Summary:	Static libraries for kdesdk
 Summary(pl):	Statyczne biblioteki dla kdesdk
-Group:		X11/Libraries
+Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
+Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 
 %description static
 Static libraries for kdesdk.
 
-%description static
+%description static -l pl
 Statyczne biblioteki dla kdesdk.
 
 %prep
 %setup -q
 
 %build
-
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 %configure \
@@ -95,42 +108,3 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
-
-%changelog
-* %{date} PLD Team <pld-list@pld.org.pl>
-All persons listed below can be reached at <cvs_login>@pld.org.pl
-
-$Log: kdesdk.spec,v $
-Revision 1.8  2001-11-26 21:35:13  mkochano
-- Release 1.
-- Updated to 2.2.2.
-- Removed subpackages (they are in other packages now).
-- Added static and devel subpackages.
-
-Revision 1.7  2001/09/28 12:54:14  qboosh
-- fixed Groups, added Source0 URL (note: current stable version is 2.2.1)
-
-Revision 1.6  2001/05/02 21:51:21  qboosh
-- adapterized and made spec %%debug ready or added using %%rpm*flags macros
-
-Revision 1.5  2000/12/03 02:46:37  agaran
-Just adapterized
-
-* Sun Jun 13  1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
-  [19990609]
-- update to last version.
-
-* Tue Jun  1 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
-  [19990531]
-- update to last version.
- 
-* Sat May 29 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
-  [19990529]
-- updating to last version.
- 
-* Thu May  6 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
-  [0.9-1]
-- separating package.
-
-* Wed May  5 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
-- build RPM.
