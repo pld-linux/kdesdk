@@ -513,7 +513,7 @@ Requires:	/usr/bin/perl
 A set of scripts useful for building KDE.
 
 %description scripts-build -l pl
-Zestaw skryptów do przydatnych podczas kompilowania KDE.
+Zestaw skryptów przydatnych podczas kompilowania KDE.
 
 %package scripts-cvs
 Summary:	A set of scripts for maintaining KDE from CVS
