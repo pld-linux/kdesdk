@@ -388,8 +388,8 @@ Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z
 wykorzystaniem QTime.
 
 %package kspy
-Summary:	A utility for egzamining the internal state of a QT/KDE application.
-Summary(pl):	Narzêdzie do badania stanu aplikacji QT/KDE
+Summary:	A utility for egzamining the internal state of a Qt/KDE application.
+Summary(pl):	Narzêdzie do badania stanu aplikacji Qt/KDE
 Group:		X11/Development/Tools
 Obsoletes:	kdiff
 Obsoletes:	kdiff2
@@ -405,7 +405,7 @@ in the release build of an application.
 
 %description kspy -l pl
 KSpy to narzêdzie maj±ce u³atwiæ programistom badanie wewnêtrznego
-stanu aplikacji QT/KDE. KSpy ilustruje graficznie wszystkie QObjects
+stanu aplikacji Qt/KDE. KSpy ilustruje graficznie wszystkie QObjects
 jakie s± w u¿yciu i pozwala na ³atwe przegl±danie ich w³a¶ciwo¶ci.
 Korzystanie z KSpy jest bardzo proste (wystarczy do³±czyæ plik kspy.h
 i wywo³aæ KSpy::invoke() w miejscu, które chcemy obejrzeæ w naszej
@@ -425,14 +425,14 @@ Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
 
 %package kuiviewer
 Summary:	Qt Designer UI file Viewer
-Summary(pl):	Przegl±darka plików UI generowanych przez QT designera
+Summary(pl):	Przegl±darka plików UI generowanych przez Qt designera
 Group:		X11/Development/Tools
 
 %description kuiviewer
 Qt Designer UI file Viewer.
 
 %description kuiviewer -l pl
-Przegl±darka plików UI generowanych przez QT designera.
+Przegl±darka plików UI generowanych przez Qt designera.
 
 %package libcvsservice
 Summary:	A cvs access library
