@@ -1,6 +1,6 @@
 %define	date	19990713
-Summary:	KDESDK - Software Development Kit for KDE.
-Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE.
+Summary:	KDESDK - Software Development Kit for KDE
+Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{date}
 Release:	1
@@ -14,11 +14,11 @@ Patch1:		%{name}-scripts-fix.patch
 Requires:	qt >= 1.44, kdelibs >= 1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define _prefix	/usr/X11R6
-%define	_mandir	/usr/X11R6/man
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 
 %description
-Software Development Kit for KDE
+Software Development Kit for KDE.
 
 %description -l pl
 Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
@@ -79,9 +79,9 @@ Program do tworzenia prostego szkieletu aplikacji dla KDE.
 %patch1 -p0
 
 %build
-export KDEDIR=%{_prefix}
-CXXFLAGS="$RPM_OPT_FLAGS -Wall -fno-rtti -fno-exceptions" \
-CFLAGS="$RPM_OPT_FLAGS -Wall" \
+KDEDIR=%{_prefix} ; export KDEDIR
+CXXFLAGS="%{rpmcflags} -Wall -fno-rtti -fno-exceptions" \
+CFLAGS="%{rpmcflags} -Wall" \
 ./configure %{_target} \
 	--prefix=$KDEDIR \
 	--enable-nls \
@@ -104,8 +104,6 @@ export KDEDIR=%{_prefix}
 
 %find_lang ktranslator
 %find_lang kappgen
-
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -136,8 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kdoc
 %attr(755,root,root) %{_bindir}/qt2kdoc
 %{_datadir}/kdoc
-%{_mandir}/man1/kdoc.1.gz
-%{_mandir}/man1/qt2kdoc.1.gz
+%{_mandir}/man1/kdoc.1*
+%{_mandir}/man1/qt2kdoc.1*
 
 %files kappgen
 %defattr(644,root,root,755)
@@ -150,14 +148,17 @@ rm -rf $RPM_BUILD_ROOT
 #%doc
 %attr(755,root,root) %{_bindir}/cvs*
 %attr(755,root,root) %{_bindir}/cxxmetric
-%attr(644,root,root) %{_mandir}/man1/cvs*.1.gz
+%attr(644,root,root) %{_mandir}/man1/cvs*.1*
 
 %changelog
 * %{date} PLD Team <pld-list@pld.org.pl>
 All persons listed below can be reached at <cvs_login>@pld.org.pl
 
 $Log: kdesdk.spec,v $
-Revision 1.5  2000-12-03 02:46:37  agaran
+Revision 1.6  2001-05-02 21:51:21  qboosh
+- adapterized and made spec %%debug ready or added using %%rpm*flags macros
+
+Revision 1.5  2000/12/03 02:46:37  agaran
 Just adapterized
 
 * Sun Jun 13  1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
