@@ -15,6 +15,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_srcver}.tar.
 # Source0-md5:	5420cbc818466f79ee19142cb30324bb
 # translations are  generated from kde-i18n.spec now
 Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/kde-i18n-%{name}-%{version}.tar.bz2
+# Source1-md5:	23a8b84f022a2939ee4e65e803cf1a24
 BuildRequires:	bison
 BuildRequires:	db2-devel
 BuildRequires:	gettext-devel
