@@ -19,6 +19,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel = %{version}
 BuildRequires:	libltdl-devel
+BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -130,11 +131,11 @@ Group:          X11/Development/Tools
 Requires:	gettext-devel
 
 %description kbabel
-KBabel is a tool, that allows easy management, edition and upkeep of 
+KBabel is a tool, that allows easy management, edition and upkeep of
 gettext .po files.
 
 %description kbabel -l pl
-KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i 
+KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
 utrzymanie plików po.
 
 %package kbabel-devel
@@ -142,7 +143,7 @@ Summary:        Kbabel headers
 Summary(pl):    Pliki nag³ówkowe KBabel
 Group:          X11/Development
 Requires:       gettext-devel
-Requires:	%{name}-kbabel = %{version} 
+Requires:	%{name}-kbabel = %{version}
 Requires:       %{name}-kbabel-catalog = %{version}
 Requires:       %{name}-kbabel-dictionary = %{version}
 
@@ -198,7 +199,7 @@ BuildRequires:  binutils-static
 %description kmtrace
 Converts glibc's mtrace log into a full backtrace.
 
-%description kmtrace -l pl 
+%description kmtrace -l pl
 Konwertuje mtrace glibca do pe³nego backtrace'a.
 
 %package kompare
@@ -222,7 +223,7 @@ include:
   * graphical interface to commonly used diff command line options
   * switch source and destination with one command
   * diff statistics
-			    
+
 %description kompare -l pl
 Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami.
 Aktualnie dostêpne funkcje:
@@ -249,7 +250,7 @@ Kprofilemethod is a set of macros which help profiling using QTime.
 Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z
 wykorzystaniem QTime.
 
-%package kspy 
+%package kspy
 Summary:        A utility for egzamining the internal state of a QT/KDE application.
 Summary(pl):    Narzêdzie do badania stanu aplikacji QT/KDE
 Group:          X11/Development/Tools
@@ -353,7 +354,7 @@ Summary(pl):    Zestaw skryptów do zarz±dzania KDE z CVS
 Group:          X11/Development/Tools
 Requires:	/usr/bin/perl
 
-%description scripts-cvs 
+%description scripts-cvs
 A set of scripts for maintaining KDE from CVS.
 
 %description scripts-cvs -l pl
@@ -445,17 +446,14 @@ kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 for plik in `find ./ -name \*.desktop` ; do
-	if [ -d $plik ]; then
 		echo $plik
-		sed -e "s/[nb]/[no]/g" > $plik.1
-		mv -f $plik.1 $plik
-	fi
+		perl -pi -e "s/\[nb\]/\[no\]/g" $plik
 done
 
 %configure \
 	--enable-final \
 	--enable-nls
-	
+
 %{__make}
 
 %{__make} -C kstartperf
@@ -499,7 +497,7 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files 
+%files
 %defattr(644,root,root,755)
 %doc README
 %{_libdir}/kde3/kfile_[!p]*.la
