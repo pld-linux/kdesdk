@@ -142,10 +142,10 @@ Group:		X11/Development/Tools
 Requires:	emacs-common
 
 %description emacs
-A set of macros for emacs.
+A set of macros for emacs usable when developing KDE applications.
 
 %description emacs -l pl
-Zestaw makr do emacsa.
+Zestaw makr do emacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %package kaddressbook-kdeaccounts
 Summary:	A kdeaccounts plugin for the KDE adressbook
@@ -513,7 +513,7 @@ Requires:	/usr/bin/perl
 A set of scripts useful for building KDE.
 
 %description scripts-build -l pl
-Zestaw skryptów do kompilowania KDE.
+Zestaw skryptów do przydatnych podczas kompilowania KDE.
 
 %package scripts-cvs
 Summary:	A set of scripts for maintaining KDE from CVS
@@ -522,10 +522,10 @@ Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
 
 %description scripts-cvs
-A set of scripts for maintaining KDE from CVS.
+A set of scripts for maintaining KDE checkout from CVS.
 
 %description scripts-cvs -l pl
-Zestaw skryptów do zarz±dzania KDE z CVS.
+Zestaw skryptów do zarz±dzania checkoutem KDE z CVS.
 
 %package scripts-doc
 Summary:	A set of scripts for quick access to Qt/KDE documentation
@@ -648,10 +648,10 @@ Group:		X11/Development/Tools
 Requires:	xemacs-common
 
 %description xemacs
-A set of macros for xemacs.
+A set of macros for xemacs useful for developing KDE apps.
 
 %description xemacs -l pl
-Zestaw makr do xemacsa.
+Zestaw makr do xemacsa przydatny podczas rozwijania aplikacji KDE.
 
 %prep
 %if ! %{with cvs}
