@@ -7,7 +7,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1.91
+Release:	2
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -494,14 +494,14 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde,%{_xemacspkgdir}/kde \
+install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde,%{_xemacspkgdir}/kde} \
 	$RPM_BUILD_ROOT{%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
 
 %{__make} install \
-	DESTDIR="$RPM_BUILD_ROOT"
+	DESTDIR=$RPM_BUILD_ROOT
 
 %{__make} -C kstartperf install \
-	DESTDIR="$RPM_BUILD_ROOT"
+	DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf `find . -name CVS`
 
@@ -519,15 +519,28 @@ cd -
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-%find_lang	cervisia	--with-kde
-%find_lang	kbabel		--with-kde
-%find_lang	kbugbuster	--with-kde
-%find_lang	kompare		--with-kde
+> %{name}.lang
+%find_lang desktop_kdesdk	--with-kde
+%find_lang kdevtipofday		--with-kde
+%find_lang kfile_cpp		--with-kde
+%find_lang kfile_diff		--with-kde
+%find_lang qeditor		--with-kde
+cat {desktop_kdesdk,kdevtipofday,kfile_cpp,kfile_diff,qeditor}.lang >> %{name}.lang
+
+%find_lang kbabel		--with-kde
+%find_lang kfile_po		--with-kde
+cat kfile_po.lang >> kbabel.lang
+
+%find_lang cervisia		--with-kde
+%find_lang kbugbuster		--with-kde
+%find_lang kompare		--with-kde
+%find_lang kstartperf		--with-kde
+%find_lang spy			--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README
 %{_libdir}/kde3/kfile_[!p]*.la
@@ -654,13 +667,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/kprofilemethod.h
 
-%files kspy
+%files kspy -f spy.lang
 %defattr(644,root,root,755)
 %{_libdir}/libkspy.la
 %attr(755,root,root) %{_libdir}/libkspy.so*
 %{_includedir}/kspy.h
 
-%files kstartperf
+%files kstartperf -f kstartperf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kstartperf
 %{_libdir}/libkstartperf.la
