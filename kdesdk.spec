@@ -11,8 +11,8 @@ Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	82808f2780ae970fb38d44512ff9e2f3
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	dd3c690444fef79de620c26abfaafd37
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-kmtrace_glibc23.patch
 URL:		http://www.kde.org/
