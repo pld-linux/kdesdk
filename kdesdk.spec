@@ -23,7 +23,6 @@ Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}
 %endif
 Patch0:		%{name}-kuiviewer.patch
 URL:		http://www.kde.org/
-BuildRequires:	binutils-static
 BuildRequires:	bison
 BuildRequires:	ed
 BuildRequires:	flex
@@ -746,6 +745,10 @@ cd $RPM_BUILD_ROOT
 rm -rf `find . -name CVS`
 cd -
 
+# Debian manpages
+# overwrites cvscheck.1 - it's OK (original manual is much shorter)
+install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+
 %if %{with i18n}
 if [ -f "%{SOURCE1}" ] ; then
 	bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
@@ -876,7 +879,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/cvsservice.desktop
 %{_desktopdir}/kde/cervisia.desktop
 %{_iconsdir}/*/*/*/cervisia.png
-%{_mandir}/man1/cervisia*
+%{_mandir}/man1/cervisia.1*
 
 %files cervisia-devel
 %defattr(644,root,root,755)
@@ -904,6 +907,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kapptemplate/[!b]*
 %dir %{_datadir}/apps/kapptemplate/bin
 %attr(755,root,root) %{_datadir}/apps/kapptemplate/bin/*
+%{_mandir}/man1/kapptemplate.1*
 
 %files kaddressbook-kdeaccounts
 %defattr(644,root,root,755)
@@ -944,6 +948,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/[!l]*/*/*/kbabel.png
 # Already in kdelibs
 #%{_iconsdir}/[!l]*/*/mimetypes/gettext.png
+%{_mandir}/man1/kbabel.1*
 
 %files kbabel-devel
 %defattr(644,root,root,755)
@@ -963,6 +968,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/pothumbnail.desktop
 %{_desktopdir}/kde/catalogmanager.desktop
 %{_iconsdir}/[!l]*/*/*/catalogmanager.png
+%{_mandir}/man1/catalogmanager.1*
 
 %files kbabel-dictionary
 %defattr(644,root,root,755)
@@ -976,6 +982,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/servicetypes/kbabeldict_module.desktop
 %{_desktopdir}/kde/kbabeldict.desktop
 %{_iconsdir}/[!l]*/*/*/kbabeldict.png
+%{_mandir}/man1/kbabeldict.1*
 
 %files kbugbuster -f kbugbuster_en.lang
 %defattr(644,root,root,755)
@@ -983,6 +990,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbugbuster
 %{_desktopdir}/kde/kbugbuster.desktop
 %{_iconsdir}/[!l]*/*/*/kbugbuster.png
+%{_mandir}/man1/kbugbuster.1*
 
 %files kcachegrind -f kcachegrind_en.lang
 %defattr(644,root,root,755)
@@ -992,16 +1000,21 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kcachegrind.desktop
 %{_iconsdir}/hicolor/*/apps/kcachegrind.png
 
+# -- doesn't build with glibc >= 2.3
 #%files kmtrace
 #%defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/kmtrace
-#%attr(755,root,root) %{_bindir}/kminspector
 #%attr(755,root,root) %{_bindir}/demangle
-#%attr(755,root,root) %{_bindir}/match
+#%attr(755,root,root) %{_bindir}/kminspector
+#%attr(755,root,root) %{_bindir}/kmmatch
+#%attr(755,root,root) %{_bindir}/kmtrace
 #%{_libdir}/libktrace*.la
 #%attr(755,root,root) %{_libdir}/libktrace*.so*
 #%{_includedir}/ktrace.h
 #%{_datadir}/apps/kmtrace
+#%{_mandir}/man1/demangle.1*
+#%{_mandir}/man1/kminspector.1*
+#%{_mandir}/man1/kmmatch.1*
+#%{_mandir}/man1/kmtrace.1*
 
 %files kompare -f kompare_en.lang
 %defattr(644,root,root,755)
@@ -1019,6 +1032,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/servicetypes/kompare*.desktop
 %{_desktopdir}/kde/kompare.desktop
 %{_iconsdir}/[!l]*/*/*/kompare.png
+%{_mandir}/man1/kompare.1*
 
 %files kprofilemethod
 %defattr(644,root,root,755)
@@ -1068,6 +1082,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/swappo
 %attr(755,root,root) %{_bindir}/transxx
 %attr(755,root,root) %{_bindir}/xml2pot
+#%{_mandir}/man1/fixsgml.1*
+%{_mandir}/man1/po2xml.1*
+%{_mandir}/man1/split2po.1*
+%{_mandir}/man1/swappo.1*
+%{_mandir}/man1/transxx.1*
+%{_mandir}/man1/xml2pot.1*
 
 %files scheck
 %defattr(644,root,root,755)
@@ -1087,28 +1107,41 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/fixkdeincludes
 %attr(755,root,root) %{_bindir}/kde-build
 %attr(755,root,root) %{_bindir}/cheatmake
-%{_mandir}/man1/kde-build.1*
+%{_mandir}/man1/adddebug.1*
+%{_mandir}/man1/cheatmake.1*
+%{_mandir}/man1/create*.1*
+%{_mandir}/man1/extend_dmalloc.1*
+%{_mandir}/man1/fixkdeincludes.1*
 %{_mandir}/man1/includemocs.1*
+%{_mandir}/man1/kde-build.1*
+%{_mandir}/man1/licensecheck.1*
+%{_mandir}/man1/makeobj.1*
 
 %files scripts-cvs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cvs*
 %attr(755,root,root) %{_bindir}/noncvslist
 %attr(755,root,root) %{_bindir}/pruneemptydirs
-%{_mandir}/man1/*cvs*
+%{_mandir}/man1/cvs*.1*
+%{_mandir}/man1/noncvslist.1*
+%{_mandir}/man1/pruneemptydirs.1*
 
 %files scripts-cxxmetric
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cxxmetric
+%{_mandir}/man1/cxxmetric.1*
 
 %files scripts-doc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/qtdoc
 %attr(755,root,root) %{_bindir}/kdedoc
+%attr(755,root,root) %{_bindir}/qtdoc
+%{_mandir}/man1/kdedoc.1*
+%{_mandir}/man1/qtdoc.1*
 
 %files scripts-extractrc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/extractrc
+%{_mandir}/man1/extractrc.1*
 
 %files scripts-findmissingcrystal
 %defattr(644,root,root,755)
@@ -1117,14 +1150,17 @@ rm -rf $RPM_BUILD_ROOT
 %files scripts-kdekillall
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdekillall
+%{_mandir}/man1/kdekillall.1*
 
 %files scripts-kdelnk2desktop
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdelnk2desktop.py
+%{_mandir}/man1/kdelnk2desktop.py.1*
 
 %files scripts-zonetab2pot
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
+%{_mandir}/man1/zonetab2pot.py.1*
 
 %files umbrello -f umbrello_en.lang
 %defattr(644,root,root,755)
