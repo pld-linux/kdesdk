@@ -1,31 +1,34 @@
-#
-%define		_state		stable
-%define		_ver		3.2.3
+
+%define		_state		unstable
+%define		_ver		3.3.0
+%define		_snap		rc2
+
+%define		_minlibsevr	9:3.3.0
+%define		_minbaseevr	9:3.3.0
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	4
+Release:	0.%{_snap}.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	82808f2780ae970fb38d44512ff9e2f3
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-Patch100:	%{name}-branch.diff
-Patch0:		%{name}-kmtrace_glibc23.patch
-Patch1:		%{name}-am.patch
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
+# Source0-md5:	504f8c835c59bc9350e8946a77cb1f7d
+Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
-BuildRequires:	kdebase-devel >= 9:%{version}
+BuildRequires:	kdebase-devel >= %{_minbaseevr}
 BuildRequires:	libltdl-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	unsermake
+BuildRequires:	unsermake >= 040511
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
 Obsoletes:	kdesdk
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -46,9 +49,7 @@ Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 Summary:	Developers' file formats enhanced information
 Summary(pl):	Rozszerzone informacje o plikach u¿ywanych przez programistów
 Group:		X11/Development/Libraries
-Requires:	konqueror >= %{version}
-Obsoletes:	kdesdk
-Obsoletes:	kdesdk-devel
+Requires:	konqueror >= %{_minbaseevr}
 
 %description kfile
 This package adds a tab to konqueror "file properties" dialog window
@@ -64,7 +65,8 @@ Summary:	A KDE CVS frontend
 Summary(pl):	Frontend do CVS dla KDE
 Group:		X11/Development/Tools
 Requires:	cvs >= 1.10
-Obsoletes:	kdesdk-devel
+Requires:	kdebase-core >= %{_minbaseevr}
+Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
 
 %description cervisia
 A KDE CVS frontend. It features:
@@ -87,8 +89,8 @@ A KDE CVS frontend. It features:
 %description cervisia -l pl
 Frontend do CVS dla KDE. Ma nastêpuj±ce mo¿liwo¶ci:
 - uaktualnianie lub odtwarzanie stanu katalogu lub pojedynczych
-  plików; pliki s± wy¶wietlane w ró¿nych kolorach zale¿nie od ich
-  stanu, a pokazywane pliki mog± byæ filtrowane wed³ug ich stanu
+  plików; pliki s± wy¶wietlane w ró¿nych kolorach zale¿nie od ich stanu,
+  a pokazywane pliki mog± byæ filtrowane wed³ug ich stanu
 - podstawowe operacje, takie jak dodawanie, usuwanie i commitowanie
   plików
 - zaawansowane operacje, takie jak dodawanie i usuwanie ¶ledzenia,
@@ -103,24 +105,11 @@ Frontend do CVS dla KDE. Ma nastêpuj±ce mo¿liwo¶ci:
 - uaktualnianie do taga, brancha lub daty
 - edytor changelogów po³±czony z oknem dialogowym do commitowania.
 
-%package cervisia-devel
-Summary:	Header files for cervisia, a KDE CVS frontend
-Summary(pl):	Pliki nag³ówkowe cervisii - frontendu do CVS dla KDE
-Group:		X11/Development/Libraries
-Obsoletes:	kdesdk-devel
-
-%description cervisia-devel
-A KDE CVS frontend. This package contains header files.
-
-%description cervisia-devel -l pl
-Pliki nag³ówkowe cervisii - frontendu do CVS dla KDE.
-
 %package completions-bash
 Summary:	Autocomplete definitions for bash
 Summary(pl):	Definicje autouzupe³niania dla basha
 Group:		Applications/Shells
 Requires:	bash-completion
-Obsoletes:	kdesdk-devel
 
 %description completions-bash
 Autocomplete definitions for bash.
@@ -132,8 +121,7 @@ Definicje autouzupe³niania dla basha.
 Summary:	Autocomplete definitions for zsh
 Summary(pl):	Definicje autouzupe³niania dla zsh
 Group:		Applications/Shells
-Requires:	zsh-completions >= 4.0.6-2
-Obsoletes:	kdesdk-devel
+Requires:	zsh >= 4.0.6-2
 
 %description completions-zsh
 Autocomplete definitions for zsh.
@@ -146,7 +134,6 @@ Summary:	A set of macros for emacs
 Summary(pl):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
 Requires:	emacs-common
-Obsoletes:	kdesdk-devel
 
 %description emacs
 A set of macros for emacs helpful for working on KDE programs.
@@ -159,7 +146,6 @@ Summary:	A kdeaccounts plugin for the KDE adressbook
 Summary(pl):	Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts
 Group:		X11/Applications
 Requires:	kdepim-kaddressbook >= 3.0.8
-Obsoletes:	kdesdk-devel
 
 %description kaddressbook-kdeaccounts
 A kdeaccounts plugin for the KDE adressbook. What is does is adding
@@ -173,7 +159,6 @@ ona osoby posiadaj±ce konta w CVS KDE do ksi±¿ki adresowej.
 Summary:	KDE application framework generator
 Summary(pl):	Generator szkieletu dla aplikacji KDE
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description kapptemplate
 Modular shell script that will automatically create a framework for
@@ -190,7 +175,8 @@ Summary:	An advanced and easy to use PO-file editor
 Summary(pl):	Rozbudowany i ³atwy w obs³udze edytor plików PO
 Group:		X11/Development/Tools
 Requires:	gettext-devel
-Obsoletes:	kdesdk-devel
+Obsoletes:	kdesdk-kbabel-catalog
+Obsoletes:	kdesdk-kbabel-dictionary
 
 %description kbabel
 KBabel is a tool, that allows easy management, edition and upkeep of
@@ -223,62 +209,7 @@ gettext .po files. It features:
 - quick overview over context in the po file
 - showing source code by references in message comments
 
-%description kbabel -l pl
-KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
-utrzymanie plików gettexta .po. Jego mo¿liwo¶ci to:
-- obs³uga plików PO GNU gettexta (w³±cznie z formami mnogimi) oraz
-  katalogów Qt Linguista
-- mo¿liwo¶æ otwierania wielu plików (lub wielu widoków tego samego
-  pliku)
-- pe³na funkcjonalno¶æ edycyjna, dostêpna poprzez graficzny interfejs
-  u¿ytkownika, a tak¿e poprzez definiowalne skróty klawiszowe
-- potê¿na funkcjonalno¶æ kontroli pisowni
-- pe³ne mo¿liwo¶ci nawigacji (takiej jak przechodzenie do nastêpnego
-  niepewnego lub nieprzet³umaczonego napisu)
-- mo¿liwo¶æ zapisu i odczytu plików kodowanych w unikodzie (utf-8)
-- nieograniczona mo¿liwo¶æ cofania zmian
-- pod¶wietlanie sk³adni, automatyczne uaktualnianie nag³ówków plików,
-  automatyczna zmiana stanu "fuzzy" po przet³umaczeniu komunikatu
-- obs³uga ³atwego wstawiania znaczników i URL-i
-- sprawdzanie poprawno¶ci i pod¶wietlanie znaczników i elementów XML
-- szkielet wtyczek dla s³owników, takich jak pliki kompendiów po, do
-  sprawdzania spójno¶ci lub podpowiadania t³umaczeñ
-- funkcja "zgrubnego t³umaczenia" do inicjowania nieprzet³umaczonych
-  komunikatów podpowiedziami ze s³ownika
-- automatyczna kontrola sk³adni przy u¿yciu msgfmt przy zapisie,
-  ³atwe przechodzenie do odpowiednich wpisów, je¶li wyst±pi³ b³±d
-- ró¿ne metody pokazywania odstêpów na koñcach linii i sprawdzania
-  spójno¶ci przet³umaczonych komunikatów, takiej jak porównywanie
-  printf i Qt
-- obs³uga parametrów w msgid i msgstr
-- szybki podgl±d kontekstu w pliku po
-- pokazywanie kodu ¼ród³owego po odno¶nikach w komentarzach do
-  komunikatów.
-
-%package kbabel-devel
-Summary:	KBabel header files
-Summary(pl):	Pliki nag³ówkowe KBabel
-Group:		X11/Development/Libraries
-Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}-%{release}
-Obsoletes:	kdesdk-devel
-
-%description kbabel-devel
-KBabel header files.
-
-%description kbabel-devel -l pl
-Pliki nag³ówkowe KBabel.
-
-%package kbabel-catalog
-Summary:	A KBabel catalog manager
-Summary(pl):	Zarz±dca katalogów zintegrowany z KBabel
-Group:		X11/Development/Tools
-Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Obsoletes:	kdesdk-devel
-
-%description kbabel-catalog
-A KBabel catalog manager. It features:
+Also contains KBabel catalog manager. It features:
 - file manager view for kde-i18n (or similarly structured)
   directories, which shows the present status of all PO files: if they
   are in need of a revision or not, how many fuzzies and untranslated
@@ -303,12 +234,44 @@ A KBabel catalog manager. It features:
 - spellchecking of multiple files at once.
 - doing "rough translation" for multiple files at once.
 
-%description kbabel-catalog -l pl
-Zarz±dca katalogów zintegrowany z KBabel. Jego mo¿liwo¶ci to:
+%description kbabel -l pl
+KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
+utrzymanie plików gettexta .po. Jego mo¿liwo¶ci to:
+- obs³uga plików PO GNU gettexta (w³±cznie z formami mnogimi) oraz
+  katalogów Qt Linguista
+- mo¿liwo¶æ otwierania wielu plików (lub wielu widoków tego samego
+  pliku)
+- pe³na funkcjonalno¶æ edycyjna, dostêpna poprzez graficzny interfejs
+  u¿ytkownika, a tak¿e poprzez definiowalne skróty klawiszowe
+- potê¿na funkcjonalno¶æ kontroli pisowni
+- pe³ne mo¿liwo¶ci nawigacji (takiej jak przechodzenie do nastêpnego
+  niepewnego lub nieprzet³umaczonego napisu)
+- mo¿liwo¶æ zapisu i odczytu plików kodowanych w unikodzie (utf-8)
+- nieograniczona mo¿liwo¶æ cofania zmian
+- pod¶wietlanie sk³adni, automatyczne uaktualnianie nag³ówków plików,
+  automatyczna zmiana stanu "fuzzy" po przet³umaczeniu komunikatu
+- obs³uga ³atwego wstawiania znaczników i URL-i
+- sprawdzanie poprawno¶ci i pod¶wietlanie znaczników i elementów XML
+- szkielet wtyczek dla s³owników, takich jak pliki kompendiów po, do
+  sprawdzania spójno¶ci lub podpowiadania t³umaczeñ
+- funkcja "zgrubnego t³umaczenia" do inicjowania nieprzet³umaczonych
+  komunikatów podpowiedziami ze s³ownika
+- automatyczna kontrola sk³adni przy u¿yciu msgfmt przy zapisie, ³atwe
+  przechodzenie do odpowiednich wpisów, je¶li wyst±pi³ b³±d
+- ró¿ne metody pokazywania odstêpów na koñcach linii i sprawdzania
+  spójno¶ci przet³umaczonych komunikatów, takiej jak porównywanie printf
+  i Qt
+- obs³uga parametrów w msgid i msgstr
+- szybki podgl±d kontekstu w pliku po
+- pokazywanie kodu ¼ród³owego po odno¶nikach w komentarzach do
+  komunikatów.
+
+Zawiera te¿ zarz±dce katalogów zintegrowany z KBabel. Jego mo¿liwo¶ci
+to:
 - widok zarz±dcy plików dla katalogów kde-i18n (lub podobnie
   skonstruowanych), pokazuj±cy aktualny stan ka¿dego pliku PO: czy
-  wymagaj± przegl±du, jak du¿o niepewnych i nieprzet³umaczonych
-  napisów zawieraj± itp.; widok ten jest automatycznie uaktualniany i
+  wymagaj± przegl±du, jak du¿o niepewnych i nieprzet³umaczonych napisów
+  zawieraj± itp.; widok ten jest automatycznie uaktualniany i
   odzwierciedla wszystkie zmiany dokonane w plikach, w³±cznie ze
   zmianami w programach innych ni¿ KBabel
 - zintegrowana obs³uga CVS
@@ -320,35 +283,31 @@ Zarz±dca katalogów zintegrowany z KBabel. Jego mo¿liwo¶ci to:
 - automatyczne porównywanie i statystyki plików POT i PO dla szybkiego
   przegl±du, które i jak du¿o plików zosta³o przet³umaczonych, a które
   mog± byæ przestarza³e
-- kontrola sk³adni (msgfmt --statistics) dla istniej±cych plików w celu
-  sprawdzenia, czy przet³umaczone pliki siê skompiluj± i bêd± dzia³aæ
-  po rozpowszechnieniu
+- kontrola sk³adni (msgfmt --statistics) dla istniej±cych plików w
+  celu sprawdzenia, czy przet³umaczone pliki siê skompiluj± i bêd±
+  dzia³aæ po rozpowszechnieniu
 - konfigurowalne polecenia, które mo¿na wykonywaæ z menu kontekstowego
   zarz±dcy katalogów
 - funkcje szukaj/zast±p w wielu plikach naraz
 - kontrola pisowni w wielu plikach naraz
 - wykonywanie "zgrubnego t³umaczenia" wielu plików naraz.
 
-%package kbabel-dictionary
-Summary:	Plugin that supports dictionaries made from po compendia
-Summary(pl):	Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po
-Group:		X11/Development/Tools
+%package kbabel-devel
+Summary:	KBabel header files
+Summary(pl):	Pliki nag³ówkowe KBabel
+Group:		X11/Development/Libraries
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
-Obsoletes:	kdesdk-devel
 
-%description kbabel-dictionary
-KBabel plugin that supports dictionaries made from po compendia or TMX
-1.4-based dicionaries
+%description kbabel-devel
+KBabel header files.
 
-%description kbabel-dictionary -l pl
-Wtyczka KBabel obs³uguj±ca s³owniki stworzone z kompendiów po oraz
-oparte na TMX 1.4.
+%description kbabel-devel -l pl
+Pliki nag³ówkowe KBabel.
 
 %package kbugbuster
 Summary:	A tools that allows cooperation with bugs.kde.org
 Summary(pl):	Narzêdzie wspó³pracuj±ce z bugs.kde.org
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description kbugbuster
 KBugBuster allows for easy bug management on bugs.kde.org.
@@ -360,7 +319,6 @@ KBugBuster u³atwia wyszukiwanie i zarz±dzanie b³êdami na bugs.kde.org.
 Summary:	KCachegrind - visualization of traces generated by profiling
 Summary(pl):	KCachegrind - wizualizacja ¶cie¿ek tworzonych przez profilowanie
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description kcachegrind
 KCachegrind visualizes traces generated by profiling.
@@ -372,7 +330,6 @@ KCachegrind wizualizuje ¶cie¿ki tworzone przez profilowanie.
 Summary:	A mtrace to full backtrace conversion tool
 Summary(pl):	Narzêdzie do konwersji z mtrace do pe³nego backtrace'a
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description kmtrace
 kmtrace converts glibc's mtrace log into a full backtrace.
@@ -384,7 +341,7 @@ kmtrace konwertuje mtrace glibca do pe³nego backtrace'a.
 Summary:	Kompare - a program to view the differences between files
 Summary(pl):	Kompare - program s³u¿±cy do porównywania zmian miêdzy plikami
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
+Conflicts:	kdesdk-kbugbuster < 3:3.2.90.040517-3
 
 %description kompare
 Kompare is a program to view the differences between files. Features
@@ -422,7 +379,6 @@ Aktualnie dostêpne funkcje:
 Summary:	Kprofilemethod - a set of macros which help profiling using QTime
 Summary(pl):	Kprofilemethod - zestaw makr u³atwiaj±cych profilowanie z wykorzystaniem QTime
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description kprofilemethod
 Kprofilemethod is a set of macros which help profiling using QTime.
@@ -435,7 +391,6 @@ wykorzystaniem QTime.
 Summary:	A utility for egzamining the internal state of a QT/KDE application.
 Summary(pl):	Narzêdzie do badania stanu aplikacji QT/KDE
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 Obsoletes:	kdiff
 Obsoletes:	kdiff2
 
@@ -461,7 +416,6 @@ wydaniu stabilnym.
 Summary:	A tool to measure startup time for KDE applications
 Summary(pl):	Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description kstartperf
 kstartperf measures startup time for KDE applications.
@@ -480,12 +434,38 @@ Qt Designer UI file Viewer.
 %description kuiviewer -l pl
 Przegl±darka plików UI generowanych przez QT designera.
 
+%package libcvsservice
+Summary:	A cvs access library
+Summary(pl):	Biblioteka dostêpu do cvs
+Group:		X11/Libraries
+Requires:	kdelibs >= %{_minlibsevr}
+Conflicts:	kdesdk-cervisia < 3:3.2.90.040516-2
+
+%description libcvsservice
+A library for access to CVS repositories for KDE apps.
+
+%description libcvsservice -l pl
+Biblioteka s³u¿±ca do kontroli repozytoriów CVS z poziomu aplikacji
+KDE.
+
+%package libcvsservice-devel
+Summary:	A cvsservice library - header files
+Summary(pl):	Biblioteka cvsservice - pliki nag³ówkowe
+Group:		X11/Development/Libraries
+Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
+Obsoletes:	kdesdk-cervisia-devel
+
+%description libcvsservice-devel
+A cvsservice library - header files.
+
+%description libcvsservice-devel -l pl
+Biblioteka cvsservice - pliki nag³ówkowe.
+
 %package pallette-gimp
 Summary:	Package which adds the KDE Default pallette to GIMP
 Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do GIMP-a
 Group:		X11/Applications/Graphics
 Requires:	gimp
-Obsoletes:	kdesdk-devel
 
 %description pallette-gimp
 This package adds the KDE Default pallette to GIMP.
@@ -498,7 +478,6 @@ Summary:	Package which adds the KDE Default pallette to XPaint
 Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta
 Group:		X11/Applications/Graphics
 Requires:	xpaint
-Obsoletes:	kdesdk-devel
 
 %description pallette-xpaint
 This package adds the KDE Default pallette to XPaint.
@@ -511,7 +490,6 @@ Summary:	An xml2po and vice versa converters
 Summary(pl):	Konwertery po2xml i vice versa
 Group:		X11/Development/Tools
 Requires:	/usr/bin/python
-Obsoletes:	kdesdk-devel
 
 %description po2xml
 An xml2po and vice versa converters.
@@ -524,7 +502,6 @@ Summary:	An set of scripts useful for building KDE
 Summary(pl):	Zestaw skryptów do kompilowania KDE
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
-Obsoletes:	kdesdk-devel
 
 %description scripts-build
 A set of scripts useful for building KDE.
@@ -532,27 +509,11 @@ A set of scripts useful for building KDE.
 %description scripts-build -l pl
 Zestaw skryptów do kompilowania KDE.
 
-%package scripts-cxxmetric
-Summary:	Statistic meter for c/c++ files
-Summary(pl):	Program do tworzenia statystyki plików c/c++
-Group:		X11/Development/Tools
-Requires:	/usr/bin/perl
-Obsoletes:	kdesdk-devel
-
-%description scripts-cxxmetric
-This program counts lines of code, comments and blank space in C and
-C++ source files.
-
-%description scripts-cxxmetric -l pl
-Ten program zlicza linijki kodu, komentarzy i znaków bia³ych w plikach
-¼ród³owych C i C++.
-
 %package scripts-cvs
 Summary:	A set of scripts for maintaining KDE from CVS
 Summary(pl):	Zestaw skryptów do zarz±dzania KDE z CVS
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
-Obsoletes:	kdesdk-devel
 
 %description scripts-cvs
 A set of scripts for maintaining KDE from CVS.
@@ -564,7 +525,6 @@ Zestaw skryptów do zarz±dzania KDE z CVS.
 Summary:	A set of scripts for quick access to Qt/KDE documentation
 Summary(pl):	Zestaw skryptów szybkiego dostêpu do dokumentacji Qt/KDE
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description scripts-doc
 A set of scripts for quick access to Qt/KDE documentation.
@@ -572,40 +532,10 @@ A set of scripts for quick access to Qt/KDE documentation.
 %description scripts-doc -l pl
 Zestaw skryptów szybkiego dostêpu do dokumentacji Qt/KDE.
 
-%package scripts-extractrc
-Summary:	Extracting the strings from .rc files
-Summary(pl):	Wyci±ganie ³añcuchów z plików .rc
-Group:		X11/Development/Tools
-Requires:	/usr/bin/perl
-Obsoletes:	kdesdk-devel
-Obsoletes:	kdesdk-extractrc
-
-%description scripts-extractrc
-A Perl script, it extracts the strings in an application's .rc file,
-e.g. testappui.rc, and writes into the pot file where the translations
-are build with (po-files).
-
-%description scripts-extractrc -l pl
-Skrypt napisany w Perlu, który wyci±ga ³añcuchy z plików .rc
-aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
-tworzy siê t³umaczenia (pliki po).
-
-%package scripts-findmissingcrystal
-Summary:	A script for finding missing crystal icons
-Summary(pl):	Skrypt do wyszukiwania brakuj±cych ikon z tematu crystal
-Group:		X11/Development/Tools
-
-%description scripts-findmissingcrystal
-A script for finding missing crystal icons.
-
-%description scripts-findmissingcrystal -l pl
-Skrypt do wyszukiwania brakuj±cych ikon z tematu crystal.
-
 %package scripts-kdekillall
 Summary:	A script for killing KDE apps started with kdeinit
 Summary(pl):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description scripts-kdekillall
 A script for killing KDE apps started with kdeinit.
@@ -613,39 +543,48 @@ A script for killing KDE apps started with kdeinit.
 %description scripts-kdekillall -l pl
 Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit.
 
-%package scripts-kdelnk2desktop
-Summary:	A kdelnk to desktop converter
-Summary(pl):	Konwerter plików kdelnk na desktop
+%package scripts-misc
+Summary:	Miscellaneous scripts for maintaining KDE
+Summary(pl):	Ró¿ne skrypty do utrzymywania KDE
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
+Requires:	/usr/bin/perl
+Obsoletes:	kdesdk-extractrc
+Obsoletes:	kdesdk-scripts-cxxmetric
+Obsoletes:	kdesdk-scripts-extractrc
+Obsoletes:	kdesdk-scripts-findmissingcrystal
+Obsoletes:	kdesdk-scripts-kdelnk2desktop
+Obsoletes:	kdesdk-scripts-zonetab2pot
 
-%description scripts-kdelnk2desktop
-A kdelnk to desktop converter.
+%description scripts-misc
+This package contains:
+- A Perl script, it extracts the strings in an application's .rc file,
+  e.g. testappui.rc, and writes into the pot file where the translations
+  are build with (po-files).
 
-%description scripts-kdelnk2desktop -l pl
-Konwerter plików kdelnk na desktop.
+- A script that counts lines of code, comments and blank space in C
+  and C++ source files.
 
-%package scripts-zonetab2pot
-Summary:	A zone.tab to .pot converter
-Summary(pl):	Konwerter plików zone.tab na .pot
-Group:		X11/Development/Tools
-Requires:	/usr/bin/python
-Requires:	gettext-devel
-Obsoletes:	kdesdk-devel
+- A script for finding missing crystal icons.
 
-%description scripts-zonetab2pot
-This script reads timezone list as its first argument or from
-/usr/share/zoneinfo/zone.tab, and converts it to a PO file template.
+- A kdelnk to desktop and zonetab2pot converter.
 
-%description scripts-zonetab2pot -l pl
-Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
-/usr/share/zoneinfo/zone.tab i konwertuje je na plik POT.
+%description scripts-misc -l pl
+Ten pakiet zawiera:
+- Skrypt napisany w Perlu, który wyci±ga ³añcuchy z plików .rc
+  aplikacji, np. testappgui.rc i zapisuje je do plików pot, z których
+  tworzy siê t³umaczenia (pliki po).
+
+- Skrypt zliczaj±cy linijki kodu, komentarzy i znaków bia³ych w
+  plikach ¼ród³owych C i C++.
+
+- Skrypt do wyszukiwania brakuj±cych ikon z tematu crystal.
+
+- Konwerter plików kdelnk na desktop i zonetab na pot.
 
 %package scheck
 Summary:	KDE Style - Scheck
 Summary(pl):	Motyw KDE - Scheck
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
 
 %description scheck
 Development style for searching accelerator and style guide conflicts.
@@ -659,8 +598,6 @@ KDE.
 Summary:	UML Modeler
 Summary(pl):	Modeler UML
 Group:		X11/Development/Tools
-Obsoletes:	kdesdk-devel
-Obsoletes:	umbrello
 
 %description umbrello
 Umbrello UML Modeller is a UML diagram tool that can support you in
@@ -703,7 +640,6 @@ Summary:	A set of macros for xemacs
 Summary(pl):	Zestaw makr do xemacsa
 Group:		X11/Development/Tools
 Requires:	xemacs-common
-Obsoletes:	kdesdk-devel
 
 %description xemacs
 A set of macros for xemacs useful for developing KDE applications.
@@ -713,20 +649,27 @@ Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %prep
 %setup -q
-%patch100 -p1
 %patch0 -p1
-%patch1 -p1 
-echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/dialogs/Makefile.am
-echo "KDE_OPTIONS=nofinal" >> umbrello/umbrello/classparser/Makefile.am
 
-for f in `find . -name *.desktop | xargs grep -l '^Terminal=0'`; do
-	%{__sed} -i -e 's/^Terminal=0/Terminal=false/' $f
-done
-for f in `find . -name *.desktop | xargs grep -l '^Type=Application'`; do
-	if ! grep '^Encoding=' $f >/dev/null; then
-		%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' $f
-	fi
-done
+echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
+echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;GUIDesigner;/' \
+	kuiviewer/kuiviewer.desktop
+
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;RevisionControl;/' \
+	cervisia/cervisia.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Profiling;/' \
+	kcachegrind/kcachegrind/kcachegrind.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;ProjectManagement;/' \
+	kbugbuster/kbugbuster.desktop
+
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Translation;/' \
+	kbabel/catalogmanager/catalogmanager.desktop
+
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Translation;/' \
+	kbabel/kbabeldict/kbabeldict.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;Translation;/' \
+	kbabel/kbabel/kbabel.desktop
 
 %ifarch amd64
 %{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/configure.in.in
@@ -734,19 +677,20 @@ done
 %endif
 
 %build
-cp -f %{_datadir}/automake/config.sub admin
-export kde_htmldir=%{_kdedocdir}
-export kde_libs_htmldir=%{_kdedocdir}
 export UNSERMAKE=%{_datadir}/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
+# Used in cervisia Makefile
+export kde_htmldir=%{_kdedocdir}
+
 %configure \
 	--disable-rpath \
-	--with-qt-libraries=%{_libdir} \
-	--enable-final
+	--enable-final \
+	--with-qt-libraries=%{_libdir}
 
 %{__make}
 
+# Undefined references
 %{__make} -C kstartperf
 
 %ifarch amd64
@@ -773,36 +717,44 @@ rm -rf $RPM_BUILD_ROOT
 	kde_htmldir=%{_kdedocdir}
 %endif
 
-install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefsdir},%{_emacspkgdir}/kde} \
-	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
+install -d \
+	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
+	$RPM_BUILD_ROOT%{_appdefsdir} \
+	$RPM_BUILD_ROOT%{_gimpdir}/palettes \
+	$RPM_BUILD_ROOT%{_emacspkgdir}/kde \
+	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde \
+	$RPM_BUILD_ROOT%{_zshfcdir} \
+	$RPM_BUILD_ROOT%{_mandir}/man1
 
-install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
+cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
+install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
 rm -f ./scripts/completions/zsh/_dcop
 cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
-cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
-cd $RPM_BUILD_ROOT
-rm -rf `find . -name CVS`
-cd -
+rm -rf `find $RPM_BUILD_ROOT -name CVS`
 
 # Debian manpages
 # overwrites cvscheck.1 - it's OK (original manual is much shorter)
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
+%find_lang	cervisia	--with-kde
+%find_lang	kbabel		--with-kde
+%find_lang	kcachegrind	--with-kde
+%find_lang	kbugbuster	--with-kde
+%find_lang	kompare		--with-kde
+%find_lang	umbrello	--with-kde
+
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post	cervisia		-p /sbin/ldconfig
-%postun	cervisia		-p /sbin/ldconfig
 
 %post	kbabel			-p /sbin/ldconfig
 %postun	kbabel			-p /sbin/ldconfig
 
-%post	kbabel-dictionary	-p /sbin/ldconfig
-%postun	kbabel-dictionary	-p /sbin/ldconfig
+%post	kompare			-p /sbin/ldconfig
+%postun	kompare			-p /sbin/ldconfig
 
 %post	kspy			-p /sbin/ldconfig
 %postun	kspy			-p /sbin/ldconfig
@@ -810,8 +762,8 @@ rm -rf $RPM_BUILD_ROOT
 %post	kstartperf		-p /sbin/ldconfig
 %postun	kstartperf		-p /sbin/ldconfig
 
-%post	umbrello		-p /sbin/ldconfig
-%postun	umbrello		-p /sbin/ldconfig
+%post	libcvsservice		-p /sbin/ldconfig
+%postun	libcvsservice		-p /sbin/ldconfig
 
 %files kfile
 %defattr(644,root,root,755)
@@ -822,16 +774,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kfile_h.desktop
 %{_datadir}/services/kfile_ts.desktop
 
-%files cervisia
+%files cervisia -f cervisia.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cervisia
 %attr(755,root,root) %{_bindir}/cvsaskpass
 %attr(755,root,root) %{_bindir}/cvsservice
-%{_libdir}/libcvsservice.la
-%attr(755,root,root) %{_libdir}/libcvsservice.so.*.*.*
 %{_libdir}/kde3/libcervisiapart.la
 %attr(755,root,root) %{_libdir}/kde3/libcervisiapart.so
 %{_datadir}/apps/cervisia*
+%{_datadir}/config.kcfg/cervisiapart.kcfg
 %{_datadir}/apps/kconf_update/change_colors.pl
 %{_datadir}/apps/kconf_update/cervisia.upd
 %{_datadir}/apps/kconf_update/move_repositories.pl
@@ -840,13 +791,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/*/*/*/cervisia.png
 %{_mandir}/man1/cervisia.1*
 %{_kdedocdir}/en/cervisia
-
-%files cervisia-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcvsservice.so
-%{_includedir}/cvsjob_stub.h
-%{_includedir}/cvsservice_stub.h
-%{_includedir}/repository_stub.h
 
 %files completions-bash
 %defattr(644,root,root,755)
@@ -875,7 +819,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kabcformat_kdeaccounts.so
 %{_datadir}/apps/kabc/formats/*
 
-%files kbabel
+%files kbabel -f kbabel.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabel
 %{_libdir}/libkbabelcommon.la
@@ -885,6 +829,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/kbabel_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabel_*.so
 %{_datadir}/apps/kbabel
+%{_datadir}/config.kcfg/kbabel.kcfg
+%{_datadir}/apps/kconf_update/kbabel-project.upd
 # Already in kdelibs
 #%{_datadir}/mimelnk/application/x-gettext.desktop
 %{_datadir}/services/kbabel_accelstool.desktop
@@ -909,16 +855,7 @@ rm -rf $RPM_BUILD_ROOT
 # Already in kdelibs
 #%{_iconsdir}/[!l]*/*/mimetypes/gettext.png
 %{_mandir}/man1/kbabel.1*
-%{_kdedocdir}/en/kbabel
-
-%files kbabel-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkbabelcommon.so
-%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so
-%{_includedir}/kbabel
-
-%files kbabel-catalog
-%defattr(644,root,root,755)
+# catalog part
 %attr(755,root,root) %{_bindir}/catalogmanager
 %{_libdir}/kde3/kfile_po.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_po.so
@@ -930,9 +867,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/catalogmanager.desktop
 %{_iconsdir}/[!l]*/*/*/catalogmanager.png
 %{_mandir}/man1/catalogmanager.1*
-
-%files kbabel-dictionary
-%defattr(644,root,root,755)
+# dictionary part
 %attr(755,root,root) %{_bindir}/kbabeldict
 %{_libdir}/kde3/kbabeldict_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so
@@ -945,16 +880,26 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/[!l]*/*/*/kbabeldict.png
 %{_mandir}/man1/kbabeldict.1*
 
-%files kbugbuster
+%files kbabel-devel
+%defattr(644,root,root,755)
+%{_includedir}/kbabel
+%attr(755,root,root) %{_libdir}/libkbabelcommon.so
+%attr(755,root,root) %{_libdir}/libkbabeldictplugin.so
+
+%files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
+%{_libdir}/kde3/kcal_bugzilla.la
+%attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
 %{_datadir}/apps/kbugbuster
+# this dir belongs to kdepim
+%{_datadir}/services/kresources/kcal/bugzilla.desktop
 %{_desktopdir}/kde/kbugbuster.desktop
 %{_iconsdir}/[!l]*/*/*/kbugbuster.png
 %{_mandir}/man1/kbugbuster.1*
 %{_kdedocdir}/en/kbugbuster
 
-%files kcachegrind
+%files kcachegrind -f kcachegrind.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kcachegrind
 %{_datadir}/apps/kcachegrind
@@ -964,6 +909,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/kcachegrind.1*
 %{_kdedocdir}/en/kcachegrind
 
+# -- doesn't build with glibc >= 2.3
 %files kmtrace
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/demangle
@@ -972,14 +918,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kmtrace
 %{_libdir}/libktrace*.la
 %attr(755,root,root) %{_libdir}/libktrace*.so*
+%{_libdir}/libktrace*.a
 %{_includedir}/ktrace.h
 %{_datadir}/apps/kmtrace
-##%{_mandir}/man1/demangle.1*
-##%{_mandir}/man1/kminspector.1*
-##%{_mandir}/man1/kmmatch.1*
-##%{_mandir}/man1/kmtrace.1*
+#%{_mandir}/man1/demangle.1*
+#%{_mandir}/man1/kminspector.1*
+#%{_mandir}/man1/kmmatch.1*
+#%{_mandir}/man1/kmtrace.1*
 
-%files kompare
+%files kompare -f kompare.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kompare
 %{_libdir}/libkompareinterface.la
@@ -987,14 +934,19 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkompareinterface.so.*.*.*
 %{_libdir}/kde3/kfile_diff.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_diff.so
-%{_libdir}/kde3/libkompare*.la
-%attr(755,root,root) %{_libdir}/kde3/libkompare*.so
+# TODO: this is shared lib - why in kde3 dir?
+%{_libdir}/kde3/libdialogpages.la
+%attr(755,root,root) %{_libdir}/kde3/libdialogpages.so*
+%{_libdir}/kde3/libkomparenavtreepart.la
+%attr(755,root,root) %{_libdir}/kde3/libkomparenavtreepart.so
+%{_libdir}/kde3/libkomparepart.la
+%attr(755,root,root) %{_libdir}/kde3/libkomparepart.so
 %{_datadir}/apps/kompare*
 %{_datadir}/services/kfile_diff.desktop
 %{_datadir}/services/kompare*.desktop
 %{_datadir}/servicetypes/kompare*.desktop
 %{_desktopdir}/kde/kompare.desktop
-%{_iconsdir}/[!l]*/*/*/kompare.png
+%{_iconsdir}/[!l]*/*/*/kompare.*
 %{_mandir}/man1/kompare.1*
 %{_kdedocdir}/en/kompare
 
@@ -1032,6 +984,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/[!l]*/*/apps/kuiviewer.png
 %{_mandir}/man1/kuiviewer.1*
 
+%files libcvsservice
+%defattr(644,root,root,755)
+%{_libdir}/libcvsservice.la
+%attr(755,root,root) %{_libdir}/libcvsservice.so.*.*.*
+
+%files libcvsservice-devel
+%defattr(644,root,root,755)
+%{_includedir}/cvsjob_stub.h
+%{_includedir}/cvsservice_stub.h
+%{_includedir}/repository_stub.h
+%attr(755,root,root) %{_libdir}/libcvsservice.so
+
 %files pallette-gimp
 %defattr(644,root,root,755)
 %{_gimpdir}/palettes
@@ -1066,13 +1030,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/adddebug
 %attr(755,root,root) %{_bindir}/build-progress.sh
 %attr(755,root,root) %{_bindir}/create*
-%attr(755,root,root) %{_bindir}/extend*
-%attr(755,root,root) %{_bindir}/makeobj
-%attr(755,root,root) %{_bindir}/licensecheck
-%attr(755,root,root) %{_bindir}/includemocs
-%attr(755,root,root) %{_bindir}/fixkdeincludes
-%attr(755,root,root) %{_bindir}/kde-build
 %attr(755,root,root) %{_bindir}/cheatmake
+%attr(755,root,root) %{_bindir}/extend*
+%attr(755,root,root) %{_bindir}/fixkdeincludes
+%attr(755,root,root) %{_bindir}/fixuifiles
+%attr(755,root,root) %{_bindir}/includemocs
+%attr(755,root,root) %{_bindir}/kde-build
+%attr(755,root,root) %{_bindir}/kdemangen.pl
+%attr(755,root,root) %{_bindir}/licensecheck
+%attr(755,root,root) %{_bindir}/makeobj
 %{_mandir}/man1/adddebug.1*
 %{_mandir}/man1/cheatmake.1*
 %{_mandir}/man1/create*.1*
@@ -1082,6 +1048,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/kde-build.1*
 %{_mandir}/man1/licensecheck.1*
 %{_mandir}/man1/makeobj.1*
+# TODO
+# Merge all scripts into one subpkg?
+%attr(755,root,root) %{_bindir}/dprof2calltree
+%attr(755,root,root) %{_bindir}/hotshot2calltree
+%attr(755,root,root) %{_bindir}/memprof2calltree
+%attr(755,root,root) %{_bindir}/op2calltree
+%attr(755,root,root) %{_bindir}/png2mng.pl
+%attr(755,root,root) %{_bindir}/pprof2calltree
 
 %files scripts-cvs
 %defattr(644,root,root,755)
@@ -1092,11 +1066,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/noncvslist.1*
 %{_mandir}/man1/pruneemptydirs.1*
 
-%files scripts-cxxmetric
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/cxxmetric
-%{_mandir}/man1/cxxmetric.1*
-
 %files scripts-doc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdedoc
@@ -1104,39 +1073,28 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/kdedoc.1*
 %{_mandir}/man1/qtdoc.1*
 
-%files scripts-extractrc
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/extractrc
-%{_mandir}/man1/extractrc.1*
-
-%files scripts-findmissingcrystal
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/findmissingcrystal
-%{_mandir}/man1/findmissingcrystal.1*
-
 %files scripts-kdekillall
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdekillall
 %{_mandir}/man1/kdekillall.1*
 
-%files scripts-kdelnk2desktop
+%files scripts-misc
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/cxxmetric
+%attr(755,root,root) %{_bindir}/extractrc
+%attr(755,root,root) %{_bindir}/findmissingcrystal
 %attr(755,root,root) %{_bindir}/kdelnk2desktop.py
-%{_mandir}/man1/kdelnk2desktop.py.1*
-
-%files scripts-zonetab2pot
-%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/package_crystalsvg
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
+%{_mandir}/man1/cxxmetric.1*
+%{_mandir}/man1/extractrc.1*
+%{_mandir}/man1/findmissingcrystal.1*
+%{_mandir}/man1/kdelnk2desktop.py.1*
 %{_mandir}/man1/zonetab2pot.py.1*
 
-%files umbrello
+%files umbrello -f umbrello.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/umbrello
-#%{_libdir}/libcodegenerator.la
-#%{_libdir}/libcodegenerator.so
-#%attr(755,root,root) %{_libdir}/libcodegenerator.so.*.*.*
-#%{_libdir}/kde3/libumlwidgets.la
-#%attr(755,root,root) %{_libdir}/kde3/libumlwidgets.so*
 %{_datadir}/apps/umbrello
 %{_datadir}/mimelnk/application/x-umbrello.desktop
 %{_desktopdir}/kde/umbrello.desktop
