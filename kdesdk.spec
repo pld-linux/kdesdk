@@ -1,7 +1,4 @@
 
-# TODO:
-# - Language files.
-
 %define         _state          stable
 %define         _ver		3.1.1a
 %define         _srcver 	3.1.1
@@ -17,7 +14,7 @@ Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_srcver}.tar.bz2
 # Source0-md5:	5420cbc818466f79ee19142cb30324bb
 # translations are  generated from kde-i18n.spec now
-# Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/kde-i18n-%{name}-%{version}.tar.bz2
 BuildRequires:	bison
 BuildRequires:	db2-devel
 BuildRequires:	gettext-devel
@@ -496,19 +493,16 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde,%{_xemacspkgdir}/kde \
+	$RPM_BUILD_ROOT{%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install \
+	DESTDIR="$RPM_BUILD_ROOT"
 
-%{__make} -C kstartperf install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} -C kstartperf install \
+	DESTDIR="$RPM_BUILD_ROOT"
 
 rm -rf `find . -name CVS`
-
-install -d $RPM_BUILD_ROOT%{_gimpdir}/palettes
-install -d $RPM_BUILD_ROOT%{_appdefdir}
-install -d $RPM_BUILD_ROOT%{_emacspkgdir}/kde
-install -d $RPM_BUILD_ROOT%{_xemacspkgdir}/kde
-install -d $RPM_BUILD_ROOT%{_zshfcdir}
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
 install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT%{_gimpdir}/palettes/
 cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
@@ -522,7 +516,7 @@ mv {locolor,crystalsvg}/32x32/apps/kbugbuster.png
 mv {locolor,crystalsvg}/32x32/apps/kompare.png
 cd -
 
-# bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
