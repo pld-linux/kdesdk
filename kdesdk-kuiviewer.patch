@@ -1,0 +1,25 @@
+Index: kuiviewer_part.cpp
+===================================================================
+RCS file: /home/kde/kdesdk/kuiviewer/kuiviewer_part.cpp,v
+retrieving revision 1.13
+diff -u -r1.13 kuiviewer_part.cpp
+--- kdesdk/kuiviewer/kuiviewer_part.cpp~	15 Dec 2003 08:01:53 -0000	1.13
++++ kdesdk/kuiviewer/kuiviewer_part.cpp	27 Jan 2004 02:46:34 -0000
+@@ -58,7 +58,7 @@
+     m_style->setEditable(false);
+ 
+     kapp->config()->setGroup("General");
+-    const QString currentStyle = kapp->config()->readEntry("widgetStyle", KStyle::defaultStyle());
++    const QString currentStyle = kapp->config()->readEntry("currentWidgetStyle", KStyle::defaultStyle());
+ 
+     const QStringList styles = QStyleFactory::keys();
+     m_style->setItems(styles);
+@@ -172,7 +172,7 @@
+     QApplication::restoreOverrideCursor();
+ 
+     kapp->config()->setGroup("General");
+-    kapp->config()->writeEntry("widgetStyle", m_style->currentText());
++    kapp->config()->writeEntry("currentWidgetStyle", m_style->currentText());
+     kapp->config()->sync();
+ }
+ 
