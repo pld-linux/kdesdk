@@ -1,0 +1,17 @@
+--- kdesdk-3.2.3/kstartperf/Makefile.am~	8 Mar 2002 16:07:31 -0000	1.5
++++ kdesdk-3.2.3/kstartperf/Makefile.am	11 Jun 2004 14:22:59 -0000
+@@ -2,12 +2,12 @@
+ 
+ lib_LTLIBRARIES = libkstartperf.la
+ libkstartperf_la_LDFLAGS = $(all_libraries) -version-info 1:0 -no-undefined
+-# libkstartperf_la_LIBADD = ../libltdl/libltdlc.la
++libkstartperf_la_LIBADD = -lltdl
+ libkstartperf_la_SOURCES = libkstartperf.c
+ 
+ bin_PROGRAMS = kstartperf
+ kstartperf_LDFLAGS = $(all_libraries)
+-kstartperf_LDADD = $(LIB_KDECORE)
++kstartperf_LDADD = $(LIB_KDECORE) -lltdl
+ kstartperf_SOURCES = kstartperf.cpp
+ 
+ messages:
