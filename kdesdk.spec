@@ -1,28 +1,24 @@
 #
 # Conditional build:
-%bcond_without	i18n	# don't build i18n subpackages
+%bcond_with	i18n	# w/wo i18n subpackages
 #
-%define		_state		stable
-%define		_ver		3.2.0
-##%define		_snap		040110
+%define		_state		snapshots
+%define		_ver		3.2.90
+%define		_snap		040216
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	%{_ver}
-Release:	7
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	170baf93150c231605bec047d49d0742
-%if %{with i18n}
-Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:        26387c5679d77b57788f0d01be6f6fed
-%endif
-Patch0:		%{name}-3.2branch.diff
-Patch1:		%{name}-kuiviewer.patch
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
+##%% Source0-md5:	170baf93150c231605bec047d49d0742
+#Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
+##%% Source1-md5:        26387c5679d77b57788f0d01be6f6fed
 URL:		http://www.kde.org/
 BuildRequires:	bison
 BuildRequires:	ed
@@ -32,6 +28,7 @@ BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel >= 9:%{version}
 BuildRequires:	libltdl-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	unsermake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdesdk-devel
 Obsoletes:	kdesdk
@@ -706,18 +703,21 @@ Internationalization and localization files for umbrello.
 Pliki umiêdzynarodawiaj±ce dla umbrello.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%setup -q -n %{name}
 
 %build
 cp %{_datadir}/automake/config.sub admin
+
+export UNSERMAKE=/usr/share/unsermake/unsermake
+
+echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--disable-rpath \
+	--enable-final \
 	--with-qt-libraries=%{_libdir} \
-	--enable-final
 
 %{__make}
 
@@ -726,6 +726,9 @@ cp %{_datadir}/automake/config.sub admin
 %install
 rm -rf $RPM_BUILD_ROOT
 
+# Grrr...
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
@@ -733,15 +736,20 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C kstartperf install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefsdir},%{_emacspkgdir}/kde} \
-	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
+install -d \
+	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
+	$RPM_BUILD_ROOT%{_appdefsdir} \
+	$RPM_BUILD_ROOT%{_gimpdir}/palettes \
+	$RPM_BUILD_ROOT%{_emacspkgdir}/kde \
+	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde \
+	$RPM_BUILD_ROOT%{_zshfcdir} \
 
-install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
+cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
+install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
 cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
 cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
-cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
 cd $RPM_BUILD_ROOT
 rm -rf `find . -name CVS`
@@ -772,26 +780,20 @@ fi
 %find_lang	kompare		--with-kde
 %find_lang	umbrello	--with-kde
 
-files="cervisia \
-kbabel \
-kcachegrind \
-kbugbuster \
-kompare \
-umbrello"
-
 %if %{with i18n}
-kfile="cpp \
-diff \
-po \
-ts"
+kfile="\
+	cpp \
+	diff \
+	po \
+	ts"
 
 > i18n.lang
 
-for i in $kfile;
-do
+for i in $kfile; do
 	%find_lang kfile_${i} --with-kde
 	cat kfile_${i}.lang >> kfile.lang
 done
+
 %find_lang desktop_kdesdk	--with-kde
 %find_lang cvsservice	--with-kde
 cat cvsservice.lang >> cervisia.lang
@@ -800,6 +802,14 @@ cat cvsservice.lang >> cervisia.lang
 %find_lang kuiviewer
 %find_lang spy
 %endif
+
+files="\
+	cervisia \
+	kbabel \
+	kcachegrind \
+	kbugbuster \
+	kompare \
+	umbrello"
 
 for i in $files; do
         echo "%defattr(644,root,root,755)" > ${i}_en.lang
@@ -810,8 +820,7 @@ done
 
 durne=`ls -1 *.lang|grep -v _en|grep -v i18n`
 
-for i in $durne; 
-do
+for i in $durne; do
 	echo $i >> control
 	grep -v en\/ $i|grep -v apidocs >> ${i}.1
 	if [ -f ${i}.1 ] ; then
@@ -1080,7 +1089,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kuiviewer_part.desktop
 %{_desktopdir}/kde/kuiviewer.desktop
 %{_iconsdir}/[!l]*/*/apps/kuiviewer.png
-%{_mandir}/man1/kuiviewer.1*
+#%{_mandir}/man1/kuiviewer.1*
 
 %files pallette-gimp
 %defattr(644,root,root,755)
@@ -1162,7 +1171,7 @@ rm -rf $RPM_BUILD_ROOT
 %files scripts-findmissingcrystal
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/findmissingcrystal
-%{_mandir}/man1/findmissingcrystal.1*
+#%{_mandir}/man1/findmissingcrystal.1*
 
 %files scripts-kdekillall
 %defattr(644,root,root,755)
