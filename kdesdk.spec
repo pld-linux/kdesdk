@@ -1,5 +1,7 @@
-%bcond_without	svn 	# without svn
-
+#
+# Conditional build
+%bcond_without	svn 	# without subversion support
+#
 %define		_state		stable
 %define		_kdever		3.4
 %define		_ver		3.4.0
