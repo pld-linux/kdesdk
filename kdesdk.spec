@@ -9,12 +9,13 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	475c72c3010560d6bb4d355fbce9596c
+# Source0-size:	4364932
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
@@ -649,7 +650,7 @@ Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %prep
 %setup -q
-#%patch100 -p1
+%patch100 -p1
 %patch0 -p1
 
 echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
