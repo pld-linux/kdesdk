@@ -19,6 +19,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 BuildRequires:	bison
 %{?_with_dbsearchengine:BuildRequires:	db2-devel}
 BuildRequires:	gettext-devel
+BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -286,7 +287,7 @@ Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
 Summary:        Adds the KDE Default pallette to GIMP
 Summary(pl):    Dodaje domy¶ln± paletê kolorów KDE do GIMP-a
 Group:          X11/Applications/Graphics
-Requires:	gimp >= 1.3
+Requires:	gimp
 
 %description pallette-gimp
 Adds the KDE Default pallette to GIMP.
@@ -435,7 +436,6 @@ Zestaw makr do xemacsa.
 
 %prep
 %setup -q
-#%patch0 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
