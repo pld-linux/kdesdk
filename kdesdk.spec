@@ -3,20 +3,20 @@
 %bcond_without	i18n	# don't build i18n subpackages
 #
 %define		_state		stable
-%define		_ver		3.2.0
+%define		_ver		3.2.1
 ##%define		_snap		040110
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	7
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	f52a69718705b32f0068fb605b604b45
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	170baf93150c231605bec047d49d0742
 %if %{with i18n}
 Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:        26387c5679d77b57788f0d01be6f6fed
@@ -708,8 +708,8 @@ Pliki umiêdzynarodawiaj±ce dla umbrello.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+#%patch0 -p1
+#%patch1 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
