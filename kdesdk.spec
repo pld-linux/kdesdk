@@ -24,6 +24,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_gimpdir	%(gimp-config --gimpdatadir)
+%define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
 
 %description
 Software Development Kit for KDE.
@@ -459,14 +460,14 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf `find . -name CVS`
 
 install -d $RPM_BUILD_ROOT%{_gimpdir}/palettes
-install -d $RPM_BUILD_ROOT%{_libdir}/X11/app-defaults
+install -d $RPM_BUILD_ROOT%{_appdefdir}
 install -d $RPM_BUILD_ROOT%{_datadir}/emacs-packages/kde
 install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/kde
 install -d $RPM_BUILD_ROOT%{_datadir}/zsh/latest/functions
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
 install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT%{_gimpdir}/palettes/
-cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_libdir}/X11/app-defaults/XPaint.kde
+cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_datadir}/emacs-packages/kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/kde
 cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT%{_datadir}/zsh/latest/functions
@@ -635,7 +636,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files pallette-xpaint
 %defattr(644,root,root,755)
-%{_libdir}/X11/app-defaults
+%{_appdefdir}
 
 %files po2xml
 %defattr(644,root,root,755)
