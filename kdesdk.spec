@@ -9,7 +9,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.1
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -499,14 +499,17 @@ install -d $RPM_BUILD_ROOT/%{_datadir}/gimp/1.2/palettes
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d
 
-
-
 install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT/%{_datadir}/gimp/1.2/palettes/
 cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT/%{_libdir}/X11/app-defaults/XPaint.kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/emacs-packages/kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT/%{_usr}/share/xemacs-packages/kde
 cp ./scripts/completions/bash/* $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d/
 cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/functions
+
+cd $RPM_BUILD_ROOT%{_pixmapsdir}
+mv {locolor,crystalsvg}/32x32/apps/kbugbuster.png
+mv {locolor,crystalsvg}/32x32/apps/kompare.png
+cd -
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
@@ -531,7 +534,7 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %{_datadir}/services/kfile_c*
 %{_datadir}/services/kfile_d*
 %{_datadir}/services/kfile_h*
-%{_pixmapsdir}/*/*/*/*gettext*.png
+%{_pixmapsdir}/[!l]*/*/*/*gettext*.png
 
 %files static
 %defattr(644,root,root,755)
@@ -543,8 +546,8 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %attr(755,root,root) %{_libdir}/libcervisia*
 %{_mandir}/man1/cervisia*
 %{_datadir}/apps/cervisia*
-%{_pixmapsdir}/*/*/*/cervisia.png
 %{_applnkdir}/Development/cervisia.desktop
+%{_pixmapsdir}/*/*/*/cervisia.png
 
 %files completions-bash
 %defattr(644,root,root,755)
@@ -580,8 +583,8 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %attr(755,root,root) %{_libdir}/kde3/pothumbnail*
 %{_datadir}/apps/kbabel
 %{_datadir}/services/*po*
-%{_pixmapsdir}/*/*/*/kbabel.png
 %{_applnkdir}/Development/kbabel.desktop
+%{_pixmapsdir}/[!l]*/*/*/kbabel.png
 
 %files kbabel-catalog
 %defattr(644,root,root,755)
@@ -591,8 +594,8 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %attr(755,root,root) %{_libdir}/kde3/libpocomp*
 %attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.*
 %{_datadir}/apps/catalogmanager
-%{_pixmapsdir}/*/*/*/catalogmanager.png
 %{_applnkdir}/Development/catalogmanager.desktop
+%{_pixmapsdir}/[!l]*/*/*/catalogmanager.png
 
 %files kbabel-dictionary
 %defattr(644,root,root,755)
@@ -600,7 +603,7 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %attr(755,root,root) %{_libdir}/libkbabeldict*
 %{_applnkdir}/Development/kbabeldict.desktop
 %{_datadir}/apps/kbabeldict
-%{_pixmapsdir}/*/*/*/kbabeldict.png
+%{_pixmapsdir}/[!l]*/*/*/kbabeldict.png
 
 %files kbabel-devel
 %defattr(644,root,root,755)
@@ -610,8 +613,8 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
 %{_datadir}/apps/kbugbuster
-%{_pixmapsdir}/*/*/*/kbugbuster.png
 %{_applnkdir}/Development/kbugbuster.desktop
+%{_pixmapsdir}/[!l]*/*/*/kbugbuster.png
 
 %files kmtrace
 %defattr(644,root,root,755)
@@ -631,8 +634,8 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %attr(755,root,root) %{_libdir}/libdiff*
 %{_datadir}/apps/kompare*
 %{_datadir}/service*/kompare*
-%{_pixmapsdir}/*/*/*/kompare.png
 %{_applnkdir}/Development/kompare.desktop
+%{_pixmapsdir}/[!l]*/*/*/kompare.png
 
 %files kprofilemethod
 %defattr(644,root,root,755)
