@@ -489,19 +489,16 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde} \
+	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-%{__make} -C kstartperf install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} -C kstartperf install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf `find . -name CVS`
-
-install -d $RPM_BUILD_ROOT%{_gimpdir}/palettes
-install -d $RPM_BUILD_ROOT%{_appdefdir}
-install -d $RPM_BUILD_ROOT%{_emacspkgdir}/kde
-install -d $RPM_BUILD_ROOT%{_xemacspkgdir}/kde
-install -d $RPM_BUILD_ROOT%{_zshfcdir}
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
 install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT%{_gimpdir}/palettes/
 cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
