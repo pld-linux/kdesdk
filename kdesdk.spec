@@ -528,6 +528,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
+%post   cervisia -p /sbin/ldconfig
+%postun cervisia -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc README
