@@ -6,7 +6,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -17,17 +17,18 @@ Patch100:	%{name}-branch.diff
 Patch0:		%{name}-kmtrace_glibc23.patch
 Patch1:		%{name}-am.patch
 URL:		http://www.kde.org/
+BuildRequires:	automake
 BuildRequires:	bison
-BuildRequires:	ed
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel >= 9:%{version}
 BuildRequires:	libltdl-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRequires:	unsermake
 Obsoletes:	kdesdk-devel
 Obsoletes:	kdesdk
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gimpdir	%(gimptool --gimpdatadir)
 %define		_appdefsdir	/usr/X11R6/lib/X11/app-defaults
@@ -84,7 +85,23 @@ A KDE CVS frontend. It features:
 - a Changelog editor coupled with the commit dialog.
 
 %description cervisia -l pl
-Frontend do CVS dla KDE.
+Frontend do CVS dla KDE. Ma nastêpuj±ce mo¿liwo¶ci:
+- uaktualnianie lub odtwarzanie stanu katalogu lub pojedynczych
+  plików; pliki s± wy¶wietlane w ró¿nych kolorach zale¿nie od ich
+  stanu, a pokazywane pliki mog± byæ filtrowane wed³ug ich stanu
+- podstawowe operacje, takie jak dodawanie, usuwanie i commitowanie
+  plików
+- zaawansowane operacje, takie jak dodawanie i usuwanie ¶ledzenia,
+  w³±czanie i wy³±czanie edycji plików, blokowanie i odblokowywanie
+- pobieranie i importowanie modu³ów
+- graficzne wy¶wietlanie ró¿nic wzglêdem repozytorium i miêdzy ró¿nymi
+  rewizjami
+- widok pliku opisany winnymi
+- widok loga komentarzy do zmian w postaci drzewa i listy
+- rozwi±zywanie konfliktów w pliku
+- tagowanie i branchowanie
+- uaktualnianie do taga, brancha lub daty
+- edytor changelogów po³±czony z oknem dialogowym do commitowania.
 
 %package cervisia-devel
 Summary:	Header files for cervisia, a KDE CVS frontend
@@ -135,7 +152,7 @@ Obsoletes:	kdesdk-devel
 A set of macros for emacs helpful for working on KDE programs.
 
 %description emacs -l pl
-Zestaw makr do emacsa.
+Zestaw makr do emacsa pomocnych przy pracy nad programami KDE.
 
 %package kaddressbook-kdeaccounts
 Summary:	A kdeaccounts plugin for the KDE adressbook
@@ -208,7 +225,35 @@ gettext .po files. It features:
 
 %description kbabel -l pl
 KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
-utrzymanie plików po.
+utrzymanie plików gettexta .po. Jego mo¿liwo¶ci to:
+- obs³uga plików PO GNU gettexta (w³±cznie z formami mnogimi) oraz
+  katalogów Qt Linguista
+- mo¿liwo¶æ otwierania wielu plików (lub wielu widoków tego samego
+  pliku)
+- pe³na funkcjonalno¶æ edycyjna, dostêpna poprzez graficzny interfejs
+  u¿ytkownika, a tak¿e poprzez definiowalne skróty klawiszowe
+- potê¿na funkcjonalno¶æ kontroli pisowni
+- pe³ne mo¿liwo¶ci nawigacji (takiej jak przechodzenie do nastêpnego
+  niepewnego lub nieprzet³umaczonego napisu)
+- mo¿liwo¶æ zapisu i odczytu plików kodowanych w unikodzie (utf-8)
+- nieograniczona mo¿liwo¶æ cofania zmian
+- pod¶wietlanie sk³adni, automatyczne uaktualnianie nag³ówków plików,
+  automatyczna zmiana stanu "fuzzy" po przet³umaczeniu komunikatu
+- obs³uga ³atwego wstawiania znaczników i URL-i
+- sprawdzanie poprawno¶ci i pod¶wietlanie znaczników i elementów XML
+- szkielet wtyczek dla s³owników, takich jak pliki kompendiów po, do
+  sprawdzania spójno¶ci lub podpowiadania t³umaczeñ
+- funkcja "zgrubnego t³umaczenia" do inicjowania nieprzet³umaczonych
+  komunikatów podpowiedziami ze s³ownika
+- automatyczna kontrola sk³adni przy u¿yciu msgfmt przy zapisie,
+  ³atwe przechodzenie do odpowiednich wpisów, je¶li wyst±pi³ b³±d
+- ró¿ne metody pokazywania odstêpów na koñcach linii i sprawdzania
+  spójno¶ci przet³umaczonych komunikatów, takiej jak porównywanie
+  printf i Qt
+- obs³uga parametrów w msgid i msgstr
+- szybki podgl±d kontekstu w pliku po
+- pokazywanie kodu ¼ród³owego po odno¶nikach w komentarzach do
+  komunikatów.
 
 %package kbabel-devel
 Summary:	KBabel header files
@@ -227,7 +272,7 @@ Pliki nag³ówkowe KBabel.
 
 %package kbabel-catalog
 Summary:	A KBabel catalog manager
-Summary(pl):	Mened¿er plików po zintegrowany z KBabel
+Summary(pl):	Zarz±dca katalogów zintegrowany z KBabel
 Group:		X11/Development/Tools
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-devel
@@ -259,7 +304,30 @@ A KBabel catalog manager. It features:
 - doing "rough translation" for multiple files at once.
 
 %description kbabel-catalog -l pl
-Mened¿er plików po zintegrowany z KBabel.
+Zarz±dca katalogów zintegrowany z KBabel. Jego mo¿liwo¶ci to:
+- widok zarz±dcy plików dla katalogów kde-i18n (lub podobnie
+  skonstruowanych), pokazuj±cy aktualny stan ka¿dego pliku PO: czy
+  wymagaj± przegl±du, jak du¿o niepewnych i nieprzet³umaczonych
+  napisów zawieraj± itp.; widok ten jest automatycznie uaktualniany i
+  odzwierciedla wszystkie zmiany dokonane w plikach, w³±cznie ze
+  zmianami w programach innych ni¿ KBabel
+- zintegrowana obs³uga CVS
+- ró¿ne mechanizmy otwierania plików do edycji w KBabel: "przeci±gnij
+  i upu¶æ", podwójne klikniêcie, menu kontekstowe
+- funkcja zaznaczania plików (np. do identyfikowania plików PO, za
+  które odpowiadaj± inni t³umacze)
+- nawigacja z u¿yciem statystyk plików PO
+- automatyczne porównywanie i statystyki plików POT i PO dla szybkiego
+  przegl±du, które i jak du¿o plików zosta³o przet³umaczonych, a które
+  mog± byæ przestarza³e
+- kontrola sk³adni (msgfmt --statistics) dla istniej±cych plików w celu
+  sprawdzenia, czy przet³umaczone pliki siê skompiluj± i bêd± dzia³aæ
+  po rozpowszechnieniu
+- konfigurowalne polecenia, które mo¿na wykonywaæ z menu kontekstowego
+  zarz±dcy katalogów
+- funkcje szukaj/zast±p w wielu plikach naraz
+- kontrola pisowni w wielu plikach naraz
+- wykonywanie "zgrubnego t³umaczenia" wielu plików naraz.
 
 %package kbabel-dictionary
 Summary:	Plugin that supports dictionaries made from po compendia
@@ -273,7 +341,8 @@ KBabel plugin that supports dictionaries made from po compendia or TMX
 1.4-based dicionaries
 
 %description kbabel-dictionary -l pl
-Wtyczka KBabel obs³uguj±ca s³owniki z kompendiów po.
+Wtyczka KBabel obs³uguj±ca s³owniki stworzone z kompendiów po oraz
+oparte na TMX 1.4.
 
 %package kbugbuster
 Summary:	A tools that allows cooperation with bugs.kde.org
@@ -612,7 +681,22 @@ Umbrello UML Modeller 1.2 supports the following types:
 - component Diagram
 
 %description umbrello -l pl
-Modeler UML.
+Modeler UML Umbrello to narzêdzie do diagramów UML pomagaj±ce w
+procesie tworzenia oprogramowania. Szczególnie podczas etapów analizy
+i projektowania, modeler UML Umbrello mo¿e pomóc w uzyskaniu wysokiej
+jako¶ci produktu. UML mo¿e byæ u¿ywany do dokumentowania projektu
+programu, aby pomóc programi¶cie i jego wspó³pracownikom.
+
+UML to jêzyk diagramów u¿ywany do opisu takich modeli. Mo¿na
+przedstawiaæ idee w UML-u przy u¿yciu ró¿nych rodzajów diagramów.
+Modeler UML Umbrello 1.2 obs³uguje nastêpuj±ce rodzaje:
+ - diagram klas
+ - diagram sekwencji
+ - diagram wspó³pracy
+ - diagram przypadków u¿ycia
+ - diagram stanów
+ - diagram aktywno¶ci
+ - diagram sk³adników.
 
 %package xemacs
 Summary:	A set of macros for xemacs
@@ -625,7 +709,7 @@ Obsoletes:	kdesdk-devel
 A set of macros for xemacs useful for developing KDE applications.
 
 %description xemacs -l pl
-Zestaw makr do xemacsa.
+Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %prep
 %setup -q
@@ -679,7 +763,6 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_libs_htmldir=%{_kdedocdir} \
 	kde_htmldir=%{_kdedocdir}
-
 %endif
 
 install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefsdir},%{_emacspkgdir}/kde} \
@@ -871,7 +954,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/apps/kcachegrind.png
 %{_mandir}/man1/kcachegrind.1*
 %{_kdedocdir}/en/kcachegrind
-
 
 %files kmtrace
 %defattr(644,root,root,755)
