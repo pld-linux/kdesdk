@@ -5,10 +5,11 @@ Name:		kdesdk
 Version:	%{date}
 Release:	1
 License:	GPL
-Group:		X11/KDE/Development
-Group(de):	X11/KDE/Entwicklung
-Group(pl):	X11/KDE/Programowanie
-Source0:	%{name}-%{version}.tar.bz2
+Group:		X11/Development/Tools
+Group(de):	X11/Entwicklung/Werkzeuge
+Group(fr):	X11/Development/Outils
+Group(pl):	X11/Programowanie/Narzêdzia
+Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-fix.patch
 Patch1:		%{name}-scripts-fix.patch
 Requires:	qt >= 1.44, kdelibs >= 1.1
@@ -24,53 +25,55 @@ Software Development Kit for KDE.
 Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
 
 %package kdesgmltools
-Summary:	SGML-tools for KDE. 
+Summary:	SGML-tools for KDE
 Summary(pl):	Narzêdzie SGML-u dla KDE
-Group:		X11/KDE/Utilities
-######		Unknown group!
-Group(pl):	X11/KDE/Narzêdzia
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
 
 %description kdesgmltools
 
-%description -l pl kdesgmltools
+%description kdesgmltools -l pl
 
 %package ktranslator
 Summary:	KDE Translator Tools
-Summary(pl):	Prosty tlumacz dla KDE
-Group:		X11/KDE/Utilities
-######		Unknown group!
-Group(pl):	X11/KDE/Narzêdzia
+Summary(pl):	Prosty t³umacz dla KDE
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
 
 %description ktranslator
+Tool supporting translation of KDE applications.
 
-%description -l pl ktranslator
+%description ktranslator -l pl
 Program wspomagaj±cy tworzenie t³umaczeñ dla aplikacji tworzonych w
 ¶rodowisku KDE.
 
 %package kdoc
-Summary:	K documantation tools
-Summary(pl):	Kdoc
-Group:		X11/KDE/Utilities
-######		Unknown group!
-Group(pl):	X11/KDE/Narzêdzia
+Summary:	K documentation tools
+Summary(pl):	Narzêdzia do dokumentacji KDE
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
 
 %description kdoc
 KDE documentation tools.
 
-%description -l pl kdoc
+%description kdoc -l pl
 Narzêdzia do tworzenia dokumentacji dla KDE.
 
 %package kappgen
 Summary:	kappgen
 Summary(pl):	kappgen
-Group:		X11/KDE/Development
-Group(de):	X11/KDE/Entwicklung
-Group(pl):	X11/KDE/Programowanie
+Group:		X11/Development/Tools
+Group(de):	X11/Entwicklung/Werkzeuge
+Group(fr):	X11/Development/Outils
+Group(pl):	X11/Programowanie/Narzêdzia
 
 %description kappgen
-This program make abasic KDE application.
+This program makes a basic KDE application.
 
-%description -l pl kappgen
+%description kappgen -l pl
 Program do tworzenia prostego szkieletu aplikacji dla KDE.
 
 %prep
@@ -155,7 +158,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld.org.pl
 
 $Log: kdesdk.spec,v $
-Revision 1.6  2001-05-02 21:51:21  qboosh
+Revision 1.7  2001-09-28 12:54:14  qboosh
+- fixed Groups, added Source0 URL (note: current stable version is 2.2.1)
+
+Revision 1.6  2001/05/02 21:51:21  qboosh
 - adapterized and made spec %%debug ready or added using %%rpm*flags macros
 
 Revision 1.5  2000/12/03 02:46:37  agaran
