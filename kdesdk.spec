@@ -5,7 +5,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.0.3
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -25,6 +25,11 @@ Requires:	kdelibs = %{version}
 Requires:	%{name}-extractrc = %{version}
 Provides:	kbabel
 Provides:	kless
+# It's named compare now:
+Provides:	kdiff
+Provides:	kdiff2
+Obsoletes:	kdiff
+Obsoletes:	kdiff2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kbabel
 Obsoletes:	kless
