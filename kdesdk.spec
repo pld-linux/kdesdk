@@ -20,8 +20,7 @@ Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:  bb58a6e84d842f5d5f8395b9123415c3
 %endif
-Patch0:		%{name}-3.2branch.diff
-Patch1:		%{name}-kuiviewer.patch
+Patch0:		%{name}-kuiviewer.patch
 URL:		http://www.kde.org/
 BuildRequires:	bison
 BuildRequires:	ed
@@ -708,7 +707,6 @@ Pliki umiêdzynarodawiaj±ce dla umbrello.
 %prep
 %setup -q
 #%patch0 -p1
-#%patch1 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
@@ -792,7 +790,6 @@ do
 	%find_lang kfile_${i} --with-kde
 	cat kfile_${i}.lang >> kfile.lang
 done
-%find_lang desktop_kdesdk	--with-kde
 %find_lang cvsservice	--with-kde
 cat cvsservice.lang >> cervisia.lang
 ##%find_lang kfilereplace
@@ -841,7 +838,6 @@ rm -rf $RPM_BUILD_ROOT
 %postun	umbrello		-p /sbin/ldconfig
 
 %if %{with i18n}
-%files i18n -f desktop_kdesdk.lang
 %defattr(644,root,root,755)
 %files kfile-i18n -f kfile.lang
 %defattr(644,root,root,755)
