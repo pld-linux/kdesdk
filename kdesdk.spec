@@ -7,9 +7,6 @@ Version:	2.2.2
 Release:	1
 License:	GPL
 Group:		X11/Development/Tools
-Group(de):	X11/Entwicklung/Werkzeuge
-Group(fr):	X11/Development/Outils
-Group(pl):	X11/Programowanie/NarzЙdzia
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRequires:	kdebase-devel = %{version}
 BuildRequires:	gettext-devel
@@ -32,13 +29,6 @@ Pakiet wspomagaj╠cy programowanie w ╤rodowisku KDE.
 Summary:	Header files for kdesdk
 Summary(pl):	Pliki nagЁСwkowe dla kdesdk
 Group:		X11/Development/Libraries
-Group(de):	X11/Entwicklung/Libraries
-Group(es):	X11/Desarrollo/Bibliotecas
-Group(fr):	X11/Development/Librairies
-Group(pl):	X11/Programowanie/Biblioteki
-Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
-Group(ru):	X11/Разработка/Библиотеки
-Group(uk):	X11/Розробка/Б╕бл╕отеки
 
 %description devel
 Header files for kdesdk.
@@ -50,13 +40,6 @@ Pliki nagЁСwkowe dla kdesdk.
 Summary:	Static libraries for kdesdk
 Summary(pl):	Statyczne biblioteki dla kdesdk
 Group:		X11/Development/Libraries
-Group(de):	X11/Entwicklung/Libraries
-Group(es):	X11/Desarrollo/Bibliotecas
-Group(fr):	X11/Development/Librairies
-Group(pl):	X11/Programowanie/Biblioteki
-Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
-Group(ru):	X11/Разработка/Библиотеки
-Group(uk):	X11/Розробка/Б╕бл╕отеки
 
 %description static
 Static libraries for kdesdk.
