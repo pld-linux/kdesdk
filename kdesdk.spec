@@ -26,7 +26,7 @@ Obsoletes:	kdesdk-devel
 
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_gimpdir	%(gimptool --gimpdatadir)
-%define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
+%define		_appdefsdir	/usr/X11R6/lib/X11/app-defaults
 %define		_emacspkgdir	/usr/share/emacs/21.2
 %define		_xemacspkgdir	/usr/share/xemacs-packages
 %define		_zshfcdir	/usr/share/zsh/latest/functions
@@ -490,7 +490,7 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kde} \
+install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefsdir},%{_emacspkgdir}/kde} \
 	$RPM_BUILD_ROOT{%{_xemacspkgdir}/kde,%{_zshfcdir},%{_sysconfdir}/bash_completion.d}
 
 %{__make} install \
@@ -502,7 +502,7 @@ install -d $RPM_BUILD_ROOT{%{_gimpdir}/palettes,%{_appdefdir},%{_emacspkgdir}/kd
 rm -rf `find . -name CVS`
 
 install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT%{_gimpdir}/palettes/
-cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
+cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_emacspkgdir}/kde
 cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
 cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT%{_zshfcdir}
@@ -667,11 +667,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files pallette-gimp
 %defattr(644,root,root,755)
-%{_gimpdir}/palettes
+%{_gimpdir}/palettes/*
 
 %files pallette-xpaint
 %defattr(644,root,root,755)
-%{_appdefdir}
+%{_appdefsdir}/XPaint.kde
 
 %files po2xml
 %defattr(644,root,root,755)
