@@ -153,7 +153,7 @@ utrzymanie plików po.
 Summary:	Kbabel headers
 Summary(pl):	Pliki nag³ówkowe KBabel
 Group:		X11/Development
-Requires:	gettext-devel
+#Requires:	gettext-devel
 Requires:	%{name}-kbabel = %{epoch}:%{version}
 Requires:	%{name}-kbabel-catalog = %{epoch}:%{version}
 Requires:	%{name}-kbabel-dictionary = %{epoch}:%{version}
@@ -169,7 +169,7 @@ Pliki nag³ówkowe KBabel.
 Summary:	Plugin that supports dictionaries made from po compendia
 Summary(pl):	Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po
 Group:		X11/Development
-Requires:	gettext-devel
+#Requires:	gettext-devel
 Requires:	%{name}-kbabel = %{epoch}:%{version}
 Obsoletes:	%{name}-devel
 
@@ -183,7 +183,7 @@ Wtyczka kbabel obs³uguj±ca s³owniki z kompendiów po.
 Summary:	A KBabel catalog manager
 Summary(pl):	Zarz±dca zbiorów plików po zintegrowany z KBabel
 Group:		X11/Development
-Requires:	gettext-devel
+#Requires:	gettext-devel
 Requires:	%{name}-kbabel = %{epoch}:%{version}
 Obsoletes:	%{name}-devel
 
