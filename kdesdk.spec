@@ -521,6 +521,7 @@ Obsoletes:	kdesdk-scripts-findmissingcrystal
 Obsoletes:	kdesdk-scripts-kdelnk2desktop
 Obsoletes:	kdesdk-scripts-zonetab2pot
 Obsoletes:	kdesdk-scripts-misc
+Obsoletes:	kdesdk-scripts-build
 
 %description scripts-developer
 This package contains:
