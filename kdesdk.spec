@@ -18,8 +18,8 @@ Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
 # Source0-md5:	f52a69718705b32f0068fb605b604b45
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 %if %{with i18n}
-Source1:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:        26387c5679d77b57788f0d01be6f6fed
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+# Source1-md5:  8fdaeb063fa16f5bf0ca3f628291269a
 %endif
 Patch0:		%{name}-3.2branch.diff
 Patch1:		%{name}-kuiviewer.patch
