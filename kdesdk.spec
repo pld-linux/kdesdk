@@ -1,6 +1,3 @@
-#
-# _with_dbsearchengine	Dictionary plugin "Translation Database"
-#			for KBabel will be built.
 
 %define         _state          stable
 %define         _ver		3.1.1
@@ -17,15 +14,20 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 # translations are  generated from kde-i18n.spec now
 # Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 BuildRequires:	bison
-%{?_with_dbsearchengine:BuildRequires:	db2-devel}
+BuildRequires:	db2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel = %{version}
+BuildRequires:	libltdl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_gimpdir	%(gimp-config --gimpdatadir)
 %define		_appdefdir	/usr/X11R6/lib/X11/app-defaults
+%define		_emacspkgdir	/usr/share/emacs/21.2
+%define		_xemacspkgdir	/usr/share/xemacs-packages
+%define		_zshfcdir	/usr/share/zsh/latest/functions
 
 %description
 Software Development Kit for KDE.
@@ -84,7 +86,7 @@ Definicje autouzupe³niania dla zsh.
 Summary:	A set of macros for emacs
 Summary(pl):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
-Requires: 	emacs
+Requires: 	emacs-common
 
 %description emacs
 A set of macros for emacs.
@@ -426,7 +428,7 @@ Ten skrypt wczytuje listê stref czasowych z linii poleceñ lub pliku
 Summary:	A set of macros for xemacs
 Summary(pl):	Zestaw makr do xemacsa
 Group:		X11/Development/Tools
-Requires: 	xemacs
+Requires: 	xemacs-common
 
 %description xemacs
 A set of macros for xemacs.
@@ -461,16 +463,16 @@ rm -rf `find . -name CVS`
 
 install -d $RPM_BUILD_ROOT%{_gimpdir}/palettes
 install -d $RPM_BUILD_ROOT%{_appdefdir}
-install -d $RPM_BUILD_ROOT%{_datadir}/emacs-packages/kde
-install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/kde
-install -d $RPM_BUILD_ROOT%{_datadir}/zsh/latest/functions
+install -d $RPM_BUILD_ROOT%{_emacspkgdir}/kde
+install -d $RPM_BUILD_ROOT%{_xemacspkgdir}/kde
+install -d $RPM_BUILD_ROOT%{_zshfcdir}
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
 install ./kdepalettes/KDE_Gimp	$RPM_BUILD_ROOT%{_gimpdir}/palettes/
 cp ./kdepalettes/kde_xpaintrc	$RPM_BUILD_ROOT%{_appdefdir}/XPaint.kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_datadir}/emacs-packages/kde
-cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/kde
-cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT%{_datadir}/zsh/latest/functions
+cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_emacspkgdir}/kde
+cp ./scripts/kde-emacs/*.*	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
+cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT%{_zshfcdir}
 cp ./scripts/completions/bash/* $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
 
 cd $RPM_BUILD_ROOT%{_pixmapsdir}
@@ -520,11 +522,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files completions-zsh
 %defattr(644,root,root,755)
-%{_usr}/share/zsh/latest/functions
+%{_zshfcdir}/*
 
 %files emacs
 %defattr(644,root,root,755)
-%{_usr}/share/emacs-packages/kde
+%{_emacspkgdir}/kde
 
 %files kapptemplate
 %defattr(644,root,root,755)
@@ -572,10 +574,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kbabel-dictionary
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbabeldict
-%if %{?_with_dbsearchengine:1}0
 %{_libdir}/kde3/libdbsearchengine.la
 %attr(755,root,root) %{_libdir}/kde3/libdbsearchengine.so
-%endif
 %{_libdir}/libkbabeldict*.la
 %attr(755,root,root) %{_libdir}/libkbabeldict*.so*
 %{_applnkdir}/Development/kbabeldict.desktop
@@ -694,4 +694,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files xemacs
 %defattr(644,root,root,755)
-%{_datadir}/xemacs-packages/kde
+%{_xemacspkgdir}/kde
