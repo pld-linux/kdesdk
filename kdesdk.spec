@@ -561,7 +561,10 @@ cp ./scripts/completions/zsh/*	$RPM_BUILD_ROOT/%{_usr}/share/zsh/latest/function
 %files kapptemplate
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kapptemplate
-%{_datadir}/apps/kapptemplate
+%dir %{_datadir}/apps/kapptemplate
+%{_datadir}/apps/kapptemplate/[!b]*
+%dir %{_datadir}/apps/kapptemplate/bin
+%attr(755,root,root) %{_datadir}/apps/kapptemplate/bin/*
 
 %files kaddressbook-kdeaccounts
 %defattr(644,root,root,755)
