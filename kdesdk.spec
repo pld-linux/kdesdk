@@ -598,6 +598,7 @@ KDE.
 Summary:	UML Modeler
 Summary(pl):	Modeler UML
 Group:		X11/Development/Tools
+Obsoletes:	umbrello
 
 %description umbrello
 Umbrello UML Modeller is a UML diagram tool that can support you in
