@@ -3,8 +3,7 @@
 %bcond_without	i18n	# don't build i18n subpackages
 #
 %define		_state		stable
-%define		_ver		3.2.1
-##%define		_snap		040110
+%define		_ver		3.2.2
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -15,11 +14,11 @@ Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	f52a69718705b32f0068fb605b604b45
+# Source0-md5:	dd3c690444fef79de620c26abfaafd37
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 %if %{with i18n}
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:  8fdaeb063fa16f5bf0ca3f628291269a
+# Source1-md5:  bb58a6e84d842f5d5f8395b9123415c3
 %endif
 Patch0:		%{name}-3.2branch.diff
 Patch1:		%{name}-kuiviewer.patch
