@@ -32,7 +32,7 @@ BuildRequires:	kdebase-devel >= %{_minbaseevr}
 BuildRequires:	kdepim-devel >= 3:3.3.1
 BuildRequires:	libltdl-devel
 BuildRequires:	perl-tools-pod
-BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	sed >= 4.0
 %{?with_svn:BuildRequires:subversion-devel}
 #BuildRequires:	unsermake >= 040511
@@ -728,7 +728,7 @@ done
 
 %{__make} -C kstartperf
 
-%ifarch amd64
+%ifarch %{x8664}
 %{__make} -C kmtrace
 %endif
 
@@ -745,7 +745,7 @@ rm -rf $RPM_BUILD_ROOT
 	kde_libs_htmldir=%{_kdedocdir} \
 	kde_htmldir=%{_kdedocdir}
 
-%ifarch amd64
+%ifarch %{x8664}
 %{__make} -C kmtrace install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_libs_htmldir=%{_kdedocdir} \
