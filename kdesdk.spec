@@ -707,7 +707,7 @@ for f in `find . -name \*.desktop`; do
 	fi
 done
 
-%ifarch amd64
+%if "%{_libdir}" != "/usr/lib"
 %{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/configure.in.in
 %{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/Makefile.am
 %endif
