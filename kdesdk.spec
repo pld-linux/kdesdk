@@ -3,22 +3,22 @@
 %bcond_without	svn 	# without subversion support
 #
 %define		_state		stable
-%define		_kdever		3.4.1
-%define		_ver		3.4.1
+%define		_kdever		3.4.2
+%define		_ver		3.4.2
 
-%define		_minlibsevr	9:3.4.1
-%define		_minbaseevr	9:3.4.1
+%define		_minlibsevr	9:3.4.2
+%define		_minbaseevr	9:3.4.2
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	b7073f0f4ac7efe4d6ff33c1ba527668
+# Source0-md5:	ec794b8f2a492a188cae8fb38208e1b9
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
