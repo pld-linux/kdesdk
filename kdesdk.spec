@@ -665,6 +665,18 @@ A set of macros for xemacs useful for developing KDE applications.
 %description xemacs -l pl
 Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
+%package -n kde-kio-svn
+Summary:        SVN protocol service
+Summary(pl):    Obs³uga protoko³u SVN
+Group:          X11/Libraries
+Requires:       kdelibs >= %{_minlibsevr}
+
+%description -n kde-kio-svn
+SVN protocol service.
+
+%description -n kde-kio-svn -l pl
+Obs³uga protoko³u SVN.
+
 %prep
 %setup -q
 #%patch100 -p1
@@ -722,6 +734,12 @@ done
 %configure \
 	--disable-rpath \
 	--enable-final \
+%if %{with svn}
+        --with-apr-config=%{_bindir}/apr-1-config \
+        --with-apu-config=%{_bindir}/apu-1-config \
+        --with-svn-include=%{_includedir}/subversion \
+        --with-svn-lib=%{_libdir} \
+%endif
 	--with-qt-libraries=%{_libdir}
 
 %{__make}
@@ -1155,3 +1173,14 @@ rm -rf $RPM_BUILD_ROOT
 %files xemacs
 %defattr(644,root,root,755)
 %{_xemacspkgdir}/kde
+
+%if %{with svn}
+%files -n kde-kio-svn
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kio_svn.la
+%{_libdir}/kde3/kded_ksvnd.la
+%attr(755,root,root) %{_libdir}/kde3/kio_svn.so
+%attr(755,root,root) %{_libdir}/kde3/kded_ksvnd.so
+%{_datadir}/services/kded/*svn*.desktop
+%{_datadir}/services/svn*.protocol
+%endif
