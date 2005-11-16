@@ -1,24 +1,27 @@
+# TODO:
+# - add kunit test
+# - think about stuff in kio-svn, split?
 #
 # Conditional build
 %bcond_without	svn 	# without subversion support
 #
 %define		_state		stable
-%define		_kdever		3.4.3
-%define		_ver		3.4.3
+%define		_kdever		3.5
+%define		_ver		3.5.0
 
-%define		_minlibsevr	9:3.4.3
-%define		_minbaseevr	9:3.4.3
+%define		_minlibsevr	9:3.5.0
+%define		_minbaseevr	9:3.5.0
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	d0d51c35769709b00b2ff7d59ed90631
+# Source0-md5:	0c6de88df6ddd2c1bb00bb1987640df9
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
@@ -907,6 +910,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config.kcfg/kbprojectsettings.kcfg
 %{_datadir}/apps/kconf_update/kbabel-project.upd
 %{_datadir}/apps/kconf_update/kbabel-projectrename.upd
+%{_datadir}/apps/kconf_update/kbabel-difftoproject.upd
 %{_datadir}/services/dbsearchengine.desktop
 %{_datadir}/services/kbabel_accelstool.desktop
 %{_datadir}/services/kbabel_argstool.desktop
@@ -920,6 +924,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kbabel_nottranslatedtool.desktop
 %{_datadir}/services/kbabel_pluralformstool.desktop
 %{_datadir}/services/kbabel_punctuationtool.desktop
+%{_datadir}/services/kbabel_regexptool.desktop
 %{_datadir}/services/kbabel_setfuzzytool.desktop
 %{_datadir}/services/kbabel_whitespacetool.desktop
 %{_datadir}/services/kbabel_xliff_export.desktop
@@ -1177,10 +1182,14 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with svn}
 %files -n kde-kio-svn
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*svn*
 %{_libdir}/kde3/kio_svn.la
 %{_libdir}/kde3/kded_ksvnd.la
 %attr(755,root,root) %{_libdir}/kde3/kio_svn.so
 %attr(755,root,root) %{_libdir}/kde3/kded_ksvnd.so
 %{_datadir}/services/kded/*svn*.desktop
 %{_datadir}/services/svn*.protocol
+%{_datadir}/apps/konqueror/servicemenus/subversion*
+%{_iconsdir}/crystalsvg/*/*/*svn*.*
+%{_mandir}/man1/*svn*
 %endif
