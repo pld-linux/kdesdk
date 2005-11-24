@@ -1,5 +1,4 @@
 # TODO:
-# - add kunit test
 # - think about stuff in kio-svn, split?
 #
 # Conditional build
@@ -16,12 +15,12 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	0c6de88df6ddd2c1bb00bb1987640df9
+# Source0-md5:	fbbd879d915a595a217a0a3cc700f253
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
@@ -456,6 +455,13 @@ Qt Designer UI file Viewer.
 
 %description kuiviewer -l pl
 Przegl±darka plików UI generowanych przez Qt designera.
+
+%package kunittest
+Summary:	KUnit Test
+Group:		X11/Development/Tools
+
+%description kunittest
+KUnit Test.
 
 %package libcvsservice
 Summary:	A cvs access library
@@ -1041,6 +1047,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kuiviewer.desktop
 %{_iconsdir}/[!l]*/*/apps/kuiviewer.png
 %{_mandir}/man1/kuiviewer.1*
+
+%files kunittest
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kunit*
+%attr(755,root,root) %{_libdir}/libkunit*.so.*
 
 %files libcvsservice
 %defattr(644,root,root,755)
