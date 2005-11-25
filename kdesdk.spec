@@ -458,10 +458,14 @@ Przegl±darka plików UI generowanych przez Qt designera.
 
 %package kunittest
 Summary:	KUnit Test
+Summary(pl):	Narzêdzie testuj±ce KUnit
 Group:		X11/Development/Tools
 
 %description kunittest
 KUnit Test.
+
+%description kunittest -l pl
+Narzêdzie testuj±ce KUnit.
 
 %package libcvsservice
 Summary:	A cvs access library
@@ -1051,7 +1055,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kunittest
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kunit*
-%attr(755,root,root) %{_libdir}/libkunit*.so.*
+%attr(755,root,root) %{_libdir}/libkunit*.so.*.*.*
+%{_libdir}/libkunit*.la
 
 %files libcvsservice
 %defattr(644,root,root,755)
