@@ -24,6 +24,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
+BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	db-devel
