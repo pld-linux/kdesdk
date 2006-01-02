@@ -15,7 +15,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -693,7 +693,7 @@ Obs³uga protoko³u SVN.
 
 %prep
 %setup -q
-#%patch100 -p1
+%patch100 -p0
 %patch0 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
