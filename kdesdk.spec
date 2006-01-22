@@ -5,22 +5,22 @@
 %bcond_without	svn 	# without subversion support
 #
 %define		_state		stable
-%define		_kdever		3.5
-%define		_ver		3.5.0
+%define		_kdever		3.5.1
+%define		_ver		3.5.1
 
-%define		_minlibsevr	9:3.5.0
-%define		_minbaseevr	9:3.5.0
+%define		_minlibsevr	9:3.5.1
+%define		_minbaseevr	9:3.5.1
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	%{_ver}
-Release:	4
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	dc91ffcfa8114cf4f9d40bc9ffe47d97
+# Source0-md5:	93199b8bf5793681fdb2e5cbcfcfbd93
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 URL:		http://www.kde.org/
@@ -693,7 +693,7 @@ Obs³uga protoko³u SVN.
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
