@@ -747,7 +747,7 @@ done
 
 %configure \
 	--disable-rpath \
-	--enable-final \
+	--disable-final \
 %if %{with svn}
         --with-apr-config=%{_bindir}/apr-1-config \
         --with-apu-config=%{_bindir}/apu-1-config \
