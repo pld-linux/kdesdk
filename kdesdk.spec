@@ -23,6 +23,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 # Source0-md5:	93199b8bf5793681fdb2e5cbcfcfbd93
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
+Patch1:		%{name}-kompare-encoding.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -35,6 +36,7 @@ BuildRequires:	kdebase-devel >= %{_minbaseevr}
 BuildRequires:	kdepim-devel >= 3:3.3.1
 BuildRequires:	libltdl-devel
 BuildRequires:	perl-tools-pod
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	sed >= 4.0
 %{?with_svn:BuildRequires:subversion-devel}
@@ -695,6 +697,7 @@ Obs³uga protoko³u SVN.
 %setup -q
 #%patch100 -p0
 %patch0 -p1
+%patch1 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
 #echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
