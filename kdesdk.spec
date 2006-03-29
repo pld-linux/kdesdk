@@ -1,15 +1,21 @@
 # TODO:
 # - think about stuff in kio-svn, split?
+# - locolor icons?
+# - unpackaged files:
+#   /usr/include/kunittest/runnergui.h
+#   /usr/share/apps/katepart/syntax/kdesvn-buildrc.xml
+#   /usr/share/doc/kde/HTML/en/kdesvn-build/index.cache.bz2
+#   /usr/share/doc/kde/HTML/en/kdesvn-build/index.docbook
 #
 # Conditional build
 %bcond_without	svn 	# without subversion support
 #
 %define		_state		stable
-%define		_kdever		3.5.1
-%define		_ver		3.5.1
+%define		_kdever		3.5.2
+%define		_ver		3.5.2
 
-%define		_minlibsevr	9:3.5.1
-%define		_minbaseevr	9:3.5.1
+%define		_minlibsevr	9:3.5.2
+%define		_minbaseevr	9:3.5.2
 
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
@@ -20,7 +26,7 @@ Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	93199b8bf5793681fdb2e5cbcfcfbd93
+# Source0-md5:	0047e87532930a390d7a1826fd8cdaf5
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 Patch1:		%{name}-kompare-encoding.patch
@@ -808,7 +814,7 @@ rm -rf `find $RPM_BUILD_ROOT -name CVS`
 
 # Debian manpages
 # overwrites cvscheck.1 - it's OK (original manual is much shorter)
-install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+#install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
@@ -887,7 +893,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kapptemplate/[!b]*
 %dir %{_datadir}/apps/kapptemplate/bin
 %attr(755,root,root) %{_datadir}/apps/kapptemplate/bin/*
-%{_mandir}/man1/kapptemplate.1*
+#%{_mandir}/man1/kapptemplate.1*
 
 %files kde-resource-kdeaccounts
 %defattr(644,root,root,755)
@@ -958,9 +964,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/[!l]*/*/*/catalogmanager.png
 %{_iconsdir}/[!l]*/*/*/kbabel.png
 %{_iconsdir}/[!l]*/*/*/kbabeldict.png
-%{_mandir}/man1/catalogmanager.1*
-%{_mandir}/man1/kbabel.1*
-%{_mandir}/man1/kbabeldict.1*
+#%{_mandir}/man1/catalogmanager.1*
+#%{_mandir}/man1/kbabel.1*
+#%{_mandir}/man1/kbabeldict.1*
 
 %files kbabel-devel
 %defattr(644,root,root,755)
@@ -974,7 +980,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbugbuster
 %{_desktopdir}/kde/kbugbuster.desktop
 %{_iconsdir}/[!l]*/*/*/kbugbuster.png
-%{_mandir}/man1/kbugbuster.1*
+#%{_mandir}/man1/kbugbuster.1*
 
 %files kcachegrind -f kcachegrind.lang
 %defattr(644,root,root,755)
@@ -983,7 +989,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/application/x-kcachegrind.desktop
 %{_desktopdir}/kde/kcachegrind.desktop
 %{_iconsdir}/hicolor/*/apps/kcachegrind.png
-%{_mandir}/man1/kcachegrind.1*
+#%{_mandir}/man1/kcachegrind.1*
 
 # -- doesn't build with glibc >= 2.3
 %files kmtrace
@@ -997,10 +1003,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libktrace*.a
 %{_includedir}/ktrace.h
 %{_datadir}/apps/kmtrace
-%{_mandir}/man1/demangle.1*
-%{_mandir}/man1/kminspector.1*
-%{_mandir}/man1/kmmatch.1*
-%{_mandir}/man1/kmtrace.1*
+#%{_mandir}/man1/demangle.1*
+#%{_mandir}/man1/kminspector.1*
+#%{_mandir}/man1/kmmatch.1*
+#%{_mandir}/man1/kmtrace.1*
 
 %files kompare -f kompare.lang
 %defattr(644,root,root,755)
@@ -1020,7 +1026,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/servicetypes/kompare*.desktop
 %{_desktopdir}/kde/kompare.desktop
 %{_iconsdir}/[!l]*/*/*/kompare.*
-%{_mandir}/man1/kompare.1*
+#%{_mandir}/man1/kompare.1*
 
 %files kprofilemethod
 %defattr(644,root,root,755)
@@ -1032,7 +1038,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkspy.so
 %attr(755,root,root) %{_libdir}/libkspy.so.*.*.*
 %{_includedir}/kspy.h
-%{_mandir}/man1/testkspy.1*
+#%{_mandir}/man1/testkspy.1*
 
 %files kstartperf
 %defattr(644,root,root,755)
@@ -1054,7 +1060,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kuiviewer_part.desktop
 %{_desktopdir}/kde/kuiviewer.desktop
 %{_iconsdir}/[!l]*/*/apps/kuiviewer.png
-%{_mandir}/man1/kuiviewer.1*
+#%{_mandir}/man1/kuiviewer.1*
 
 %files kunittest
 %defattr(644,root,root,755)
@@ -1095,11 +1101,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/swappo
 %attr(755,root,root) %{_bindir}/transxx
 %attr(755,root,root) %{_bindir}/xml2pot
-%{_mandir}/man1/po2xml.1*
-%{_mandir}/man1/split2po.1*
-%{_mandir}/man1/swappo.1*
-%{_mandir}/man1/transxx.1*
-%{_mandir}/man1/xml2pot.1*
+#%{_mandir}/man1/po2xml.1*
+#%{_mandir}/man1/split2po.1*
+#%{_mandir}/man1/swappo.1*
+#%{_mandir}/man1/transxx.1*
+#%{_mandir}/man1/xml2pot.1*
 
 %files scheck
 %defattr(644,root,root,755)
@@ -1134,31 +1140,32 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kdelnk2desktop.py
 %attr(755,root,root) %{_bindir}/package_crystalsvg
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
-%{_mandir}/man1/cxxmetric.1*
-%{_mandir}/man1/extractrc.1*
-%{_mandir}/man1/findmissingcrystal.1*
-%{_mandir}/man1/kdelnk2desktop.py.1*
-%{_mandir}/man1/zonetab2pot.py.1*
-%{_mandir}/man1/adddebug.1*
-%{_mandir}/man1/build-progress*.1*
-%{_mandir}/man1/cheatmake.1*
-%{_mandir}/man1/create*.1*
-%{_mandir}/man1/extend_dmalloc.1*
-%{_mandir}/man1/fixkdeincludes.1*
+#%{_mandir}/man1/cxxmetric.1*
+#%{_mandir}/man1/extractrc.1*
+#%{_mandir}/man1/findmissingcrystal.1*
+#%{_mandir}/man1/kdelnk2desktop.py.1*
+#%{_mandir}/man1/zonetab2pot.py.1*
+#%{_mandir}/man1/adddebug.1*
+#%{_mandir}/man1/build-progress*.1*
+#%{_mandir}/man1/cheatmake.1*
+#%{_mandir}/man1/create*.1*
+#%{_mandir}/man1/extend_dmalloc.1*
+#%{_mandir}/man1/fixkdeincludes.1*
 %{_mandir}/man1/includemocs.1*
 %{_mandir}/man1/kde-build.1*
-%{_mandir}/man1/licensecheck.1*
-%{_mandir}/man1/makeobj.1*
-%{_mandir}/man1/dprof2calltree.1*
-%{_mandir}/man1/extractattr.1*
-%{_mandir}/man1/fixuifiles.1*
-%{_mandir}/man1/hotshot2calltree.1*
-%{_mandir}/man1/kdemangen.pl.1*
-%{_mandir}/man1/memprof2calltree.1*
-%{_mandir}/man1/op2calltree.1*
-%{_mandir}/man1/package_crystalsvg.1*
-%{_mandir}/man1/png2mng.pl.1*
-%{_mandir}/man1/pprof2calltree.1*
+%{_mandir}/man1/kdesvn-build.1*
+#%{_mandir}/man1/licensecheck.1*
+#%{_mandir}/man1/makeobj.1*
+#%{_mandir}/man1/dprof2calltree.1*
+#%{_mandir}/man1/extractattr.1*
+#%{_mandir}/man1/fixuifiles.1*
+#%{_mandir}/man1/hotshot2calltree.1*
+#%{_mandir}/man1/kdemangen.pl.1*
+#%{_mandir}/man1/memprof2calltree.1*
+#%{_mandir}/man1/op2calltree.1*
+#%{_mandir}/man1/package_crystalsvg.1*
+#%{_mandir}/man1/png2mng.pl.1*
+#%{_mandir}/man1/pprof2calltree.1*
 
 
 %files scripts-cvs
@@ -1170,19 +1177,19 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/pruneemptydirs
 %{_mandir}/man1/cvs*.1*
 %{_mandir}/man1/noncvslist.1*
-%{_mandir}/man1/pruneemptydirs.1*
+#%{_mandir}/man1/pruneemptydirs.1*
 
 %files scripts-doc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdedoc
 %attr(755,root,root) %{_bindir}/qtdoc
-%{_mandir}/man1/kdedoc.1*
-%{_mandir}/man1/qtdoc.1*
+#%{_mandir}/man1/kdedoc.1*
+#%{_mandir}/man1/qtdoc.1*
 
 %files scripts-kdekillall
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdekillall
-%{_mandir}/man1/kdekillall.1*
+#%{_mandir}/man1/kdekillall.1*
 
 %files umbrello -f umbrello.lang
 %defattr(644,root,root,755)
@@ -1193,7 +1200,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/apps/umbrello.png
 %{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
 %{_iconsdir}/crystalsvg/*/*/umbrello*.*
-%{_mandir}/man1/umbrello.1*
+#%{_mandir}/man1/umbrello.1*
 
 %files xemacs
 %defattr(644,root,root,755)
@@ -1211,5 +1218,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/svn*.protocol
 %{_datadir}/apps/konqueror/servicemenus/subversion*
 %{_iconsdir}/crystalsvg/*/*/*svn*.*
-%{_mandir}/man1/*svn*
+#%{_mandir}/man1/*svn*
 %endif
