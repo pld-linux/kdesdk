@@ -1,6 +1,5 @@
 # TODO:
 # - think about stuff in kio-svn, split?
-# - locolor icons?
 # - unpackaged files:
 #   /usr/include/kunittest/runnergui.h
 #   /usr/share/apps/katepart/syntax/kdesvn-buildrc.xml
@@ -812,6 +811,9 @@ rm -rf `find $RPM_BUILD_ROOT -name CVS`
 # Debian manpages
 # overwrites cvscheck.1 - it's OK (original manual is much shorter)
 #install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+
+# unsupported
+rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
