@@ -684,10 +684,10 @@ A set of macros for xemacs useful for developing KDE applications.
 Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %package -n kde-kio-svn
-Summary:        SVN protocol service
-Summary(pl):    Obs³uga protoko³u SVN
-Group:          X11/Libraries
-Requires:       kdelibs >= %{_minlibsevr}
+Summary:	SVN protocol service
+Summary(pl):	Obs³uga protoko³u SVN
+Group:		X11/Libraries
+Requires:	kdelibs >= %{_minlibsevr}
 
 %description -n kde-kio-svn
 SVN protocol service.
