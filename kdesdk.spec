@@ -2,9 +2,6 @@
 # - think about stuff in kio-svn, split?
 # - unpackaged files:
 #   /usr/include/kunittest/runnergui.h
-#   /usr/share/apps/katepart/syntax/kdesvn-buildrc.xml
-#   /usr/share/doc/kde/HTML/en/kdesvn-build/index.cache.bz2
-#   /usr/share/doc/kde/HTML/en/kdesvn-build/index.docbook
 #
 # Conditional build
 %bcond_without	svn 	# without subversion support
@@ -16,13 +13,13 @@
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.5.3
-Release:	2
+Version:	3.5.4
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	75450d8905a2cc612df00927c7f81af9
+# Source0-md5:	2150e6a4ce5e42886a4afc6c0198c30c
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 Patch1:		%{name}-kompare-encoding.patch
@@ -821,6 +818,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 %find_lang	kbugbuster	--with-kde
 %find_lang	kompare		--with-kde
 %find_lang	umbrello	--with-kde
+%find_lang	kdesvn-build --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1112,7 +1110,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/plugins/styles/scheck.so
 %{_datadir}/apps/kstyle/themes/scheck.themerc
 
-%files scripts-developer
+%files scripts-developer -f kdesvn-build.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/adddebug
 %attr(755,root,root) %{_bindir}/build-progress.sh
@@ -1139,6 +1137,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kdelnk2desktop.py
 %attr(755,root,root) %{_bindir}/package_crystalsvg
 %attr(755,root,root) %{_bindir}/zonetab2pot.py
+%{_datadir}/apps/katepart/syntax/kdesvn-buildrc.xml
 #%{_mandir}/man1/cxxmetric.1*
 #%{_mandir}/man1/extractrc.1*
 #%{_mandir}/man1/findmissingcrystal.1*
@@ -1198,6 +1197,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/umbrello.desktop
 %{_iconsdir}/hicolor/*/apps/umbrello.png
 %{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
+%{_iconsdir}/hicolor/scalable/apps/umbrello.svgz
 %{_iconsdir}/crystalsvg/*/*/umbrello*.*
 #%{_mandir}/man1/umbrello.1*
 
