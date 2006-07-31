@@ -74,9 +74,9 @@ dodatkow± zak³adkê z rozszerzonymi informacjami o pliku.
 Summary:	A KDE CVS frontend
 Summary(pl):	Frontend do CVS dla KDE
 Group:		X11/Development/Tools
+Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
 Requires:	cvs >= 1.10
 Requires:	kdebase-core >= %{_minbaseevr}
-Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
 Conflicts:	kdesdk-scripts-cvs < 3:3.3.0-1
 
 %description cervisia
@@ -412,7 +412,7 @@ Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z
 wykorzystaniem QTime.
 
 %package kspy
-Summary:	A utility for egzamining the internal state of a Qt/KDE application.
+Summary:	A utility for egzamining the internal state of a Qt/KDE application
 Summary(pl):	Narzêdzie do badania stanu aplikacji Qt/KDE
 Group:		X11/Development/Tools
 Obsoletes:	kdiff
@@ -423,9 +423,9 @@ KSpy is a utility intended to help developers examine the internal
 state of a Qt/KDE application. KSpy graphically displays all the
 QObjects in use, and allows you to browse their properties. Using KSpy
 is very simple, include kspy.h and call KSpy::invoke() when you want
-to look inside your app. The KSpy function is inline and the main
-part of KSpy is dynamically loaded, so you may even want to leave this
-in the release build of an application.
+to look inside your app. The KSpy function is inline and the main part
+of KSpy is dynamically loaded, so you may even want to leave this in
+the release build of an application.
 
 %description kspy -l pl
 KSpy to narzêdzie maj±ce u³atwiæ programistom badanie wewnêtrznego
@@ -538,13 +538,13 @@ Summary(pl):	Zestaw skryptów do kompilowania i utrzymywania KDE
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
 Obsoletes:	kdesdk-extractrc
+Obsoletes:	kdesdk-scripts-build
 Obsoletes:	kdesdk-scripts-cxxmetric
 Obsoletes:	kdesdk-scripts-extractrc
 Obsoletes:	kdesdk-scripts-findmissingcrystal
 Obsoletes:	kdesdk-scripts-kdelnk2desktop
-Obsoletes:	kdesdk-scripts-zonetab2pot
 Obsoletes:	kdesdk-scripts-misc
-Obsoletes:	kdesdk-scripts-build
+Obsoletes:	kdesdk-scripts-zonetab2pot
 
 %description scripts-developer
 This package contains:
@@ -573,8 +573,8 @@ Ten pakiet zawiera:
 - konwerter plików kdelnk na desktop i zonetab na pot
 - zestaw skryptów kde-build
 - zestaw skryptów umo¿liwiaj±cych wygodne profilowanie aplikacji KDE
-- zestaw skryptów do poprawiania nag³ówków informuj±cych o licencji
-  i dyrektyw w plikach nag³ówkowych KDE oraz usuwania nieistotnych
+- zestaw skryptów do poprawiania nag³ówków informuj±cych o licencji i
+  dyrektyw w plikach nag³ówkowych KDE oraz usuwania nieistotnych
   znaczników z plików .ui
 - generator stron man dla KDE
 - konwerter wieloramkowych PNG na MNG
