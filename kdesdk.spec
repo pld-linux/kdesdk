@@ -735,7 +735,7 @@ for f in `find . -name \*.desktop`; do
 	fi
 done
 
-%if "%{_libdir}" != "/usr/lib"
+%if "%{_lib}" != "lib"
 %{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/configure.in.in
 %{__sed} -i -e "s,/usr/lib,%{_libdir},g" kmtrace/Makefile.am
 %endif
@@ -751,10 +751,10 @@ done
 	--disable-rpath \
 	--disable-final \
 %if %{with svn}
-        --with-apr-config=%{_bindir}/apr-1-config \
-        --with-apu-config=%{_bindir}/apu-1-config \
-        --with-svn-include=%{_includedir}/subversion \
-        --with-svn-lib=%{_libdir} \
+	--with-apr-config=%{_bindir}/apr-1-config \
+	--with-apu-config=%{_bindir}/apu-1-config \
+	--with-svn-include=%{_includedir}/subversion \
+	--with-svn-lib=%{_libdir} \
 %endif
 	--with-qt-libraries=%{_libdir}
 
