@@ -23,6 +23,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-am.patch
 Patch1:		%{name}-kompare-encoding.patch
+Patch2:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -697,6 +698,7 @@ Obs³uga protoko³u SVN.
 #%patch100 -p0
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
 #echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
