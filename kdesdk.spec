@@ -1,7 +1,31 @@
 # TODO:
 # - think about stuff in kio-svn, split?
 # - unpackaged files:
+#   /usr/bin/colorsvn
+#   /usr/bin/kdesvn-build
+#   /usr/bin/nonsvnlist
+#   /usr/bin/svn-clean
+#   /usr/bin/svn2dist
+#   /usr/bin/svnaddcurrentdir
+#   /usr/bin/svnbackport
+#   /usr/bin/svnchangesince
+#   /usr/bin/svnforwardport
+#   /usr/bin/svngettags
+#   /usr/bin/svnlastchange
+#   /usr/bin/svnlastlog
+#   /usr/bin/svnrevertlast
+#   /usr/bin/svnversions
+#   /usr/bin/umbodoc
 #   /usr/include/kunittest/runnergui.h
+# - not found files:
+#    File not found: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/lib/kde3/kio_svn.la
+#    File not found: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/lib/kde3/kded_ksvnd.la
+#    File not found: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/lib/kde3/kio_svn.so
+#    File not found: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/lib/kde3/kded_ksvnd.so
+#    File not found by glob: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/share/services/kded/*svn*.desktop
+#    File not found by glob: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/share/services/svn*.protocol
+#    File not found by glob: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/share/apps/konqueror/servicemenus/subversion*
+#    File not found by glob: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/share/icons/crystalsvg/*/*/*svn*.*
 #
 # Conditional build
 %bcond_without	svn 	# without subversion support
@@ -13,17 +37,18 @@
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.5.4
-Release:	1
+Version:	3.5.5
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	2150e6a4ce5e42886a4afc6c0198c30c
+# Source0-md5:	d226bf07bf8106f37b4e9e31a7d451f0
 Patch100:	%{name}-branch.diff
-Patch0:		%{name}-am.patch
-Patch1:		%{name}-kompare-encoding.patch
-Patch2:		kde-ac260-lt.patch
+Patch0:		kde-common-PLD.patch
+Patch1:		%{name}-am.patch
+Patch2:		%{name}-kompare-encoding.patch
+Patch3:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -699,6 +724,7 @@ Obs³uga protoko³u SVN.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
 #echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
