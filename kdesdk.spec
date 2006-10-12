@@ -784,6 +784,8 @@ done
 	--with-svn-include=%{_includedir}/subversion \
 	--with-svn-lib=%{_libdir} \
 %endif
+	--with-extra-includes=%{py_incdir} \
+	--with-pythondir=%{py_libdir} \
 	--with-qt-libraries=%{_libdir}
 
 %{__make}
