@@ -1,50 +1,19 @@
-# TODO:
-# - think about stuff in kio-svn, split?
-# - unpackaged files:
-#   /usr/bin/colorsvn
-#   /usr/bin/kdesvn-build
-#   /usr/bin/nonsvnlist
-#   /usr/bin/svn-clean
-#   /usr/bin/svn2dist
-#   /usr/bin/svnaddcurrentdir
-#   /usr/bin/svnbackport
-#   /usr/bin/svnchangesince
-#   /usr/bin/svnforwardport
-#   /usr/bin/svngettags
-#   /usr/bin/svnlastchange
-#   /usr/bin/svnlastlog
-#   /usr/bin/svnrevertlast
-#   /usr/bin/svnversions
-#   /usr/bin/umbodoc
-#   /usr/include/kunittest/runnergui.h
-# - not found files:
-#    File not found: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/lib/kde3/kio_svn.la
-#    File not found: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/lib/kde3/kded_ksvnd.la
-#    File not found: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/lib/kde3/kio_svn.so
-#    File not found: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/lib/kde3/kded_ksvnd.so
-#    File not found by glob: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/share/services/kded/*svn*.desktop
-#    File not found by glob: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/share/services/svn*.protocol
-#    File not found by glob: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/share/apps/konqueror/servicemenus/subversion*
-#    File not found by glob: /home/glen/tmp/kdesdk-3.5.5-root-glen/usr/share/icons/crystalsvg/*/*/*svn*.*
-#
-# Conditional build
-%bcond_without	svn 	# without subversion support
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
 %define		_minbaseevr	9:%{version}
-
+#
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.5.5
-Release:	1
+Release:	2
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	d226bf07bf8106f37b4e9e31a7d451f0
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-am.patch
 Patch2:		%{name}-kompare-encoding.patch
@@ -64,8 +33,7 @@ BuildRequires:	perl-tools-pod
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	sed >= 4.0
-%{?with_svn:BuildRequires:subversion-devel}
-#BuildRequires:	unsermake >= 040511
+BuildRequires:	subversion-devel >= 0.37.0
 Obsoletes:	kdesdk-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -781,7 +749,7 @@ done
 %if %{with svn}
 	--with-apr-config=%{_bindir}/apr-1-config \
 	--with-apu-config=%{_bindir}/apu-1-config \
-	--with-svn-include=%{_includedir}/subversion \
+	--with-svn-include=%{_includedir} \
 	--with-svn-lib=%{_libdir} \
 %endif
 	--with-extra-includes=%{py_incdir} \
@@ -1087,13 +1055,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kuiviewer_part.desktop
 %{_desktopdir}/kde/kuiviewer.desktop
 %{_iconsdir}/[!l]*/*/apps/kuiviewer.png
-#%{_mandir}/man1/kuiviewer.1*
 
 %files kunittest
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kunit*
 %attr(755,root,root) %{_libdir}/libkunit*.so.*.*.*
 %{_libdir}/libkunit*.la
+%{_includedir}/kunittest
 
 %files libcvsservice
 %defattr(644,root,root,755)
@@ -1222,6 +1190,7 @@ rm -rf $RPM_BUILD_ROOT
 %files umbrello -f umbrello.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/umbrello
+%attr(755,root,root) %{_bindir}/umbodoc
 %{_datadir}/apps/umbrello
 %{_datadir}/mimelnk/application/x-umbrello.desktop
 %{_desktopdir}/kde/umbrello.desktop
@@ -1229,13 +1198,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/mimetypes/umbrellofile.png
 %{_iconsdir}/hicolor/scalable/apps/umbrello.svgz
 %{_iconsdir}/crystalsvg/*/*/umbrello*.*
-#%{_mandir}/man1/umbrello.1*
 
 %files xemacs
 %defattr(644,root,root,755)
 %{_xemacspkgdir}/kde
 
-%if %{with svn}
 %files -n kde-kio-svn
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*svn*
@@ -1247,5 +1214,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/svn*.protocol
 %{_datadir}/apps/konqueror/servicemenus/subversion*
 %{_iconsdir}/crystalsvg/*/*/*svn*.*
-#%{_mandir}/man1/*svn*
-%endif
