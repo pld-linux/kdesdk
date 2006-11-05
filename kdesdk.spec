@@ -746,12 +746,10 @@ done
 %configure \
 	--disable-rpath \
 	--disable-final \
-%if %{with svn}
 	--with-apr-config=%{_bindir}/apr-1-config \
 	--with-apu-config=%{_bindir}/apu-1-config \
 	--with-svn-include=%{_includedir} \
 	--with-svn-lib=%{_libdir} \
-%endif
 	--with-extra-includes=%{py_incdir} \
 	--with-pythondir=%{py_libdir} \
 	--with-qt-libraries=%{_libdir}
