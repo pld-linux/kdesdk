@@ -7,7 +7,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.5.5
-Release:	3
+Release:	4
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -23,6 +23,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	db-devel
+BuildRequires:	emacs-common
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gimp-devel
@@ -39,7 +40,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gimpdir	%(gimptool --gimpdatadir 2>/dev/null)
 %define		_appdefsdir	/usr/X11R6/lib/X11/app-defaults
-%define		_emacspkgdir	/usr/share/emacs/21.2
+%define		_emacspkgdir	/usr/share/emacs/%(rpm -q --qf %{version} emacs-common | tr -d '[a-z]')
 %define		_xemacspkgdir	/usr/share/xemacs-packages
 %define		_zshfcdir	/usr/share/zsh/latest/functions
 
@@ -138,7 +139,8 @@ Definicje autouzupe³niania dla zsh.
 Summary:	A set of macros for emacs
 Summary(pl):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
-Requires:	emacs-common
+# due versioned dir
+%requires_eq emacs-common
 
 %description emacs
 A set of macros for emacs helpful for working on KDE programs.
@@ -1047,7 +1049,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libkuiviewerpart.so
 %{_libdir}/kde3/quithumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/quithumbnail.so
+%dir %{_datadir}/apps/kuiviewer
 %{_datadir}/apps/kuiviewer/kuiviewerui.rc
+%dir %{_datadir}/apps/kuiviewerpart
 %{_datadir}/apps/kuiviewerpart/kuiviewer_part.rc
 %{_datadir}/services/designerthumbnail.desktop
 %{_datadir}/services/kuiviewer_part.desktop
