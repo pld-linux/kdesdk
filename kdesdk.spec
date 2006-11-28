@@ -44,6 +44,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_xemacspkgdir	/usr/share/xemacs-packages
 %define		_zshfcdir	/usr/share/zsh/latest/functions
 
+%define         _noautoreq      libtool(.*)
+
 %description
 Software Development Kit for KDE.
 
