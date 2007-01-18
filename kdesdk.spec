@@ -501,7 +501,7 @@ Summary:	Package which adds the KDE Default palette to GIMP
 Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do GIMP-a
 Group:		X11/Applications/Graphics
 Requires:	gimp
-Obsoletes:	kdesdk-palette-gimp
+Obsoletes:	kdesdk-pallette-gimp
 
 %description palette-gimp
 This package adds the KDE Default palette to GIMP.
@@ -515,7 +515,7 @@ Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta
 Group:		X11/Applications/Graphics
 Requires:	xpaint
 Requires:	xorg-lib-libXt >= 1.0
-Obsoletes:	kdesdk-palette-xpaint
+Obsoletes:	kdesdk-pallette-xpaint
 
 %description palette-xpaint
 This package adds the KDE Default palette to XPaint.
