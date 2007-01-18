@@ -513,6 +513,7 @@ Summary:	Package which adds the KDE Default pallette to XPaint
 Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta
 Group:		X11/Applications/Graphics
 Requires:	xpaint
+Requires:	xorg-lib-libXt >= 1.0
 
 %description pallette-xpaint
 This package adds the KDE Default pallette to XPaint.
