@@ -6,14 +6,14 @@
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.5.5
-Release:	4
+Version:	3.5.6
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	d226bf07bf8106f37b4e9e31a7d451f0
-#Patch100:	%{name}-branch.diff
+# Source0-md5:	1462e1a884fdaa070ed493c10a336728
+#Patch100: %{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-am.patch
 Patch2:		%{name}-kompare-encoding.patch
@@ -492,28 +492,30 @@ A cvsservice library - header files.
 %description libcvsservice-devel -l pl
 Biblioteka cvsservice - pliki nag³ówkowe.
 
-%package pallette-gimp
-Summary:	Package which adds the KDE Default pallette to GIMP
+%package palette-gimp
+Summary:	Package which adds the KDE Default palette to GIMP
 Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do GIMP-a
 Group:		X11/Applications/Graphics
 Requires:	gimp
+Obsoletes:	kdesdk-pallette-gimp
 
-%description pallette-gimp
-This package adds the KDE Default pallette to GIMP.
+%description palette-gimp
+This package adds the KDE Default palette to GIMP.
 
-%description pallette-gimp -l pl
+%description palette-gimp -l pl
 Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do GIMP-a.
 
-%package pallette-xpaint
-Summary:	Package which adds the KDE Default pallette to XPaint
+%package palette-xpaint
+Summary:	Package which adds the KDE Default palette to XPaint
 Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta
 Group:		X11/Applications/Graphics
 Requires:	xpaint
+Obsoletes:	kdesdk-pallette-xpaint
 
-%description pallette-xpaint
-This package adds the KDE Default pallette to XPaint.
+%description palette-xpaint
+This package adds the KDE Default palette to XPaint.
 
-%description pallette-xpaint -l pl
+%description palette-xpaint -l pl
 Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta.
 
 %package po2xml
@@ -1083,11 +1085,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkdeinit_cvsservice.la
 %{_libdir}/libkdeinit_cvsaskpass.la
 
-%files pallette-gimp
+%files palette-gimp
 %defattr(644,root,root,755)
 %{_gimpdir}/palettes
 
-%files pallette-xpaint
+%files palette-xpaint
 %defattr(644,root,root,755)
 %{_appdefsdir}/*
 
