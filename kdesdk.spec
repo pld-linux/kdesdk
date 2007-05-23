@@ -6,14 +6,14 @@
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.5.6
-Release:	2
+Version:	3.5.7
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	1462e1a884fdaa070ed493c10a336728
-#Patch100: %{name}-branch.diff
+# Source0-md5:	6a8f7b7fea753e2a4517301dee76d84a
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-am.patch
 Patch2:		%{name}-kompare-encoding.patch
@@ -21,6 +21,10 @@ Patch3:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
+%ifarch %{x8664}
+# for kmtrace
+BuildRequires:	binutils-devel
+%endif
 BuildRequires:	bison
 BuildRequires:	db-devel
 BuildRequires:	emacs-common
