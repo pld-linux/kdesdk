@@ -7,7 +7,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl.UTF-8):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.5.7
-Release:	4.1
+Release:	5
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -44,7 +44,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gimpdir	%(gimptool --gimpdatadir 2>/dev/null)
 %define		_appdefsdir	%{_datadir}/X11/app-defaults
-%define		_emacspkgdir	/usr/share/emacs/%(rpm -q emacs-common | tr -d '[a-z]-')
+%define		_emacspkgdir	/usr/share/emacs/%(rpm -q --qf %{V} emacs-common | tr -d '[a-z]')
 %define		_xemacspkgdir	/usr/share/xemacs-packages
 %define		_zshfcdir	/usr/share/zsh/latest/functions
 
