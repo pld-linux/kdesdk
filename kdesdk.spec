@@ -44,7 +44,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gimpdir	%(gimptool --gimpdatadir 2>/dev/null)
 %define		_appdefsdir	%{_datadir}/X11/app-defaults
-%define		_emacspkgdir	/usr/share/emacs/%(rpm -q --qf %{version} emacs-common | tr -d '[a-z]')
+%define		_emacspkgdir	/usr/share/emacs/%(rpm -q emacs-common | tr -d '[a-z]-')
 %define		_xemacspkgdir	/usr/share/xemacs-packages
 %define		_zshfcdir	/usr/share/zsh/latest/functions
 
