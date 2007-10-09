@@ -6,13 +6,13 @@
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl.UTF-8):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.5.7
-Release:	5
+Version:	3.5.8
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	6a8f7b7fea753e2a4517301dee76d84a
+# Source0-md5:	c809c15eb8c09a7eb2d070395202910b
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-am.patch
