@@ -74,7 +74,7 @@ Summary:	A KDE CVS frontend
 Summary(pl.UTF-8):	Frontend do CVS dla KDE
 Group:		X11/Development/Tools
 Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
-Requires:	cvs >= 1.10
+Requires:	cvs-client >= 1.10
 Requires:	kdebase-core >= %{_minbaseevr}
 Conflicts:	kdesdk-scripts-cvs < 3:3.3.0-1
 
