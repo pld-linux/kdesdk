@@ -21,10 +21,7 @@ Patch3:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-%ifarch %{x8664}
-# for kmtrace
 BuildRequires:	binutils-devel
-%endif
 BuildRequires:	bison
 BuildRequires:	db-devel
 BuildRequires:	emacs-common
