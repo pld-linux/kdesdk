@@ -4,7 +4,7 @@
 %define		_minbaseevr	9:%{version}
 #
 Summary:	KDESDK - Software Development Kit for KDE
-Summary(pl):	KDESDK - Wsparcie programistyczne dla KDE
+Summary(pl.UTF-8):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.5.8
 Release:	2
@@ -48,12 +48,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Software Development Kit for KDE.
 
-%description -l pl
-Pakiet wspomagaj±cy programowanie w ¶rodowisku KDE.
+%description -l pl.UTF-8
+Pakiet wspomagajÄ…cy programowanie w Å›rodowisku KDE.
 
 %package kfile
 Summary:	Developers' file formats enhanced information
-Summary(pl):	Rozszerzone informacje o plikach u¿ywanych przez programistów
+Summary(pl.UTF-8):	Rozszerzone informacje o plikach uÅ¼ywanych przez programistÃ³w
 Group:		X11/Development/Libraries
 Requires:	konqueror >= %{_minbaseevr}
 
@@ -62,13 +62,13 @@ This package adds a tab to konqueror "file properties" dialog window
 with file enhanced informations for C++ source files, diff files,
 gettext and designer translation sourcefiles.
 
-%description kfile -l pl
-Ten pakiet dodaje do okna dialogowego "w³a¶ciwo¶ci pliku" konquerora
-dodatkow± zak³adkê z rozszerzonymi informacjami o pliku.
+%description kfile -l pl.UTF-8
+Ten pakiet dodaje do okna dialogowego "wÅ‚aÅ›ciwoÅ›ci pliku" konquerora
+dodatkowÄ… zakÅ‚adkÄ™ z rozszerzonymi informacjami o pliku.
 
 %package cervisia
 Summary:	A KDE CVS frontend
-Summary(pl):	Frontend do CVS dla KDE
+Summary(pl.UTF-8):	Frontend do CVS dla KDE
 Group:		X11/Development/Tools
 Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
 Requires:	cvs >= 1.10
@@ -93,52 +93,52 @@ A KDE CVS frontend. It features:
 - updating to a tag, branch or date.
 - a Changelog editor coupled with the commit dialog.
 
-%description cervisia -l pl
-Frontend do CVS dla KDE. Ma nastêpuj±ce mo¿liwo¶ci:
+%description cervisia -l pl.UTF-8
+Frontend do CVS dla KDE. Ma nastÄ™pujÄ…ce moÅ¼liwoÅ›ci:
 - uaktualnianie lub odtwarzanie stanu katalogu lub pojedynczych
-  plików; pliki s± wy¶wietlane w ró¿nych kolorach zale¿nie od ich stanu,
-  a pokazywane pliki mog± byæ filtrowane wed³ug ich stanu
+  plikÃ³w; pliki sÄ… wyÅ›wietlane w rÃ³Å¼nych kolorach zaleÅ¼nie od ich stanu,
+  a pokazywane pliki mogÄ… byÄ‡ filtrowane wedÅ‚ug ich stanu
 - podstawowe operacje, takie jak dodawanie, usuwanie i commitowanie
-  plików
-- zaawansowane operacje, takie jak dodawanie i usuwanie ¶ledzenia,
-  w³±czanie i wy³±czanie edycji plików, blokowanie i odblokowywanie
-- pobieranie i importowanie modu³ów
-- graficzne wy¶wietlanie ró¿nic wzglêdem repozytorium i miêdzy ró¿nymi
+  plikÃ³w
+- zaawansowane operacje, takie jak dodawanie i usuwanie Å›ledzenia,
+  wÅ‚Ä…czanie i wyÅ‚Ä…czanie edycji plikÃ³w, blokowanie i odblokowywanie
+- pobieranie i importowanie moduÅ‚Ã³w
+- graficzne wyÅ›wietlanie rÃ³Å¼nic wzglÄ™dem repozytorium i miÄ™dzy rÃ³Å¼nymi
   rewizjami
 - widok pliku opisany winnymi
 - widok loga komentarzy do zmian w postaci drzewa i listy
-- rozwi±zywanie konfliktów w pliku
+- rozwiÄ…zywanie konfliktÃ³w w pliku
 - tagowanie i branchowanie
 - uaktualnianie do taga, brancha lub daty
-- edytor changelogów po³±czony z oknem dialogowym do commitowania.
+- edytor changelogÃ³w poÅ‚Ä…czony z oknem dialogowym do commitowania.
 
 %package completions-bash
 Summary:	Autocomplete definitions for bash
-Summary(pl):	Definicje autouzupe³niania dla basha
+Summary(pl.UTF-8):	Definicje autouzupeÅ‚niania dla basha
 Group:		Applications/Shells
 Requires:	bash-completion
 
 %description completions-bash
 Autocomplete definitions for bash.
 
-%description completions-bash -l pl
-Definicje autouzupe³niania dla basha.
+%description completions-bash -l pl.UTF-8
+Definicje autouzupeÅ‚niania dla basha.
 
 %package completions-zsh
 Summary:	Autocomplete definitions for zsh
-Summary(pl):	Definicje autouzupe³niania dla zsh
+Summary(pl.UTF-8):	Definicje autouzupeÅ‚niania dla zsh
 Group:		Applications/Shells
 Requires:	zsh >= 4.0.6-2
 
 %description completions-zsh
 Autocomplete definitions for zsh.
 
-%description completions-zsh -l pl
-Definicje autouzupe³niania dla zsh.
+%description completions-zsh -l pl.UTF-8
+Definicje autouzupeÅ‚niania dla zsh.
 
 %package emacs
 Summary:	A set of macros for emacs
-Summary(pl):	Zestaw makr do emacsa
+Summary(pl.UTF-8):	Zestaw makr do emacsa
 Group:		X11/Development/Tools
 # due versioned dir
 %requires_eq emacs-common
@@ -146,12 +146,12 @@ Group:		X11/Development/Tools
 %description emacs
 A set of macros for emacs helpful for working on KDE programs.
 
-%description emacs -l pl
+%description emacs -l pl.UTF-8
 Zestaw makr do emacsa pomocnych przy pracy nad programami KDE.
 
 %package kde-resource-kdeaccounts
 Summary:	A kdeaccounts plugin for the KDE PIM framework
-Summary(pl):	Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts
+Summary(pl.UTF-8):	Wtyczka do ksiÄ…Å¼ki adresowej KDE dodajÄ…ca obsÅ‚ugÄ™ kdeaccounts
 Group:		X11/Applications
 Requires:	kdepim-kaddressbook >= 3.0.8
 Obsoletes:	kaddressbook-kdeaccounts
@@ -160,25 +160,25 @@ Obsoletes:	kaddressbook-kdeaccounts
 A kdeaccounts plugin for the KDE adressbook. It allows adding the
 people from KDE's CVS accounts file to the addressbook.
 
-%description kde-resource-kdeaccounts -l pl
-Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê kdeaccounts. Dodaje
-ona osoby posiadaj±ce konta w CVS KDE do ksi±¿ki adresowej.
+%description kde-resource-kdeaccounts -l pl.UTF-8
+Wtyczka do ksiÄ…Å¼ki adresowej KDE dodajÄ…ca obsÅ‚ugÄ™ kdeaccounts. Dodaje
+ona osoby posiadajÄ…ce konta w CVS KDE do ksiÄ…Å¼ki adresowej.
 
 %package kde-resource-bugzilla
 Summary:	A bugzilla plugin for the KDE PIM framework
-Summary(pl):	Wtyczka do ksi±¿ki adresowej KDE dodaj±ca obs³ugê bugzilli
+Summary(pl.UTF-8):	Wtyczka do ksiÄ…Å¼ki adresowej KDE dodajÄ…ca obsÅ‚ugÄ™ bugzilli
 Group:		X11/Applications
 Requires:	kdepim-kaddressbook >= 3.0.8
 
 %description kde-resource-bugzilla
 A KDE PIM plugin that allows creating bugzilla TODO lists.
 
-%description kde-resource-bugzilla -l pl
-Wtyczka KDE PIM umo¿liwiaj±ca tworzenie list TODO w bugzilli.
+%description kde-resource-bugzilla -l pl.UTF-8
+Wtyczka KDE PIM umoÅ¼liwiajÄ…ca tworzenie list TODO w bugzilli.
 
 %package kapptemplate
 Summary:	KDE application framework generator
-Summary(pl):	Generator szkieletu dla aplikacji KDE
+Summary(pl.UTF-8):	Generator szkieletu dla aplikacji KDE
 Group:		X11/Development/Tools
 
 %description kapptemplate
@@ -186,14 +186,14 @@ Modular shell script that will automatically create a framework for
 either a normal KDE 3.x application, a KPart application, a KPart
 plugin, or convert an existing application.
 
-%description kapptemplate -l pl
-Modularny skrypt, który potrafi automatycznie wygenerowaæ szkielet
-katalogów dla zwyk³ej aplikacji pod KDE 3.x, aplikacji KPart, wtyczki
-KPart lub skonwertowaæ istniej±c± aplikacjê.
+%description kapptemplate -l pl.UTF-8
+Modularny skrypt, ktÃ³ry potrafi automatycznie wygenerowaÄ‡ szkielet
+katalogÃ³w dla zwykÅ‚ej aplikacji pod KDE 3.x, aplikacji KPart, wtyczki
+KPart lub skonwertowaÄ‡ istniejÄ…cÄ… aplikacjÄ™.
 
 %package kbabel
 Summary:	An advanced and easy to use PO-file editor
-Summary(pl):	Rozbudowany i ³atwy w obs³udze edytor plików PO
+Summary(pl.UTF-8):	Rozbudowany i Å‚atwy w obsÅ‚udze edytor plikÃ³w PO
 Group:		X11/Development/Tools
 Requires:	gettext-devel
 Obsoletes:	kdesdk-kbabel-catalog
@@ -255,112 +255,112 @@ Also contains KBabel catalog manager. It features:
 - spellchecking of multiple files at once.
 - doing "rough translation" for multiple files at once.
 
-%description kbabel -l pl
-KBabel jest narzêdziem, które pozwala na ³atwe zarz±dzanie, edycjê i
-utrzymanie plików gettexta .po. Jego mo¿liwo¶ci to:
-- obs³uga plików PO GNU gettexta (w³±cznie z formami mnogimi) oraz
-  katalogów Qt Linguista
-- mo¿liwo¶æ otwierania wielu plików (lub wielu widoków tego samego
+%description kbabel -l pl.UTF-8
+KBabel jest narzÄ™dziem, ktÃ³re pozwala na Å‚atwe zarzÄ…dzanie, edycjÄ™ i
+utrzymanie plikÃ³w gettexta .po. Jego moÅ¼liwoÅ›ci to:
+- obsÅ‚uga plikÃ³w PO GNU gettexta (wÅ‚Ä…cznie z formami mnogimi) oraz
+  katalogÃ³w Qt Linguista
+- moÅ¼liwoÅ›Ä‡ otwierania wielu plikÃ³w (lub wielu widokÃ³w tego samego
   pliku)
-- pe³na funkcjonalno¶æ edycyjna, dostêpna poprzez graficzny interfejs
-  u¿ytkownika, a tak¿e poprzez definiowalne skróty klawiszowe
-- potê¿na funkcjonalno¶æ kontroli pisowni
-- pe³ne mo¿liwo¶ci nawigacji (takiej jak przechodzenie do nastêpnego
-  niepewnego lub nieprzet³umaczonego napisu)
-- mo¿liwo¶æ zapisu i odczytu plików kodowanych w unikodzie (utf-8)
-- nieograniczona mo¿liwo¶æ cofania zmian
-- pod¶wietlanie sk³adni, automatyczne uaktualnianie nag³ówków plików,
-  automatyczna zmiana stanu "fuzzy" po przet³umaczeniu komunikatu
-- obs³uga ³atwego wstawiania znaczników i URL-i
-- sprawdzanie poprawno¶ci i pod¶wietlanie znaczników i elementów XML
-- szkielet wtyczek dla s³owników, takich jak pliki kompendiów po, do
-  sprawdzania spójno¶ci lub podpowiadania t³umaczeñ
-- funkcja "zgrubnego t³umaczenia" do inicjowania nieprzet³umaczonych
-  komunikatów podpowiedziami ze s³ownika
-- automatyczna kontrola sk³adni przy u¿yciu msgfmt przy zapisie, ³atwe
-  przechodzenie do odpowiednich wpisów, je¶li wyst±pi³ b³±d
-- ró¿ne metody pokazywania odstêpów na koñcach linii i sprawdzania
-  spójno¶ci przet³umaczonych komunikatów, takiej jak porównywanie printf
+- peÅ‚na funkcjonalnoÅ›Ä‡ edycyjna, dostÄ™pna poprzez graficzny interfejs
+  uÅ¼ytkownika, a takÅ¼e poprzez definiowalne skrÃ³ty klawiszowe
+- potÄ™Å¼na funkcjonalnoÅ›Ä‡ kontroli pisowni
+- peÅ‚ne moÅ¼liwoÅ›ci nawigacji (takiej jak przechodzenie do nastÄ™pnego
+  niepewnego lub nieprzetÅ‚umaczonego napisu)
+- moÅ¼liwoÅ›Ä‡ zapisu i odczytu plikÃ³w kodowanych w unikodzie (utf-8)
+- nieograniczona moÅ¼liwoÅ›Ä‡ cofania zmian
+- podÅ›wietlanie skÅ‚adni, automatyczne uaktualnianie nagÅ‚Ã³wkÃ³w plikÃ³w,
+  automatyczna zmiana stanu "fuzzy" po przetÅ‚umaczeniu komunikatu
+- obsÅ‚uga Å‚atwego wstawiania znacznikÃ³w i URL-i
+- sprawdzanie poprawnoÅ›ci i podÅ›wietlanie znacznikÃ³w i elementÃ³w XML
+- szkielet wtyczek dla sÅ‚ownikÃ³w, takich jak pliki kompendiÃ³w po, do
+  sprawdzania spÃ³jnoÅ›ci lub podpowiadania tÅ‚umaczeÅ„
+- funkcja "zgrubnego tÅ‚umaczenia" do inicjowania nieprzetÅ‚umaczonych
+  komunikatÃ³w podpowiedziami ze sÅ‚ownika
+- automatyczna kontrola skÅ‚adni przy uÅ¼yciu msgfmt przy zapisie, Å‚atwe
+  przechodzenie do odpowiednich wpisÃ³w, jeÅ›li wystÄ…piÅ‚ bÅ‚Ä…d
+- rÃ³Å¼ne metody pokazywania odstÄ™pÃ³w na koÅ„cach linii i sprawdzania
+  spÃ³jnoÅ›ci przetÅ‚umaczonych komunikatÃ³w, takiej jak porÃ³wnywanie printf
   i Qt
-- obs³uga parametrów w msgid i msgstr
-- szybki podgl±d kontekstu w pliku po
-- pokazywanie kodu ¼ród³owego po odno¶nikach w komentarzach do
-  komunikatów.
+- obsÅ‚uga parametrÃ³w w msgid i msgstr
+- szybki podglÄ…d kontekstu w pliku po
+- pokazywanie kodu ÅºrÃ³dÅ‚owego po odnoÅ›nikach w komentarzach do
+  komunikatÃ³w.
 
-Zawiera te¿ zarz±dcê katalogów zintegrowany z KBabel. Jego mo¿liwo¶ci
+Zawiera teÅ¼ zarzÄ…dcÄ™ katalogÃ³w zintegrowany z KBabel. Jego moÅ¼liwoÅ›ci
 to:
-- widok zarz±dcy plików dla katalogów kde-i18n (lub podobnie
-  skonstruowanych), pokazuj±cy aktualny stan ka¿dego pliku PO: czy
-  wymagaj± przegl±du, jak du¿o niepewnych i nieprzet³umaczonych napisów
-  zawieraj± itp.; widok ten jest automatycznie uaktualniany i
-  odzwierciedla wszystkie zmiany dokonane w plikach, w³±cznie ze
-  zmianami w programach innych ni¿ KBabel
-- zintegrowana obs³uga CVS
-- ró¿ne mechanizmy otwierania plików do edycji w KBabel: "przeci±gnij
-  i upu¶æ", podwójne klikniêcie, menu kontekstowe
-- funkcja zaznaczania plików (np. do identyfikowania plików PO, za
-  które odpowiadaj± inni t³umacze)
-- nawigacja z u¿yciem statystyk plików PO
-- automatyczne porównywanie i statystyki plików POT i PO dla szybkiego
-  przegl±du, które i jak du¿o plików zosta³o przet³umaczonych, a które
-  mog± byæ przestarza³e
-- kontrola sk³adni (msgfmt --statistics) dla istniej±cych plików w
-  celu sprawdzenia, czy przet³umaczone pliki siê skompiluj± i bêd±
-  dzia³aæ po rozpowszechnieniu
-- konfigurowalne polecenia, które mo¿na wykonywaæ z menu kontekstowego
-  zarz±dcy katalogów
-- funkcje szukaj/zast±p w wielu plikach naraz
+- widok zarzÄ…dcy plikÃ³w dla katalogÃ³w kde-i18n (lub podobnie
+  skonstruowanych), pokazujÄ…cy aktualny stan kaÅ¼dego pliku PO: czy
+  wymagajÄ… przeglÄ…du, jak duÅ¼o niepewnych i nieprzetÅ‚umaczonych napisÃ³w
+  zawierajÄ… itp.; widok ten jest automatycznie uaktualniany i
+  odzwierciedla wszystkie zmiany dokonane w plikach, wÅ‚Ä…cznie ze
+  zmianami w programach innych niÅ¼ KBabel
+- zintegrowana obsÅ‚uga CVS
+- rÃ³Å¼ne mechanizmy otwierania plikÃ³w do edycji w KBabel: "przeciÄ…gnij
+  i upuÅ›Ä‡", podwÃ³jne klikniÄ™cie, menu kontekstowe
+- funkcja zaznaczania plikÃ³w (np. do identyfikowania plikÃ³w PO, za
+  ktÃ³re odpowiadajÄ… inni tÅ‚umacze)
+- nawigacja z uÅ¼yciem statystyk plikÃ³w PO
+- automatyczne porÃ³wnywanie i statystyki plikÃ³w POT i PO dla szybkiego
+  przeglÄ…du, ktÃ³re i jak duÅ¼o plikÃ³w zostaÅ‚o przetÅ‚umaczonych, a ktÃ³re
+  mogÄ… byÄ‡ przestarzaÅ‚e
+- kontrola skÅ‚adni (msgfmt --statistics) dla istniejÄ…cych plikÃ³w w
+  celu sprawdzenia, czy przetÅ‚umaczone pliki siÄ™ skompilujÄ… i bÄ™dÄ…
+  dziaÅ‚aÄ‡ po rozpowszechnieniu
+- konfigurowalne polecenia, ktÃ³re moÅ¼na wykonywaÄ‡ z menu kontekstowego
+  zarzÄ…dcy katalogÃ³w
+- funkcje szukaj/zastÄ…p w wielu plikach naraz
 - kontrola pisowni w wielu plikach naraz
-- wykonywanie "zgrubnego t³umaczenia" wielu plików naraz.
+- wykonywanie "zgrubnego tÅ‚umaczenia" wielu plikÃ³w naraz.
 
 %package kbabel-devel
 Summary:	KBabel header files
-Summary(pl):	Pliki nag³ówkowe KBabel
+Summary(pl.UTF-8):	Pliki nagÅ‚Ã³wkowe KBabel
 Group:		X11/Development/Libraries
 Requires:	%{name}-kbabel = %{epoch}:%{version}-%{release}
 
 %description kbabel-devel
 KBabel header files.
 
-%description kbabel-devel -l pl
-Pliki nag³ówkowe KBabel.
+%description kbabel-devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe KBabel.
 
 %package kbugbuster
 Summary:	A tools that allows cooperation with bugs.kde.org
-Summary(pl):	Narzêdzie wspó³pracuj±ce z bugs.kde.org
+Summary(pl.UTF-8):	NarzÄ™dzie wspÃ³Å‚pracujÄ…ce z bugs.kde.org
 Group:		X11/Development/Tools
 
 %description kbugbuster
 KBugBuster allows for easy bug management on bugs.kde.org.
 
-%description kbugbuster -l pl
-KBugBuster u³atwia wyszukiwanie i zarz±dzanie b³êdami na bugs.kde.org.
+%description kbugbuster -l pl.UTF-8
+KBugBuster uÅ‚atwia wyszukiwanie i zarzÄ…dzanie bÅ‚Ä™dami na bugs.kde.org.
 
 %package kcachegrind
 Summary:	KCachegrind - visualization of traces generated by profiling
-Summary(pl):	KCachegrind - wizualizacja ¶cie¿ek tworzonych przez profilowanie
+Summary(pl.UTF-8):	KCachegrind - wizualizacja Å›cieÅ¼ek tworzonych przez profilowanie
 Group:		X11/Development/Tools
 
 %description kcachegrind
 KCachegrind visualizes traces generated by profiling.
 
-%description kcachegrind -l pl
-KCachegrind wizualizuje ¶cie¿ki tworzone przez profilowanie.
+%description kcachegrind -l pl.UTF-8
+KCachegrind wizualizuje Å›cieÅ¼ki tworzone przez profilowanie.
 
 %package kmtrace
 Summary:	A mtrace to full backtrace conversion tool
-Summary(pl):	Narzêdzie do konwersji z mtrace do pe³nego backtrace'a
+Summary(pl.UTF-8):	NarzÄ™dzie do konwersji z mtrace do peÅ‚nego backtrace'a
 Group:		X11/Development/Tools
 
 %description kmtrace
 kmtrace converts glibc's mtrace log into a full backtrace.
 
-%description kmtrace -l pl
-kmtrace konwertuje mtrace glibca do pe³nego backtrace'a.
+%description kmtrace -l pl.UTF-8
+kmtrace konwertuje mtrace glibca do peÅ‚nego backtrace'a.
 
 %package kompare
 Summary:	Kompare - a program to view the differences between files
-Summary(pl):	Kompare - program s³u¿±cy do porównywania zmian miêdzy plikami
+Summary(pl.UTF-8):	Kompare - program sÅ‚uÅ¼Ä…cy do porÃ³wnywania zmian miÄ™dzy plikami
 Group:		X11/Development/Tools
 Conflicts:	kdesdk-kbugbuster < 3:3.2.90.040517-3
 
@@ -381,36 +381,36 @@ include:
   - switch source and destination with one command
   - diff statistics
 
-%description kompare -l pl
-Kompare to program s³u¿±cy do porównywania zmian miêdzy plikami.
-Aktualnie dostêpne funkcje:
-  - porównanie plików lub katalogów poprzez graficzny interfejs
-  - przedstawienie ¼ród³a i celu za pomoc± krzywej Beziera
-  - graficzne przegl±danie ³at w formatach diff, unidiff, context i
-    zwyk³ym
+%description kompare -l pl.UTF-8
+Kompare to program sÅ‚uÅ¼Ä…cy do porÃ³wnywania zmian miÄ™dzy plikami.
+Aktualnie dostÄ™pne funkcje:
+  - porÃ³wnanie plikÃ³w lub katalogÃ³w poprzez graficzny interfejs
+  - przedstawienie ÅºrÃ³dÅ‚a i celu za pomocÄ… krzywej Beziera
+  - graficzne przeglÄ…danie Å‚at w formatach diff, unidiff, context i
+    zwykÅ‚ym
   - interaktywne wprowadzanie zmian
-  - przezroczysto¶æ sieciowa
-  - mo¿liwo¶æ ogl±dania wyj¶cia diff w wewnêtrznej przegl±darce
-  - ³atwa nawigacja miêdzy wieloplikowymi diffami wraz z dokowalnym
+  - przezroczystoÅ›Ä‡ sieciowa
+  - moÅ¼liwoÅ›Ä‡ oglÄ…dania wyjÅ›cia diff w wewnÄ™trznej przeglÄ…darce
+  - Å‚atwa nawigacja miÄ™dzy wieloplikowymi diffami wraz z dokowalnym
     drzewem
-  - zamiana ¼ród³a i celu za pomoc± pojedynczej komendy
-  - statystyki diffów
+  - zamiana ÅºrÃ³dÅ‚a i celu za pomocÄ… pojedynczej komendy
+  - statystyki diffÃ³w
 
 %package kprofilemethod
 Summary:	Kprofilemethod - a set of macros which help profiling using QTime
-Summary(pl):	Kprofilemethod - zestaw makr u³atwiaj±cych profilowanie z wykorzystaniem QTime
+Summary(pl.UTF-8):	Kprofilemethod - zestaw makr uÅ‚atwiajÄ…cych profilowanie z wykorzystaniem QTime
 Group:		X11/Development/Tools
 
 %description kprofilemethod
 Kprofilemethod is a set of macros which help profiling using QTime.
 
-%description kprofilemethod -l pl
-Kprofilemethod to zestaw makr u³atwiaj±cych profilowanie z
+%description kprofilemethod -l pl.UTF-8
+Kprofilemethod to zestaw makr uÅ‚atwiajÄ…cych profilowanie z
 wykorzystaniem QTime.
 
 %package kspy
 Summary:	A utility for egzamining the internal state of a Qt/KDE application
-Summary(pl):	Narzêdzie do badania stanu aplikacji Qt/KDE
+Summary(pl.UTF-8):	NarzÄ™dzie do badania stanu aplikacji Qt/KDE
 Group:		X11/Development/Tools
 Obsoletes:	kdiff
 Obsoletes:	kdiff2
@@ -424,51 +424,51 @@ to look inside your app. The KSpy function is inline and the main part
 of KSpy is dynamically loaded, so you may even want to leave this in
 the release build of an application.
 
-%description kspy -l pl
-KSpy to narzêdzie maj±ce u³atwiæ programistom badanie wewnêtrznego
+%description kspy -l pl.UTF-8
+KSpy to narzÄ™dzie majÄ…ce uÅ‚atwiÄ‡ programistom badanie wewnÄ™trznego
 stanu aplikacji Qt/KDE. KSpy ilustruje graficznie wszystkie QObjects
-jakie s± w u¿yciu i pozwala na ³atwe przegl±danie ich w³a¶ciwo¶ci.
-Korzystanie z KSpy jest bardzo proste (wystarczy do³±czyæ plik kspy.h
-i wywo³aæ KSpy::invoke() w miejscu, które chcemy obejrzeæ w naszej
-aplikacji. Funkcja KSpy jest inline, wiêc mo¿na zostawiæ j± nawet w
+jakie sÄ… w uÅ¼yciu i pozwala na Å‚atwe przeglÄ…danie ich wÅ‚aÅ›ciwoÅ›ci.
+Korzystanie z KSpy jest bardzo proste (wystarczy doÅ‚Ä…czyÄ‡ plik kspy.h
+i wywoÅ‚aÄ‡ KSpy::invoke() w miejscu, ktÃ³re chcemy obejrzeÄ‡ w naszej
+aplikacji. Funkcja KSpy jest inline, wiÄ™c moÅ¼na zostawiÄ‡ jÄ… nawet w
 wydaniu stabilnym.
 
 %package kstartperf
 Summary:	A tool to measure startup time for KDE applications
-Summary(pl):	Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE
+Summary(pl.UTF-8):	NarzÄ™dzie sÅ‚uÅ¼Ä…ce do pomiaru czasu Å‚adowania aplikacji KDE
 Group:		X11/Development/Tools
 
 %description kstartperf
 kstartperf measures startup time for KDE applications.
 
-%description kstartperf -l pl
-Narzêdzie s³u¿±ce do pomiaru czasu ³adowania aplikacji KDE.
+%description kstartperf -l pl.UTF-8
+NarzÄ™dzie sÅ‚uÅ¼Ä…ce do pomiaru czasu Å‚adowania aplikacji KDE.
 
 %package kuiviewer
 Summary:	Qt Designer UI file Viewer
-Summary(pl):	Przegl±darka plików UI generowanych przez Qt designera
+Summary(pl.UTF-8):	PrzeglÄ…darka plikÃ³w UI generowanych przez Qt designera
 Group:		X11/Development/Tools
 
 %description kuiviewer
 Qt Designer UI file Viewer.
 
-%description kuiviewer -l pl
-Przegl±darka plików UI generowanych przez Qt designera.
+%description kuiviewer -l pl.UTF-8
+PrzeglÄ…darka plikÃ³w UI generowanych przez Qt designera.
 
 %package kunittest
 Summary:	KUnit Test
-Summary(pl):	Narzêdzie testuj±ce KUnit
+Summary(pl.UTF-8):	NarzÄ™dzie testujÄ…ce KUnit
 Group:		X11/Development/Tools
 
 %description kunittest
 KUnit Test.
 
-%description kunittest -l pl
-Narzêdzie testuj±ce KUnit.
+%description kunittest -l pl.UTF-8
+NarzÄ™dzie testujÄ…ce KUnit.
 
 %package libcvsservice
 Summary:	A cvs access library
-Summary(pl):	Biblioteka dostêpu do cvs
+Summary(pl.UTF-8):	Biblioteka dostÄ™pu do cvs
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Conflicts:	kdesdk-cervisia < 3:3.2.90.040516-2
@@ -476,13 +476,13 @@ Conflicts:	kdesdk-cervisia < 3:3.2.90.040516-2
 %description libcvsservice
 A library for access to CVS repositories for KDE apps.
 
-%description libcvsservice -l pl
-Biblioteka s³u¿±ca do kontroli repozytoriów CVS z poziomu aplikacji
+%description libcvsservice -l pl.UTF-8
+Biblioteka sÅ‚uÅ¼Ä…ca do kontroli repozytoriÃ³w CVS z poziomu aplikacji
 KDE.
 
 %package libcvsservice-devel
 Summary:	A cvsservice library - header files
-Summary(pl):	Biblioteka cvsservice - pliki nag³ówkowe
+Summary(pl.UTF-8):	Biblioteka cvsservice - pliki nagÅ‚Ã³wkowe
 Group:		X11/Development/Libraries
 Requires:	%{name}-libcvsservice = %{epoch}:%{version}-%{release}
 Obsoletes:	kdesdk-cervisia-devel
@@ -490,12 +490,12 @@ Obsoletes:	kdesdk-cervisia-devel
 %description libcvsservice-devel
 A cvsservice library - header files.
 
-%description libcvsservice-devel -l pl
-Biblioteka cvsservice - pliki nag³ówkowe.
+%description libcvsservice-devel -l pl.UTF-8
+Biblioteka cvsservice - pliki nagÅ‚Ã³wkowe.
 
 %package palette-gimp
 Summary:	Package which adds the KDE Default palette to GIMP
-Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do GIMP-a
+Summary(pl.UTF-8):	Pakiet dodajÄ…cy domyÅ›lnÄ… paletÄ™ kolorÃ³w KDE do GIMP-a
 Group:		X11/Applications/Graphics
 Requires:	gimp
 Obsoletes:	kdesdk-pallette-gimp
@@ -503,12 +503,12 @@ Obsoletes:	kdesdk-pallette-gimp
 %description palette-gimp
 This package adds the KDE Default palette to GIMP.
 
-%description palette-gimp -l pl
-Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do GIMP-a.
+%description palette-gimp -l pl.UTF-8
+Pakiet dodajÄ…cy domyÅ›lnÄ… paletÄ™ kolorÃ³w KDE do GIMP-a.
 
 %package palette-xpaint
 Summary:	Package which adds the KDE Default palette to XPaint
-Summary(pl):	Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta
+Summary(pl.UTF-8):	Pakiet dodajÄ…cy domyÅ›lnÄ… paletÄ™ kolorÃ³w KDE do XPainta
 Group:		X11/Applications/Graphics
 Requires:	xpaint
 Obsoletes:	kdesdk-pallette-xpaint
@@ -516,24 +516,24 @@ Obsoletes:	kdesdk-pallette-xpaint
 %description palette-xpaint
 This package adds the KDE Default palette to XPaint.
 
-%description palette-xpaint -l pl
-Pakiet dodaj±cy domy¶ln± paletê kolorów KDE do XPainta.
+%description palette-xpaint -l pl.UTF-8
+Pakiet dodajÄ…cy domyÅ›lnÄ… paletÄ™ kolorÃ³w KDE do XPainta.
 
 %package po2xml
 Summary:	An xml2po and vice versa converters
-Summary(pl):	Konwertery po2xml i vice versa
+Summary(pl.UTF-8):	Konwertery po2xml i vice versa
 Group:		X11/Development/Tools
 Requires:	/usr/bin/python
 
 %description po2xml
 An xml2po and vice versa converters.
 
-%description po2xml -l pl
+%description po2xml -l pl.UTF-8
 Konwertery po2xml i vice versa.
 
 %package scripts-developer
 Summary:	An set of scripts useful for building and maintaining KDE
-Summary(pl):	Zestaw skryptów do kompilowania i utrzymywania KDE
+Summary(pl.UTF-8):	Zestaw skryptÃ³w do kompilowania i utrzymywania KDE
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
 Obsoletes:	kdesdk-extractrc
@@ -560,74 +560,74 @@ This package contains:
 - KDE man pages generator
 - multi-frame PNG to MNG converter
 
-%description scripts-developer -l pl
+%description scripts-developer -l pl.UTF-8
 Ten pakiet zawiera:
-- skrypt, który wyci±ga ³añcuchy z plików .rc aplikacji, np.
-  testappgui.rc i zapisuje je do plików pot, z których tworzy siê
-  t³umaczenia (pliki po)
-- skrypt zliczaj±cy linijki kodu, komentarzy i znaków bia³ych w
-  plikach ¼ród³owych C i C++
-- skrypt do wyszukiwania brakuj±cych i pakietowania ikon z motywu
+- skrypt, ktÃ³ry wyciÄ…ga Å‚aÅ„cuchy z plikÃ³w .rc aplikacji, np.
+  testappgui.rc i zapisuje je do plikÃ³w pot, z ktÃ³rych tworzy siÄ™
+  tÅ‚umaczenia (pliki po)
+- skrypt zliczajÄ…cy linijki kodu, komentarzy i znakÃ³w biaÅ‚ych w
+  plikach ÅºrÃ³dÅ‚owych C i C++
+- skrypt do wyszukiwania brakujÄ…cych i pakietowania ikon z motywu
   crystal.
-- konwerter plików kdelnk na desktop i zonetab na pot
-- zestaw skryptów kde-build
-- zestaw skryptów umo¿liwiaj±cych wygodne profilowanie aplikacji KDE
-- zestaw skryptów do poprawiania nag³ówków informuj±cych o licencji i
-  dyrektyw w plikach nag³ówkowych KDE oraz usuwania nieistotnych
-  znaczników z plików .ui
+- konwerter plikÃ³w kdelnk na desktop i zonetab na pot
+- zestaw skryptÃ³w kde-build
+- zestaw skryptÃ³w umoÅ¼liwiajÄ…cych wygodne profilowanie aplikacji KDE
+- zestaw skryptÃ³w do poprawiania nagÅ‚Ã³wkÃ³w informujÄ…cych o licencji i
+  dyrektyw w plikach nagÅ‚Ã³wkowych KDE oraz usuwania nieistotnych
+  znacznikÃ³w z plikÃ³w .ui
 - generator stron man dla KDE
 - konwerter wieloramkowych PNG na MNG
 
 %package scripts-cvs
 Summary:	A set of scripts for maintaining KDE from CVS
-Summary(pl):	Zestaw skryptów do zarz±dzania KDE z CVS
+Summary(pl.UTF-8):	Zestaw skryptÃ³w do zarzÄ…dzania KDE z CVS
 Group:		X11/Development/Tools
 Requires:	/usr/bin/perl
 
 %description scripts-cvs
 A set of scripts for maintaining KDE from CVS.
 
-%description scripts-cvs -l pl
-Zestaw skryptów do zarz±dzania KDE z CVS.
+%description scripts-cvs -l pl.UTF-8
+Zestaw skryptÃ³w do zarzÄ…dzania KDE z CVS.
 
 %package scripts-doc
 Summary:	A set of scripts for quick access to Qt/KDE documentation
-Summary(pl):	Zestaw skryptów szybkiego dostêpu do dokumentacji Qt/KDE
+Summary(pl.UTF-8):	Zestaw skryptÃ³w szybkiego dostÄ™pu do dokumentacji Qt/KDE
 Group:		X11/Development/Tools
 
 %description scripts-doc
 A set of scripts for quick access to Qt/KDE documentation.
 
-%description scripts-doc -l pl
-Zestaw skryptów szybkiego dostêpu do dokumentacji Qt/KDE.
+%description scripts-doc -l pl.UTF-8
+Zestaw skryptÃ³w szybkiego dostÄ™pu do dokumentacji Qt/KDE.
 
 %package scripts-kdekillall
 Summary:	A script for killing KDE apps started with kdeinit
-Summary(pl):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
+Summary(pl.UTF-8):	Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit
 Group:		X11/Development/Tools
 
 %description scripts-kdekillall
 A script for killing KDE apps started with kdeinit.
 
-%description scripts-kdekillall -l pl
+%description scripts-kdekillall -l pl.UTF-8
 Skrypt do unicestwiania aplikacji KDE uruchomionych przez kdeinit.
 
 %package scheck
 Summary:	KDE Style - Scheck
-Summary(pl):	Motyw KDE - Scheck
+Summary(pl.UTF-8):	Motyw KDE - Scheck
 Group:		X11/Development/Tools
 
 %description scheck
 Development style for searching accelerator and style guide conflicts.
 
-%description scheck -l pl
-Motyw KDE przeznaczony do szukania konfliktów w akceleratorach oraz
-sprawdzania zgodno¶ci z wytycznymi dot. wygl±du graficznego aplikacji
+%description scheck -l pl.UTF-8
+Motyw KDE przeznaczony do szukania konfliktÃ³w w akceleratorach oraz
+sprawdzania zgodnoÅ›ci z wytycznymi dot. wyglÄ…du graficznego aplikacji
 KDE.
 
 %package umbrello
 Summary:	UML Modeler
-Summary(pl):	Modeler UML
+Summary(pl.UTF-8):	Modeler UML
 Group:		X11/Development/Tools
 Obsoletes:	umbrello
 
@@ -649,47 +649,47 @@ Umbrello UML Modeller 1.2 supports the following types:
 - activity Diagram
 - component Diagram
 
-%description umbrello -l pl
-Modeler UML Umbrello to narzêdzie do diagramów UML pomagaj±ce w
-procesie tworzenia oprogramowania. Szczególnie podczas etapów analizy
-i projektowania, modeler UML Umbrello mo¿e pomóc w uzyskaniu wysokiej
-jako¶ci produktu. UML mo¿e byæ u¿ywany do dokumentowania projektu
-programu, aby pomóc programi¶cie i jego wspó³pracownikom.
+%description umbrello -l pl.UTF-8
+Modeler UML Umbrello to narzÄ™dzie do diagramÃ³w UML pomagajÄ…ce w
+procesie tworzenia oprogramowania. SzczegÃ³lnie podczas etapÃ³w analizy
+i projektowania, modeler UML Umbrello moÅ¼e pomÃ³c w uzyskaniu wysokiej
+jakoÅ›ci produktu. UML moÅ¼e byÄ‡ uÅ¼ywany do dokumentowania projektu
+programu, aby pomÃ³c programiÅ›cie i jego wspÃ³Å‚pracownikom.
 
-UML to jêzyk diagramów u¿ywany do opisu takich modeli. Mo¿na
-przedstawiaæ idee w UML-u przy u¿yciu ró¿nych rodzajów diagramów.
-Modeler UML Umbrello 1.2 obs³uguje nastêpuj±ce rodzaje:
+UML to jÄ™zyk diagramÃ³w uÅ¼ywany do opisu takich modeli. MoÅ¼na
+przedstawiaÄ‡ idee w UML-u przy uÅ¼yciu rÃ³Å¼nych rodzajÃ³w diagramÃ³w.
+Modeler UML Umbrello 1.2 obsÅ‚uguje nastÄ™pujÄ…ce rodzaje:
  - diagram klas
  - diagram sekwencji
- - diagram wspó³pracy
- - diagram przypadków u¿ycia
- - diagram stanów
- - diagram aktywno¶ci
- - diagram sk³adników.
+ - diagram wspÃ³Å‚pracy
+ - diagram przypadkÃ³w uÅ¼ycia
+ - diagram stanÃ³w
+ - diagram aktywnoÅ›ci
+ - diagram skÅ‚adnikÃ³w.
 
 %package xemacs
 Summary:	A set of macros for xemacs
-Summary(pl):	Zestaw makr do xemacsa
+Summary(pl.UTF-8):	Zestaw makr do xemacsa
 Group:		X11/Development/Tools
 Requires:	xemacs-common
 
 %description xemacs
 A set of macros for xemacs useful for developing KDE applications.
 
-%description xemacs -l pl
+%description xemacs -l pl.UTF-8
 Zestaw makr do xemacsa przydatnych przy tworzeniu aplikacji KDE.
 
 %package -n kde-kio-svn
 Summary:	SVN protocol service
-Summary(pl):	Obs³uga protoko³u SVN
+Summary(pl.UTF-8):	ObsÅ‚uga protokoÅ‚u SVN
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 
 %description -n kde-kio-svn
 SVN protocol service.
 
-%description -n kde-kio-svn -l pl
-Obs³uga protoko³u SVN.
+%description -n kde-kio-svn -l pl.UTF-8
+ObsÅ‚uga protokoÅ‚u SVN.
 
 %prep
 %setup -q
