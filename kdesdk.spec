@@ -21,7 +21,10 @@ Patch3:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
+%ifarch %{x8664}
+# for kmtrace
 BuildRequires:	binutils-devel
+%endif
 BuildRequires:	bison
 BuildRequires:	db-devel
 BuildRequires:	emacs-common
@@ -813,6 +816,9 @@ rm -rf `find $RPM_BUILD_ROOT -name CVS`
 # unsupported
 rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*/*/*.la
+
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
 %find_lang	kcachegrind	--with-kde
@@ -842,7 +848,6 @@ rm -rf $RPM_BUILD_ROOT
 %files kfile
 %defattr(644,root,root,755)
 %doc README
-%{_libdir}/kde3/kfile_[!dp]*.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_[!dp]*.so
 %{_datadir}/services/kfile_cpp.desktop
 %{_datadir}/services/kfile_h.desktop
@@ -853,7 +858,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/cervisia
 %attr(755,root,root) %{_bindir}/cvsaskpass
 %attr(755,root,root) %{_bindir}/cvsservice
-%{_libdir}/kde3/*cervisia*.la
 %attr(755,root,root) %{_libdir}/kde3/*cervisia*.so
 %attr(755,root,root) %{_libdir}/libkdeinit_cervisia.so
 %{_libdir}/libkdeinit_cervisia.la
@@ -895,13 +899,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kde-resource-kdeaccounts
 %defattr(644,root,root,755)
-%{_libdir}/kde3/kabcformat_kdeaccounts.la
 %attr(755,root,root) %{_libdir}/kde3/kabcformat_kdeaccounts.so
 %{_datadir}/apps/kabc/formats/*
 
 %files kde-resource-bugzilla
 %defattr(644,root,root,755)
-%{_libdir}/kde3/kcal_bugzilla.la
 %attr(755,root,root) %{_libdir}/kde3/kcal_bugzilla.so
 %{_datadir}/services/kresources/kcal/bugzilla.desktop
 
@@ -914,13 +916,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkbabelcommon.so.*.*.*
 %{_libdir}/libkbabeldictplugin.la
 %attr(755,root,root) %{_libdir}/libkbabeldictplugin.so.*.*.*
-%{_libdir}/kde3/kbabel_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabel_*.so
-%{_libdir}/kde3/kbabeldict_*.la
 %attr(755,root,root) %{_libdir}/kde3/kbabeldict_*.so
-%{_libdir}/kde3/kfile_po.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_po.so
-%{_libdir}/kde3/pothumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/pothumbnail.so
 %{_datadir}/apps/catalogmanager
 %{_datadir}/apps/kbabel
@@ -1012,11 +1010,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkompareinterface.la
 %attr(755,root,root) %{_libdir}/libkompareinterface.so
 %attr(755,root,root) %{_libdir}/libkompareinterface.so.*.*.*
-%{_libdir}/kde3/kfile_diff.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_diff.so
-%{_libdir}/kde3/libkomparenavtreepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkomparenavtreepart.so
-%{_libdir}/kde3/libkomparepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkomparepart.so
 %{_datadir}/apps/kompare*
 %{_datadir}/services/kfile_diff.desktop
@@ -1048,9 +1043,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kuiviewer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kuiviewer
-%{_libdir}/kde3/libkuiviewerpart.la
 %attr(755,root,root) %{_libdir}/kde3/libkuiviewerpart.so
-%{_libdir}/kde3/quithumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/quithumbnail.so
 %dir %{_datadir}/apps/kuiviewer
 %{_datadir}/apps/kuiviewer/kuiviewerui.rc
@@ -1064,8 +1057,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kunittest
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kunit*
-%attr(755,root,root) %{_libdir}/libkunit*.so.*.*.*
 %{_libdir}/libkunit*.la
+%attr(755,root,root) %{_libdir}/libkunit*.so.*.*.*
 %{_includedir}/kunittest
 
 %files libcvsservice
@@ -1075,7 +1068,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkdeinit_cvsservice.so
 %attr(755,root,root) %{_libdir}/libkdeinit_cvsaskpass.so
 %attr(755,root,root) %{_libdir}/kde3/cvs*.so
-%{_libdir}/kde3/cvs*.la
 
 %files libcvsservice-devel
 %defattr(644,root,root,755)
@@ -1109,7 +1101,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files scheck
 %defattr(644,root,root,755)
-%{_libdir}/kde3/plugins/styles/scheck.la
 %attr(755,root,root) %{_libdir}/kde3/plugins/styles/scheck.so
 %{_datadir}/apps/kstyle/themes/scheck.themerc
 
@@ -1211,8 +1202,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n kde-kio-svn
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*svn*
-%{_libdir}/kde3/kio_svn.la
-%{_libdir}/kde3/kded_ksvnd.la
 %attr(755,root,root) %{_libdir}/kde3/kio_svn.so
 %attr(755,root,root) %{_libdir}/kde3/kded_ksvnd.so
 %{_datadir}/services/kded/*svn*.desktop
