@@ -798,7 +798,7 @@ if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
 	touch makeinstall.stamp
 fi
 
-if false && [ ! -f installed.stamp ]; then
+if [ ! -f installed.stamp ]; then
 	install -d \
 		$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
 		$RPM_BUILD_ROOT%{_appdefsdir} \
