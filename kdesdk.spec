@@ -879,8 +879,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/apps/kconf_update/move_repositories.pl
 %{_datadir}/services/cvsservice.desktop
 %{_desktopdir}/kde/cervisia.desktop
-%{_iconsdir}/[!l]*/*/*/vcs*
-%{_iconsdir}/[!l]*/*/*/cervisia*
+%{_iconsdir}/crystalsvg/*/actions/vcs_*.*
+%{_iconsdir}/hicolor/*/*/cervisia.png
 %{_mandir}/man1/cervisia.1*
 
 %files completions-bash
@@ -964,9 +964,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/catalogmanager.desktop
 %{_desktopdir}/kde/kbabel.desktop
 %{_desktopdir}/kde/kbabeldict.desktop
-%{_iconsdir}/[!l]*/*/*/catalogmanager.png
-%{_iconsdir}/[!l]*/*/*/kbabel.png
-%{_iconsdir}/[!l]*/*/*/kbabeldict.png
+%{_iconsdir}/hicolor/*/*/catalogmanager.png
+%{_iconsdir}/hicolor/*/*/kbabel.png
+%{_iconsdir}/hicolor/*/*/kbabeldict.png
 #%{_mandir}/man1/catalogmanager.1*
 #%{_mandir}/man1/kbabel.1*
 #%{_mandir}/man1/kbabeldict.1*
@@ -982,7 +982,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kbugbuster
 %{_datadir}/apps/kbugbuster
 %{_desktopdir}/kde/kbugbuster.desktop
-%{_iconsdir}/[!l]*/*/*/kbugbuster.png
+%{_iconsdir}/hicolor/*/*/kbugbuster.png
 #%{_mandir}/man1/kbugbuster.1*
 
 %files kcachegrind -f kcachegrind.lang
@@ -1025,7 +1025,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kompare*.desktop
 %{_datadir}/servicetypes/kompare*.desktop
 %{_desktopdir}/kde/kompare.desktop
-%{_iconsdir}/[!l]*/*/*/kompare.*
+%{_iconsdir}/hicolor/*/*/kompare.*
 #%{_mandir}/man1/kompare.1*
 
 %files kprofilemethod
@@ -1059,7 +1059,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/designerthumbnail.desktop
 %{_datadir}/services/kuiviewer_part.desktop
 %{_desktopdir}/kde/kuiviewer.desktop
-%{_iconsdir}/[!l]*/*/apps/kuiviewer.png
+%{_iconsdir}/hicolor/*/apps/kuiviewer.png
 
 %files kunittest
 %defattr(644,root,root,755)
