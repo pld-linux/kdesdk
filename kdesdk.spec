@@ -776,53 +776,57 @@ done
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_htmldir=%{_kdedocdir} \
+		kde_libs_htmldir=%{_kdedocdir}
 
-%{__make} -C kstartperf install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_libs_htmldir=%{_kdedocdir} \
-	kde_htmldir=%{_kdedocdir}
+	%{__make} -C kstartperf install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_libs_htmldir=%{_kdedocdir} \
+		kde_htmldir=%{_kdedocdir}
 
-%ifarch %{x8664}
-%{__make} -C kmtrace install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_libs_htmldir=%{_kdedocdir} \
-	kde_htmldir=%{_kdedocdir}
-%endif
+	%ifarch %{x8664}
+	%{__make} -C kmtrace install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_libs_htmldir=%{_kdedocdir} \
+		kde_htmldir=%{_kdedocdir}
+	%endif
+	touch makeinstall.stamp
+fi
 
-install -d \
-	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
-	$RPM_BUILD_ROOT%{_appdefsdir} \
-	$RPM_BUILD_ROOT%{_gimpdir}/palettes \
-	$RPM_BUILD_ROOT%{_emacspkgdir}/kde \
-	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde \
-	$RPM_BUILD_ROOT%{_zshfcdir} \
-	$RPM_BUILD_ROOT%{_mandir}/man1
+if false && [ ! -f installed.stamp ]; then
+	install -d \
+		$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
+		$RPM_BUILD_ROOT%{_appdefsdir} \
+		$RPM_BUILD_ROOT%{_gimpdir}/palettes \
+		$RPM_BUILD_ROOT%{_emacspkgdir}/kde \
+		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde \
+		$RPM_BUILD_ROOT%{_zshfcdir} \
+		$RPM_BUILD_ROOT%{_mandir}/man1
 
-cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
-cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
-install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
-cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
-cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
-rm -f ./scripts/completions/zsh/_dcop
-cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
+	cp -a scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
+	cp -a kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
+	cp -a kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
+	cp -a scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
+	cp -a scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
+	cp -a scripts/completions/zsh/_* $RPM_BUILD_ROOT%{_zshfcdir}
 
-rm -rf `find $RPM_BUILD_ROOT -name CVS`
+	# Debian manpages
+	# overwrites cvscheck.1 - it's OK (original manual is much shorter)
+	#install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
-# Debian manpages
-# overwrites cvscheck.1 - it's OK (original manual is much shorter)
-#install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+	# unsupported
+	rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
-# unsupported
-rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*/*/*.la
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*/*/*.la
+	touch installed.stamp
+fi
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
@@ -866,15 +870,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/*cervisia*.so
 %attr(755,root,root) %{_libdir}/libkdeinit_cervisia.so
 %{_libdir}/libkdeinit_cervisia.la
-
-
 %{_datadir}/apps/cervisia*
 %{_datadir}/config.kcfg/cervisiapart.kcfg
-%{_datadir}/apps/kconf_update/change_colors.pl
 %{_datadir}/apps/kconf_update/cervisia.upd
-%{_datadir}/apps/kconf_update/cervisia-change_repos_list.pl
-%{_datadir}/apps/kconf_update/cervisia-normalize_cvsroot.pl
-%{_datadir}/apps/kconf_update/move_repositories.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/change_colors.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/cervisia-change_repos_list.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/cervisia-normalize_cvsroot.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/move_repositories.pl
 %{_datadir}/services/cvsservice.desktop
 %{_desktopdir}/kde/cervisia.desktop
 %{_iconsdir}/[!l]*/*/*/vcs*
