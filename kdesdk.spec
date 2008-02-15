@@ -1,3 +1,13 @@
+# TODO
+# - unpackaged
+#   /usr/lib/libcvsservice.so.0
+#   /usr/lib/libkbabelcommon.so.3
+#   /usr/lib/libkbabeldictplugin.so.1
+#   /usr/lib/libkompareinterface.so.0
+#   /usr/lib/libkspy.so.1
+#   /usr/lib/libkstartperf.so.1
+#   /usr/lib/libkunittestgui.so
+#   /usr/lib/libkunittestgui.so.0
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -6,18 +16,17 @@
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl.UTF-8):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.5.8
-Release:	2
+Version:	3.5.9
+Release:	0.1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	c809c15eb8c09a7eb2d070395202910b
+# Source0-md5:	fd86abfe0ac7c5af61b15eb5367d0399
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-am.patch
-Patch2:		%{name}-kompare-encoding.patch
-Patch3:		kde-ac260-lt.patch
+Patch2:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -697,7 +706,6 @@ Obsługa protokołu SVN.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
 #echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
