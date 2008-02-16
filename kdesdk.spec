@@ -1,13 +1,3 @@
-# TODO
-# - unpackaged
-#   /usr/lib/libcvsservice.so.0
-#   /usr/lib/libkbabelcommon.so.3
-#   /usr/lib/libkbabeldictplugin.so.1
-#   /usr/lib/libkompareinterface.so.0
-#   /usr/lib/libkspy.so.1
-#   /usr/lib/libkstartperf.so.1
-#   /usr/lib/libkunittestgui.so
-#   /usr/lib/libkunittestgui.so.0
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -17,7 +7,7 @@ Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl.UTF-8):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
 Version:	3.5.9
-Release:	0.1
+Release:	1
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
@@ -975,7 +965,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/kbabel
 %attr(755,root,root) %{_libdir}/libkbabelcommon.so
+%attr(755,root,root) %ghost %{_libdir}/libkbabelcommon.so.3
 %attr(755,root,root) %{_libdir}/libkbabeldictplugin.so
+%attr(755,root,root) %ghost %{_libdir}/libkbabeldictplugin.so.1
 
 %files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
@@ -1017,6 +1009,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkompareinterface.la
 %attr(755,root,root) %{_libdir}/libkompareinterface.so
 %attr(755,root,root) %{_libdir}/libkompareinterface.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkompareinterface.so.0
 %attr(755,root,root) %{_libdir}/kde3/kfile_diff.so
 %attr(755,root,root) %{_libdir}/kde3/libkomparenavtreepart.so
 %attr(755,root,root) %{_libdir}/kde3/libkomparepart.so
@@ -1037,6 +1030,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkspy.la
 %{_libdir}/libkspy.so
 %attr(755,root,root) %{_libdir}/libkspy.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkspy.so.1
 %{_includedir}/kspy.h
 #%{_mandir}/man1/testkspy.1*
 
@@ -1046,6 +1040,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkstartperf.la
 %{_libdir}/libkstartperf.so
 %attr(755,root,root) %{_libdir}/libkstartperf.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkstartperf.so.1
 
 %files kuiviewer
 %defattr(644,root,root,755)
@@ -1065,13 +1060,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kunit*
 %{_libdir}/libkunit*.la
-%attr(755,root,root) %{_libdir}/libkunit*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkunittestgui.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkunittestgui.so.0
+%attr(755,root,root) %{_libdir}/libkunittestgui.so
 %{_includedir}/kunittest
 
 %files libcvsservice
 %defattr(644,root,root,755)
 %{_libdir}/libcvsservice.la
 %attr(755,root,root) %{_libdir}/libcvsservice.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libcvsservice.so.0
 %attr(755,root,root) %{_libdir}/libkdeinit_cvsservice.so
 %attr(755,root,root) %{_libdir}/libkdeinit_cvsaskpass.so
 %attr(755,root,root) %{_libdir}/kde3/cvs*.so
