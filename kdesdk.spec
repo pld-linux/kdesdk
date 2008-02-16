@@ -6,18 +6,17 @@
 Summary:	KDESDK - Software Development Kit for KDE
 Summary(pl.UTF-8):	KDESDK - Wsparcie programistyczne dla KDE
 Name:		kdesdk
-Version:	3.5.8
+Version:	3.5.9
 Release:	2
 Epoch:		3
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	c809c15eb8c09a7eb2d070395202910b
+# Source0-md5:	fd86abfe0ac7c5af61b15eb5367d0399
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-am.patch
-Patch2:		%{name}-kompare-encoding.patch
-Patch3:		kde-ac260-lt.patch
+Patch2:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -698,7 +697,6 @@ Obsługa protokołu SVN.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
 #echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
@@ -769,53 +767,57 @@ done
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_htmldir=%{_kdedocdir} \
+		kde_libs_htmldir=%{_kdedocdir}
 
-%{__make} -C kstartperf install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_libs_htmldir=%{_kdedocdir} \
-	kde_htmldir=%{_kdedocdir}
+	%{__make} -C kstartperf install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_libs_htmldir=%{_kdedocdir} \
+		kde_htmldir=%{_kdedocdir}
 
-%ifarch %{x8664}
-%{__make} -C kmtrace install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_libs_htmldir=%{_kdedocdir} \
-	kde_htmldir=%{_kdedocdir}
-%endif
+	%ifarch %{x8664}
+	%{__make} -C kmtrace install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_libs_htmldir=%{_kdedocdir} \
+		kde_htmldir=%{_kdedocdir}
+	%endif
+	touch makeinstall.stamp
+fi
 
-install -d \
-	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
-	$RPM_BUILD_ROOT%{_appdefsdir} \
-	$RPM_BUILD_ROOT%{_gimpdir}/palettes \
-	$RPM_BUILD_ROOT%{_emacspkgdir}/kde \
-	$RPM_BUILD_ROOT%{_xemacspkgdir}/kde \
-	$RPM_BUILD_ROOT%{_zshfcdir} \
-	$RPM_BUILD_ROOT%{_mandir}/man1
+if [ ! -f installed.stamp ]; then
+	install -d \
+		$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d \
+		$RPM_BUILD_ROOT%{_appdefsdir} \
+		$RPM_BUILD_ROOT%{_gimpdir}/palettes \
+		$RPM_BUILD_ROOT%{_emacspkgdir}/kde \
+		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde \
+		$RPM_BUILD_ROOT%{_zshfcdir} \
+		$RPM_BUILD_ROOT%{_mandir}/man1
 
-cp ./scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
-cp ./kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
-install ./kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
-cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
-cp ./scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
-rm -f ./scripts/completions/zsh/_dcop
-cp ./scripts/completions/zsh/_*		$RPM_BUILD_ROOT%{_zshfcdir}
+	cp -a scripts/completions/bash/dcop	$RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
+	cp -a kdepalettes/kde_xpaintrc		$RPM_BUILD_ROOT%{_appdefsdir}/XPaint.kde
+	cp -a kdepalettes/KDE_Gimp		$RPM_BUILD_ROOT%{_gimpdir}/palettes
+	cp -a scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_emacspkgdir}/kde
+	cp -a scripts/kde-emacs/*.*		$RPM_BUILD_ROOT%{_xemacspkgdir}/kde
+	cp -a scripts/completions/zsh/_* $RPM_BUILD_ROOT%{_zshfcdir}
 
-rm -rf `find $RPM_BUILD_ROOT -name CVS`
+	# Debian manpages
+	# overwrites cvscheck.1 - it's OK (original manual is much shorter)
+	#install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
-# Debian manpages
-# overwrites cvscheck.1 - it's OK (original manual is much shorter)
-#install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+	# unsupported
+	rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
-# unsupported
-rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*/*/*.la
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*/*/*.la
+	touch installed.stamp
+fi
 
 %find_lang	cervisia	--with-kde
 %find_lang	kbabel		--with-kde
@@ -859,19 +861,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/*cervisia*.so
 %attr(755,root,root) %{_libdir}/libkdeinit_cervisia.so
 %{_libdir}/libkdeinit_cervisia.la
-
-
 %{_datadir}/apps/cervisia*
 %{_datadir}/config.kcfg/cervisiapart.kcfg
-%{_datadir}/apps/kconf_update/change_colors.pl
 %{_datadir}/apps/kconf_update/cervisia.upd
-%{_datadir}/apps/kconf_update/cervisia-change_repos_list.pl
-%{_datadir}/apps/kconf_update/cervisia-normalize_cvsroot.pl
-%{_datadir}/apps/kconf_update/move_repositories.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/change_colors.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/cervisia-change_repos_list.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/cervisia-normalize_cvsroot.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/move_repositories.pl
 %{_datadir}/services/cvsservice.desktop
 %{_desktopdir}/kde/cervisia.desktop
-%{_iconsdir}/[!l]*/*/*/vcs*
-%{_iconsdir}/[!l]*/*/*/cervisia*
+%{_iconsdir}/crystalsvg/*/actions/vcs_*.*
+%{_iconsdir}/hicolor/*/*/cervisia.png
 %{_mandir}/man1/cervisia.1*
 
 %files completions-bash
@@ -955,9 +955,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/catalogmanager.desktop
 %{_desktopdir}/kde/kbabel.desktop
 %{_desktopdir}/kde/kbabeldict.desktop
-%{_iconsdir}/[!l]*/*/*/catalogmanager.png
-%{_iconsdir}/[!l]*/*/*/kbabel.png
-%{_iconsdir}/[!l]*/*/*/kbabeldict.png
+%{_iconsdir}/hicolor/*/*/catalogmanager.png
+%{_iconsdir}/hicolor/*/*/kbabel.png
+%{_iconsdir}/hicolor/*/*/kbabeldict.png
 #%{_mandir}/man1/catalogmanager.1*
 #%{_mandir}/man1/kbabel.1*
 #%{_mandir}/man1/kbabeldict.1*
@@ -966,14 +966,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/kbabel
 %attr(755,root,root) %{_libdir}/libkbabelcommon.so
+%attr(755,root,root) %ghost %{_libdir}/libkbabelcommon.so.3
 %attr(755,root,root) %{_libdir}/libkbabeldictplugin.so
+%attr(755,root,root) %ghost %{_libdir}/libkbabeldictplugin.so.1
 
 %files kbugbuster -f kbugbuster.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbugbuster
 %{_datadir}/apps/kbugbuster
 %{_desktopdir}/kde/kbugbuster.desktop
-%{_iconsdir}/[!l]*/*/*/kbugbuster.png
+%{_iconsdir}/hicolor/*/*/kbugbuster.png
 #%{_mandir}/man1/kbugbuster.1*
 
 %files kcachegrind -f kcachegrind.lang
@@ -1008,6 +1010,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkompareinterface.la
 %attr(755,root,root) %{_libdir}/libkompareinterface.so
 %attr(755,root,root) %{_libdir}/libkompareinterface.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkompareinterface.so.0
 %attr(755,root,root) %{_libdir}/kde3/kfile_diff.so
 %attr(755,root,root) %{_libdir}/kde3/libkomparenavtreepart.so
 %attr(755,root,root) %{_libdir}/kde3/libkomparepart.so
@@ -1016,7 +1019,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kompare*.desktop
 %{_datadir}/servicetypes/kompare*.desktop
 %{_desktopdir}/kde/kompare.desktop
-%{_iconsdir}/[!l]*/*/*/kompare.*
+%{_iconsdir}/hicolor/*/*/kompare.*
 #%{_mandir}/man1/kompare.1*
 
 %files kprofilemethod
@@ -1028,6 +1031,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkspy.la
 %{_libdir}/libkspy.so
 %attr(755,root,root) %{_libdir}/libkspy.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkspy.so.1
 %{_includedir}/kspy.h
 #%{_mandir}/man1/testkspy.1*
 
@@ -1037,6 +1041,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkstartperf.la
 %{_libdir}/libkstartperf.so
 %attr(755,root,root) %{_libdir}/libkstartperf.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkstartperf.so.1
 
 %files kuiviewer
 %defattr(644,root,root,755)
@@ -1050,19 +1055,22 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/designerthumbnail.desktop
 %{_datadir}/services/kuiviewer_part.desktop
 %{_desktopdir}/kde/kuiviewer.desktop
-%{_iconsdir}/[!l]*/*/apps/kuiviewer.png
+%{_iconsdir}/hicolor/*/apps/kuiviewer.png
 
 %files kunittest
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kunit*
 %{_libdir}/libkunit*.la
-%attr(755,root,root) %{_libdir}/libkunit*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkunittestgui.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkunittestgui.so.0
+%attr(755,root,root) %{_libdir}/libkunittestgui.so
 %{_includedir}/kunittest
 
 %files libcvsservice
 %defattr(644,root,root,755)
 %{_libdir}/libcvsservice.la
 %attr(755,root,root) %{_libdir}/libcvsservice.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libcvsservice.so.0
 %attr(755,root,root) %{_libdir}/libkdeinit_cvsservice.so
 %attr(755,root,root) %{_libdir}/libkdeinit_cvsaskpass.so
 %attr(755,root,root) %{_libdir}/kde3/cvs*.so
