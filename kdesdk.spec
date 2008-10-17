@@ -42,7 +42,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_appdefsdir	%{_datadir}/X11/app-defaults
 %define		_emacspkgdir	/usr/share/emacs/%(rpm -q --qf %{V} emacs-common | tr -d '[a-z]')
 %define		_xemacspkgdir	/usr/share/xemacs-packages
-%define		_zshfcdir	/usr/share/zsh/latest/functions
+%define		_zshfcdir	/usr/share/zsh/site-functions
 
 %description
 Software Development Kit for KDE.
@@ -366,34 +366,33 @@ Conflicts:	kdesdk-kbugbuster < 3:3.2.90.040517-3
 %description kompare
 Kompare is a program to view the differences between files. Features
 include:
-
-  - comparison of files or directories via a graphical interface
-  - bezier-based connection widget lets you see both source and
-    destination as they really appear
-  - graphical viewing of patch files in normal, context, unified and
-    diff formats
-  - interactive application of differences
-  - full network transparency
-  - ability to view plain-text diff output in embedded viewer
-  - easy navigation of multiple-file diffs with dockable navigation tree
-  - graphical interface to commonly used diff command line options
-  - switch source and destination with one command
-  - diff statistics
+- comparison of files or directories via a graphical interface
+- bezier-based connection widget lets you see both source and
+  destination as they really appear
+- graphical viewing of patch files in normal, context, unified and
+  diff formats
+- interactive application of differences
+- full network transparency
+- ability to view plain-text diff output in embedded viewer
+- easy navigation of multiple-file diffs with dockable navigation tree
+- graphical interface to commonly used diff command line options
+- switch source and destination with one command
+- diff statistics
 
 %description kompare -l pl.UTF-8
 Kompare to program służący do porównywania zmian między plikami.
 Aktualnie dostępne funkcje:
-  - porównanie plików lub katalogów poprzez graficzny interfejs
-  - przedstawienie źródła i celu za pomocą krzywej Beziera
-  - graficzne przeglądanie łat w formatach diff, unidiff, context i
-    zwykłym
-  - interaktywne wprowadzanie zmian
-  - przezroczystość sieciowa
-  - możliwość oglądania wyjścia diff w wewnętrznej przeglądarce
-  - łatwa nawigacja między wieloplikowymi diffami wraz z dokowalnym
-    drzewem
-  - zamiana źródła i celu za pomocą pojedynczej komendy
-  - statystyki diffów
+- porównanie plików lub katalogów poprzez graficzny interfejs
+- przedstawienie źródła i celu za pomocą krzywej Beziera
+- graficzne przeglądanie łat w formatach diff, unidiff, context i
+  zwykłym
+- interaktywne wprowadzanie zmian
+- przezroczystość sieciowa
+- możliwość oglądania wyjścia diff w wewnętrznej przeglądarce
+- łatwa nawigacja między wieloplikowymi diffami wraz z dokowalnym
+  drzewem
+- zamiana źródła i celu za pomocą pojedynczej komendy
+- statystyki diffów
 
 %package kprofilemethod
 Summary:	Kprofilemethod - a set of macros which help profiling using QTime
