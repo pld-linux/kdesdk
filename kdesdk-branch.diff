@@ -1,7 +1,19 @@
+Index: poxml/antlr/antlr/CharScanner.hpp
+===================================================================
+--- poxml/antlr/antlr/CharScanner.hpp	(.../tags/KDE/3.5.10/kdesdk)	(revision 965170)
++++ poxml/antlr/antlr/CharScanner.hpp	(.../branches/KDE/3.5/kdesdk)	(revision 965170)
+@@ -42,6 +42,7 @@
+ #include "antlr/BitSet.hpp"
+ #include "antlr/LexerSharedInputState.hpp"
+ #include <map>
++#include <cstdio>
+ 
+ ANTLR_BEGIN_NAMESPACE(antlr)
+ 
 Index: kcachegrind/kcachegrind/callgraphview.cpp
 ===================================================================
---- kcachegrind/kcachegrind/callgraphview.cpp	(.../tags/KDE/3.5.10/kdesdk)	(revision 958029)
-+++ kcachegrind/kcachegrind/callgraphview.cpp	(.../branches/KDE/3.5/kdesdk)	(revision 958029)
+--- kcachegrind/kcachegrind/callgraphview.cpp	(.../tags/KDE/3.5.10/kdesdk)	(revision 965170)
++++ kcachegrind/kcachegrind/callgraphview.cpp	(.../branches/KDE/3.5/kdesdk)	(revision 965170)
 @@ -2073,13 +2073,12 @@
        continue;
      }
@@ -24,8 +36,8 @@ Index: kcachegrind/kcachegrind/callgraphview.cpp
      e->setCanvasEdge(sItem);
 Index: cervisia/repositories.cpp
 ===================================================================
---- cervisia/repositories.cpp	(.../tags/KDE/3.5.10/kdesdk)	(revision 958029)
-+++ cervisia/repositories.cpp	(.../branches/KDE/3.5/kdesdk)	(revision 958029)
+--- cervisia/repositories.cpp	(.../tags/KDE/3.5.10/kdesdk)	(revision 965170)
++++ cervisia/repositories.cpp	(.../branches/KDE/3.5/kdesdk)	(revision 965170)
 @@ -29,17 +29,29 @@
  #include "cervisiapart.h"
  
@@ -109,8 +121,8 @@ Index: cervisia/repositories.cpp
      QStringList list;
 Index: cervisia/ChangeLog
 ===================================================================
---- cervisia/ChangeLog	(.../tags/KDE/3.5.10/kdesdk)	(revision 958029)
-+++ cervisia/ChangeLog	(.../branches/KDE/3.5/kdesdk)	(revision 958029)
+--- cervisia/ChangeLog	(.../tags/KDE/3.5.10/kdesdk)	(revision 965170)
++++ cervisia/ChangeLog	(.../branches/KDE/3.5/kdesdk)	(revision 965170)
 @@ -1,3 +1,8 @@
 +2008-08-15  André Wöbbeking  <Woebbeking@kde.org>
 +
@@ -122,8 +134,8 @@ Index: cervisia/ChangeLog
  	* Fix BR #164216:
 Index: cervisia/cvsservice/cvsloginjob.cpp
 ===================================================================
---- cervisia/cvsservice/cvsloginjob.cpp	(.../tags/KDE/3.5.10/kdesdk)	(revision 958029)
-+++ cervisia/cvsservice/cvsloginjob.cpp	(.../branches/KDE/3.5/kdesdk)	(revision 958029)
+--- cervisia/cvsservice/cvsloginjob.cpp	(.../tags/KDE/3.5.10/kdesdk)	(revision 965170)
++++ cervisia/cvsservice/cvsloginjob.cpp	(.../branches/KDE/3.5/kdesdk)	(revision 965170)
 @@ -104,7 +104,8 @@
          }
  
