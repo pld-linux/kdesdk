@@ -764,6 +764,7 @@ done
 %ifarch %{x8664}
 %{__make} -C kmtrace
 %endif
+rm -f makeinstall.stamp
 
 %install
 if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
