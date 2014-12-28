@@ -25,7 +25,7 @@ BuildRequires:	bison
 BuildRequires:	db-devel
 BuildRequires:	emacs-common
 BuildRequires:	flex
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gimp-devel
 BuildRequires:	kdebase-devel >= %{_minbaseevr}
 BuildRequires:	kdepim-devel >= 3:3.3.1
