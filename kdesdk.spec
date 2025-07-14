@@ -692,10 +692,10 @@ Obsługa protokołu SVN.
 
 %prep
 %setup -q
-%patch100 -p0
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P100 -p0
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 #echo "KDE_OPTIONS = nofinal" >> cervisia/Makefile.am
 #echo "KDE_OPTIONS = nofinal" >> umbrello/umbrello/classparser/Makefile.am
